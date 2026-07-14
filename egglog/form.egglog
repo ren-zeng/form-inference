@@ -1,0 +1,205 @@
+(datatype Harmony
+    (I)
+    (II)
+    (III)
+    (IV)
+    (V)
+    (VI)
+    (VII)
+)
+
+(datatype CadenceStrength
+    (None)
+    (Weak)
+    (Strong)
+)
+
+(sort Progression (Vec Harmony))
+
+(datatype Idea
+    (Label String)
+    (LocalVar i64)
+    (Concat Idea Idea)
+    (Twice Idea)
+)
+
+(birewrite
+    (Concat x (Concat y z))
+    (Concat (Concat x y) z)
+)
+
+(birewrite
+    (Concat x x)
+    (Twice x)
+)
+
+(datatype PhraseParam
+    (Param Progression CadenceStrength)
+)
+
+(datatype FormalUnit
+    (Leaf Idea PhraseParam)
+    (Sentence Idea Idea PhraseParam PhraseParam)
+    (Period Idea Idea Idea PhraseParam PhraseParam)
+    (Presentation Idea PhraseParam PhraseParam)
+    (Concatenate FormalUnit FormalUnit)
+)
+
+(constructor GetParam (FormalUnit) PhraseParam )
+
+(relation NoWeaker (CadenceStrength CadenceStrength))
+
+(NoWeaker (None) (None))
+(NoWeaker (Weak) (Weak))
+(NoWeaker (Strong) (Strong))
+(NoWeaker (Weak) (None))
+(NoWeaker (Strong) (None))
+(NoWeaker (Strong) (Weak))
+
+
+(rule
+    (
+    (= match (Concatenate x (Concatenate y z)))
+    (= (GetParam x) (Param _ cadX))
+    (= (GetParam y) (Param _ cadY))
+    (NoWeaker cadY cadX)
+    )
+    (
+    (union match (Concatenate (Concatenate x y) z))
+    )
+)
+
+(rule
+    (
+    (= match (Concatenate (Concatenate x y) z))
+    (= (GetParam y) (Param _ cadY))
+    (= (GetParam z) (Param _ cadZ))
+    (NoWeaker cadZ cadY)
+    )
+    (
+    (union match (Concatenate x (Concatenate y z)))
+    )
+)
+
+(constructor GetIdea (FormalUnit) Idea)
+(rule
+    (
+        (= match (Leaf x _))
+    )
+    (
+        (union (GetIdea match) x)
+    )
+)
+
+(rule
+    (
+        (= match (Concatenate x y))
+        (= ideaX (GetIdea x))
+        (= ideaY (GetIdea y))
+    )
+    (
+        (union (GetIdea match) (Concat ideaX ideaY))
+    )
+)
+
+(rule
+    (
+        (= match (Presentation x a b))
+    )
+    (
+        (union (GetIdea match) (Twice x))
+    )
+)
+
+; (rule
+;     (
+;         (= match (Continuation x y))
+;         (= ideaX (GetIdea x))
+;         (= ideaY (GetIdea y))
+;     )
+;     (
+;         (union (GetIdea match) (Concat ideaX ideaY))
+;     )
+; )
+
+
+
+
+
+(rule
+    (
+        (= match (Leaf _ x))
+    )
+    (
+        (union (GetParam match) x)
+    )
+
+)
+
+(rule
+    (
+        (= match (Concatenate x y))
+        (= (Param progX cadX) (GetParam x))
+        (= (Param progY cadY) (GetParam y))
+    )
+    (
+        (union (GetParam match) (Param (vec-append progX progY) cadY))
+    )
+)
+
+(rule
+    (
+        (= match (Presentation _ x y))
+        (= (Param progX cadX) x)
+        (= (Param progY cadY) y)
+    )
+    (
+        (union (GetParam match) (Param (vec-append progX progY) cadY))
+    )
+)
+
+
+
+(rule
+    (
+        (= match (Concatenate x y))
+        (= ideaX (GetIdea x))
+        (= ideaY (GetIdea y))
+        (= ideaX ideaY)
+        (= param1 (GetParam x))
+        (= param2 (GetParam y))
+    )
+    (
+        (union match (Presentation ideaX param1 param2))
+    )
+)
+
+(rule
+    (
+        (= match (Concatenate u1 u2))
+        (= (GetIdea u1) (Twice a))
+        (= (GetParam u1) (Param _ (None)))
+        (= (GetParam u2) (Param _ cad2))
+        (!= (None) cad2)
+    )
+    (
+        (union match (Sentence a (GetIdea u2) (GetParam u1) (GetParam u2)))
+    )
+)
+
+(rule
+    (
+        (= match (Concatenate antecedent consequent))
+        (= antecedent (Concatenate u1 u2))
+        (= consequent (Concatenate u3 u4))
+        (= (GetIdea u1) (GetIdea u3))
+        (= a (GetIdea u1))
+        (= b (GetIdea u2))
+        (= c (GetIdea u4))
+        (= (GetParam u2) (Param _ (Weak)))
+        (= (GetParam u4) (Param _ (Strong)))
+    )
+    (
+        (union match (Period a b c (GetParam antecedent) (GetParam consequent)))
+    )
+)

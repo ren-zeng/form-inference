@@ -1,0 +1,4 @@
+(include "egglog/form.egglog")
+(include "egglog/testCases.egglog")
+(run 100)
+(extract $ex6_1 5)
