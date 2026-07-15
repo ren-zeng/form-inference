@@ -20,15 +20,23 @@ data Idea
   = Label String
   | Concat Idea Idea
   | Twice Idea
+  | RefIdea String
   deriving (Show)
 
-data PhraseParam = Param [Harmony] CadenceStrength deriving (Show)
-
+data PhraseParam
+  = Param [Harmony] CadenceStrength
+  | ConcatParam PhraseParam PhraseParam
+  deriving (Show)
+data IdeaBinding = BindIdea String Idea deriving (Show)
+data FormalUnitBinding = BindFormalUnit String FormalUnit deriving (Show)
 data FormalUnit
   = Leaf Idea PhraseParam
-  | Sentence Idea Idea PhraseParam PhraseParam
-  | Period Idea Idea Idea PhraseParam PhraseParam
-  | Presentation Idea PhraseParam PhraseParam
+  | RefFormalUnit String
+  | ZipFormalUnit Idea PhraseParam
+  | Sentence IdeaBinding FormalUnit FormalUnit
+  | Period FormalUnitBinding FormalUnit FormalUnit
+  | Presentation IdeaBinding FormalUnit FormalUnit
+  | Continuation FormalUnit FormalUnit
   | Concatenate FormalUnit FormalUnit
   deriving (Show)
 
@@ -42,48 +50,74 @@ instance Pretty Idea where
     Label x -> pretty x
     Concat x y -> pretty x <> "+" <> pretty y
     Twice x -> "Twice" <+> pretty x
+    RefIdea x -> pretty x
 instance Pretty PhraseParam where
-  pretty (Param hs cad) = "⟦" <> hsep [hcat $ punctuate "-" (fmap pretty hs), pretty cad] <> "⟧"
+  pretty = \case
+    Param hs cad -> "⟦" <> hsep [hcat $ punctuate "-" (fmap pretty hs), pretty cad] <> "⟧"
+    ConcatParam x y -> pretty x <> "+" <> pretty y
+
+instance Pretty IdeaBinding where
+  pretty (BindIdea v x) = "<" <> pretty v <+> ":=" <+> pretty x <> ">"
+
+instance Pretty FormalUnitBinding where
+  pretty (BindFormalUnit v x) = "<<" <> pretty v <+> ":=" <+> pretty x <> ">>"
 
 instance Pretty FormalUnit where
-  pretty = \case
-    Leaf idea param -> "{" <> hsep [pretty idea, pretty param] <> "}"
-    Sentence id1 id2 param1 param2 ->
-      sep
-        [ "Sentence"
-        , indent 2 $
-            sep
-              [ pretty id1
-              , pretty id2
-              , pretty param1
-              , pretty param2
-              ]
-        ]
-    Period id1 id2 id3 param1 param2 ->
-      sep
-        [ "Period"
-        , indent 2 $
-            sep
-              [ pretty id1
-              , pretty id2
-              , pretty id3
-              , pretty param1
-              , pretty param2
-              ]
-        ]
-    Presentation id1 param1 param2 ->
-      sep
-        [ "Presentation"
-        , indent 2 $
-            sep
-              [ pretty id1
-              , pretty param1
-              , pretty param2
-              ]
-        ]
-    Concatenate u1 u2 ->
-      hsep
-        [pretty u1, "+", pretty u2]
+  pretty =
+    align . \case
+      Leaf idea param -> "{" <> hsep [pretty idea, pretty param] <> "}"
+      ZipFormalUnit idea param ->
+        sep
+          [ "ZipFormalUnit"
+          , indent 2 $
+              sep
+                [ pretty idea
+                , pretty param
+                ]
+          ]
+      RefFormalUnit v -> pretty v
+      Sentence iBinding x y ->
+        sep
+          [ "Sentence"
+          , indent 2 $
+              sep
+                [ pretty iBinding
+                , pretty x
+                , pretty y
+                ]
+          ]
+      Period uBinding x y ->
+        sep
+          [ "Period"
+          , indent 2 $
+              sep
+                [ pretty uBinding
+                , pretty x
+                , pretty y
+                ]
+          ]
+      Presentation id1 param1 param2 ->
+        sep
+          [ "Presentation"
+          , indent 2 $
+              sep
+                [ pretty id1
+                , pretty param1
+                , pretty param2
+                ]
+          ]
+      Concatenate u1 u2 ->
+        sep
+          [pretty u1, "+", pretty u2]
+      Continuation u1 u2 ->
+        sep
+          [ "Continuation"
+          , indent 2 $
+              sep
+                [ pretty u1
+                , pretty u2
+                ]
+          ]
 
 bracketPretty x = "(" <> x <> ")"
 
@@ -93,6 +127,8 @@ instance FromEggLog Idea where
     WFSList ["Label", WFSAtom x] -> Label $ T.unpack x
     WFSList ["Concat", x, y] -> Concat (fromEggLog x) (fromEggLog y)
     WFSList ["Twice", x] -> Twice (fromEggLog x)
+    WFSList ["RefIdea", WFSAtom x] -> RefIdea (T.unpack x)
+    x -> error $ "[FromEggLog Idea] bad input " <> show x
 
   toEggLog (Label x) = WFSList [WFSAtom "Label", toEggLog $ T.pack x]
 
@@ -116,7 +152,18 @@ instance FromEggLog PhraseParam where
   fromEggLog = \case
     WFSAtom _ -> error "[FromEggLog PhraseParam] not expecting atom"
     WFSList [WFSAtom "Param", hs, cad] -> Param (fromEggLog hs) (fromEggLog cad)
+    WFSList [WFSAtom "ConcatParam", x, y] -> ConcatParam (fromEggLog x) (fromEggLog y)
   toEggLog (Param hs cad) = WFSList ["Param", toEggLog hs, toEggLog cad]
+
+instance FromEggLog IdeaBinding where
+  fromEggLog = \case
+    WFSAtom _ -> error "[FromEggLog IdeaBinding] not expecting atom"
+    WFSList [WFSAtom "BindIdea", WFSAtom var, idea] -> BindIdea (T.unpack var) (fromEggLog idea)
+
+instance FromEggLog FormalUnitBinding where
+  fromEggLog = \case
+    WFSAtom _ -> error "[FromEggLog FormalUnitBinding] not expecting atom"
+    WFSList [WFSAtom "BindFormalUnit", WFSAtom var, u] -> BindFormalUnit (T.unpack var) (fromEggLog u)
 
 instance FromEggLog FormalUnit where
   fromEggLog = \case
@@ -125,17 +172,20 @@ instance FromEggLog FormalUnit where
       Leaf
         (fromEggLog idea)
         (fromEggLog param)
-    WFSList [WFSAtom "Sentence", id1, id2, param1, param2] ->
+    WFSList [WFSAtom "RefFormalUnit", WFSAtom v] ->
+      RefFormalUnit $ T.unpack v
+    WFSList [WFSAtom "Sentence", iBinding, x, y] ->
       Sentence
-        (fromEggLog id1)
-        (fromEggLog id2)
-        (fromEggLog param1)
-        (fromEggLog param2)
-    WFSList [WFSAtom "Period", id1, id2, id3, param1, param2] ->
+        (fromEggLog iBinding)
+        (fromEggLog x)
+        (fromEggLog y)
+    WFSList [WFSAtom "ZipFormalUnit", x, y] ->
+      ZipFormalUnit
+        (fromEggLog x)
+        (fromEggLog y)
+    WFSList [WFSAtom "Period", uBinding, param1, param2] ->
       Period
-        (fromEggLog id1)
-        (fromEggLog id2)
-        (fromEggLog id3)
+        (fromEggLog uBinding)
         (fromEggLog param1)
         (fromEggLog param2)
     WFSList [WFSAtom "Presentation", id1, param1, param2] ->
@@ -143,28 +193,30 @@ instance FromEggLog FormalUnit where
         (fromEggLog id1)
         (fromEggLog param1)
         (fromEggLog param2)
+    WFSList [WFSAtom "Continuation", u1, u2] ->
+      Continuation
+        (fromEggLog u1)
+        (fromEggLog u2)
     WFSList [WFSAtom "Concatenate", u1, u2] ->
       Concatenate
         (fromEggLog u1)
         (fromEggLog u2)
+    x -> error $ "[fromEggLog FormalUnit] bad input " <> show x
   toEggLog = \case
     Leaf idea param -> WFSList [WFSAtom "Leaf", toEggLog idea, toEggLog param]
-    Sentence id1 id2 param1 param2 ->
+    Sentence iBinding x y ->
       WFSList
         [ WFSAtom "Sentence"
-        , toEggLog id1
-        , toEggLog id2
-        , toEggLog param1
-        , toEggLog param2
+        , toEggLog iBinding
+        , toEggLog x
+        , toEggLog y
         ]
-    Period id1 id2 id3 param1 param2 ->
+    Period uBinding x y ->
       WFSList
         [ WFSAtom "Period"
-        , toEggLog id1
-        , toEggLog id2
-        , toEggLog id3
-        , toEggLog param1
-        , toEggLog param2
+        , toEggLog uBinding
+        , toEggLog x
+        , toEggLog y
         ]
     Presentation id1 param1 param2 ->
       WFSList

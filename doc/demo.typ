@@ -107,8 +107,10 @@ data Idea
 data FormalUnit 
   = Leaf Idea PhraseParam 
   | RefFormalUnit FormVar
-  | Period   IdeaBinding FormalUnitBinding FormalUnit FormalUnit
-  | Sentence IdeaBinding FormalUnitBinding FormalUnit FormalUnit
+  | Period   FormalUnitBinding FormalUnit FormalUnit
+  | Sentence   FormalUnit FormalUnit
+  | Hybrid    FormalUnit FormalUnit
+  | Presentation IdeaBinding FormalUnitBinding  FormalUnit FormalUnit
   ...
 
 ```
@@ -117,22 +119,46 @@ Note that FormalUnit is now a recursive AST
 
 ex 6.1
 #image("/assets/image.png")
+hand encoded
 ```
 Period 
   < A:= Concatenate {a ⟦I-V None⟧} {b ⟦I-V-I-V Weak⟧} > 
   < >
-  Sentence 
-    < >
-    < > 
+  Hybrid 
     A 
-    Concatenate {c ⟦IV-V-I None⟧} {d ⟦VI-VII-I-V Weak⟧}
-  Sentence 
-    < >
-    < > 
-    A 
-    Concatenate {c ⟦V None⟧} {e ⟦I Strong⟧})
+    Continuation {c ⟦IV-V-I None⟧} {d ⟦VI-VII-I-V Weak⟧}
+  Hybrid 
+    A
+    Continuation {c ⟦V None⟧} {e ⟦I Strong⟧})
+```
+model Output
+
+#{  }
+#raw(read("ex6_1.txt"),block:true)
+```
 ```
 
+ex 6.2
+#image("/assets/image-3.png")
+```
+Sentence 
+  < y := ... >
+  Presentation 
+    < u := "x"+y >
+    CompondBasicIdea 
+      {u ⟦I None⟧}
+      {"a" ⟦I None⟧}
+    CompondBasicIdea 
+      {u ⟦V None⟧}
+      {"b" ⟦V None⟧}
+  Continuation
+    Concatenate 
+      {y ⟦I-VI None⟧}
+      {y ⟦IV-bII None⟧}
+    Concatenate
+      {y ⟦V None⟧}
+      {"c" ⟦I-II-V-I Strong⟧}
+```
 
 
 
@@ -159,33 +185,3 @@ Presentation
 
 
 
-
-
-== second sketch:
-
-instead of encoding a formal unit inference as term rewriting, we treat them as predicate over the time span.
-
-For example 
-`IsPeriod 0 8` states that measure 1-8 is a period
-
-instead of using rewrite rules like 
-... ~> ... under condition ...
-
-we say 
-
-```
-TermWithSpan x i k
-x = Antecedent _ 
-TermWithSpan y k j
-y = Consequent _
-NoStronger (Cad x) (Cad y)
---------- 
-TermWithSpan (Period x y) i j
-```
-
-when we want to query the form structure of a span (i,j)
-we just need to 
-
-
-Now we need to come up with the deduction rules (which can be simpler than term rewriting rules)
-At the end, the model 

@@ -1,15 +1,13 @@
-(let $ex6_1 (Concatenate
+(let $ex6_5 (Concatenate
    (Leaf (Label "a") (Param (vec-of (I) (V)) (None)))
    (Concatenate
-      (Leaf (Label "b") (Param (vec-of (I) (V) (I) (V)) (Weak)))
+      (Leaf (Label "a") (Param (vec-of (V) (I)) (None)))
       (Concatenate
-         (Leaf (Label "c") (Param (vec-of (IV) (V) (I)) (None)))
+         (Leaf (Label "b") (Param (vec-of (IV) (I)) (None)))
          (Concatenate
-            (Leaf (Label "d") (Param (vec-of (VI) (VII) (I) (V)) (Weak)))
+            (Leaf (Label "b") (Param (vec-of (IV) (I)) (None)))
             (Concatenate
-               (Leaf (Label "a") (Param (vec-of (I) (V)) (None)))
+               (Leaf (Label "c") (Param (vec-of (II)) (None)))
                (Concatenate
-                  (Leaf (Label "b") (Param (vec-of (I) (V) (I) (V)) (Weak)))
-                  (Concatenate
-                     (Leaf (Label "c") (Param (vec-of (V)) (None)))
-                     (Leaf (Label "e") (Param (vec-of (I)) (Strong)))))))))))
+                  (Leaf (Label "c") (Param (vec-of (I)) (None)))
+                  (Leaf (Label "d") (Param (vec-of (V)) (Weak))))))))))

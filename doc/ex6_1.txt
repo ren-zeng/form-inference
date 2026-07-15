@@ -1,0 +1,88 @@
+Input surface:
+  {a ⟦I-V None⟧}
+  +
+  {b ⟦I-V-I-V Weak⟧}
+  +
+  {c ⟦IV-V-I None⟧}
+  +
+  {d ⟦VI-VII-I-V Weak⟧}
+  +
+  {a ⟦I-V None⟧} + {b ⟦I-V-I-V Weak⟧} + {c ⟦V None⟧} + {e ⟦I Strong⟧}
+Output analysis:
+  Period
+    <<"b.i." := Continuation   {"a" ⟦I-V None⟧} {"b" ⟦I-V-I-V Weak⟧}>>
+    "b.i." + Continuation   {"c" ⟦IV-V-I None⟧} {"d" ⟦VI-VII-I-V Weak⟧}
+    "b.i." + Continuation   {"c" ⟦V None⟧} {"e" ⟦I Strong⟧}
+
+
+
+  Continuation   {"a" ⟦I-V None⟧} {"b" ⟦I-V-I-V Weak⟧}
+  +
+  Continuation   {"c" ⟦IV-V-I None⟧} {"d" ⟦VI-VII-I-V Weak⟧}
+  +
+  Continuation
+    {"a" ⟦I-V None⟧}
+    {"b" ⟦I-V-I-V Weak⟧} + Continuation   {"c" ⟦V None⟧} {"e" ⟦I Strong⟧}
+
+
+
+  Continuation
+    {"a" ⟦I-V None⟧}
+    {"b" ⟦I-V-I-V Weak⟧}
+    +
+    Continuation   {"c" ⟦IV-V-I None⟧} {"d" ⟦VI-VII-I-V Weak⟧}
+  +
+  Continuation
+    {"a" ⟦I-V None⟧}
+    {"b" ⟦I-V-I-V Weak⟧} + Continuation   {"c" ⟦V None⟧} {"e" ⟦I Strong⟧}
+
+
+
+  Continuation
+    {"a" ⟦I-V None⟧}
+    {"b" ⟦I-V-I-V Weak⟧}
+    +
+    Continuation
+      {"c" ⟦IV-V-I None⟧}
+      {"d" ⟦VI-VII-I-V Weak⟧}
+      +
+      Continuation   {"a" ⟦I-V None⟧} {"b" ⟦I-V-I-V Weak⟧}
+  +
+  Continuation   {"c" ⟦V None⟧} {"e" ⟦I Strong⟧}
+
+
+
+  Continuation
+    {"a" ⟦I-V None⟧}
+    {"b" ⟦I-V-I-V Weak⟧}
+    +
+    Continuation   {"c" ⟦IV-V-I None⟧} {"d" ⟦VI-VII-I-V Weak⟧}
+    +
+    Continuation
+      {"a" ⟦I-V None⟧}
+      {"b" ⟦I-V-I-V Weak⟧} + Continuation   {"c" ⟦V None⟧} {"e" ⟦I Strong⟧}
+
+
+
+  Period
+    <<"b.i." := {"a" ⟦I-V None⟧}>>
+    "b.i."
+    +
+    {"b" ⟦I-V-I-V Weak⟧}
+    +
+    Continuation   {"c" ⟦IV-V-I None⟧} {"d" ⟦VI-VII-I-V Weak⟧}
+    "b.i."
+    +
+    {"b" ⟦I-V-I-V Weak⟧} + Continuation   {"c" ⟦V None⟧} {"e" ⟦I Strong⟧}
+
+
+
+  {"a" ⟦I-V None⟧}
+  +
+  {"b" ⟦I-V-I-V Weak⟧}
+  +
+  Continuation   {"c" ⟦IV-V-I None⟧} {"d" ⟦VI-VII-I-V Weak⟧}
+  +
+  Continuation
+    {"a" ⟦I-V None⟧}
+    {"b" ⟦I-V-I-V Weak⟧} + Continuation   {"c" ⟦V None⟧} {"e" ⟦I Strong⟧}
