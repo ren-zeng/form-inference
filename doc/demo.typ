@@ -1,7 +1,8 @@
 #import "@preview/zebraw:0.6.3": *
 #show: zebraw
-== Form inference 
+= Update on form inference model
 
+#outline()
 
 // == Iteration 1
 
@@ -92,7 +93,7 @@
 // - [change] we want to be able to recover the original surface (lossless encoding)
 // - [change] we want the AST to be recursive, sentence and period should take FormalUnit as arguments (recursive)
 
-== Overview
+== The context of the project
 We break the overarching form inference (model : piece at the note level $->$ FormTree) into 3 parts
 
 - harmonic reduction model : piece at the note level $->$ harmony and cadence label
@@ -104,48 +105,54 @@ We break the overarching form inference (model : piece at the note level $->$ Fo
   - example output: `["a","b","c","a","b","c","d","e","a","b","c"]`
 
 - *form structure model : (material marker, harmony, cadence) $->$ FormTree*
-  - example input 
-  `{a ⟦I-V None⟧} + {b ⟦I-III None⟧} + {a ⟦VI-II None⟧} + {b ⟦VI-III None⟧}`
-  - we want to say that this is the same idea expressed in different harmonic context
-  ```
-    description 
-      -- the trivial description
-      = {a ⟦I-V None⟧} + {b ⟦I-III None⟧} + {a ⟦VI-II None⟧} + {b ⟦VI-III None⟧}
-
-      -- a short description
-      = (idea usedOn ⟦I-V None⟧) + ( idea usedOn ⟦I-V None⟧)
-                where idea := "a" + "b" 
-
-      -- a short description using formal functions
-      = Presentation <b.i. := "a" + "b" > 
-          (idea usedOn ⟦I-V None⟧)
-          (idea usedOn ⟦I-V None⟧)
-  ```
+  - example input: 
+    
+    `{a ⟦I-V None⟧} + {b ⟦I-III None⟧} + {a ⟦VI-II None⟧} + {b ⟦VI-III None⟧}`
+  we want to say that this is the same idea expressed in different harmonic context
+  - example output:
+    ```
+    Presentation <b.i. := "a" + "b" > 
+          (idea usedOn ⟦I-V None⟧+⟦I-III None⟧)
+          (idea usedOn ⟦VI-II None⟧+⟦VI-III None⟧)
+    ```
+== The problem of the form structure inference
+  _We want to describe the input in terms of formal units and variable binding in a compact way_
 
   
+  
   - Formal function imposes constraints on what kind of analysis is possible 
+    - The term `(Presentation ideaBinding unit1 unit2)` entails that 
+      - unit1 begins on I and 
+      - the idea of unit1 and unit2 are the same
   - Description length impose a ranking on alternative analysis (so the model should prefer the third instead of the first). 
+    - in general we can costs on the "operations" e.g. make "catch-all" merge rule such as `Concatenate` costly so the model will prefer to minimize their usage 
 
-=== The idea
-- we represent analysis as a term (of a recursive type).
-- we define term rewriting rules encoding music theoretical knowledge on form. 
-  ```
-  premises
-        match = Concatenate x y
-        AND IdeaOf x = IdeaOf y
-        AND StartingHarmonyOf x = I
-    
-  conclusions
-        match ~>
-            (Presentation 
-                (BindIdea "b.i." (IdeaOf x)) 
-                (UseIdeaWith (RefIdea "b.i.") (GetParam x)) 
-                (UseIdeaWith (RefIdea "b.i.") (GetParam y)) 
-            )
-  ```
-- we search for the smallest equivalent term (reachable by the collection of rewrite rules).
+    - the trivial description
+      ``` 
+          = {a ⟦I-V None⟧} + {b ⟦I-III None⟧} + {a ⟦VI-II None⟧} + {b ⟦VI-III None⟧}
+      ```
 
-=== Represent analysis as a term (of a recursive type)
+    - a short description
+      ```
+          = (idea usedOn ⟦I-V None⟧+⟦I-III None⟧) + (idea usedOn ⟦VI-II None⟧+⟦VI-III None⟧)
+              where idea := "a" + "b" 
+      ```
+
+    - a short description using formal functions
+      ```
+          = Presentation <b.i. := "a" + "b" > 
+              (idea usedOn ⟦I-V None⟧+⟦I-III None⟧)
+              (idea usedOn ⟦VI-II None⟧+⟦VI-III None⟧)
+      ```
+=== The strategy
+- we represent form analysis as a term (of a recursive type).
+- [mostly music-theoretical] we define term rewriting rules encoding music theoretical knowledge on form. 
+
+- we search for the smallest equivalent term for the input (reachable by the collection of rewrite rules). [mostly mathematical & programming] 
+
+#pagebreak()
+== Current prototype
+=== Represent analysis as a term
 
 Goals:
 - we want to be able to recover the original surface (lossless encoding)
@@ -186,3 +193,21 @@ data FormalUnitBinding = BindFormalUnit String FormalUnit
 
 Note that FormalUnit is now a recursive AST
 
+=== Example of Rewriting rules
+
+  ```
+  premises
+        match = Concatenate x y
+        IdeaOf x = IdeaOf y
+        StartingHarmonyOf x = I
+    
+  conclusions
+        match ~>
+            (Presentation 
+                (BindIdea "b.i." (IdeaOf x)) 
+                (UseIdeaWith (RefIdea "b.i.") (GetParam x)) 
+                (UseIdeaWith (RefIdea "b.i.") (GetParam y)) 
+            )
+  ```
+#pagebreak()
+#include("output.typ")

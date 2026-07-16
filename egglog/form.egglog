@@ -17,7 +17,7 @@
 (sort Progression (Vec Harmony))
 
 (datatype Idea
-    (Label String :cost 99)
+    (Label String :cost 999)
     (LocalVar i64)
     (Concat Idea Idea)
     (Twice Idea)
@@ -54,7 +54,7 @@
         (Sentence IdeaBinding  FormalUnit FormalUnit)
         (Period FormalUnitBinding  FormalUnit FormalUnit)
         (Presentation IdeaBinding FormalUnit FormalUnit)
-        (Continuation FormalUnit FormalUnit :cost 1)
+        (Continuation FormalUnit FormalUnit)
         (Concatenate FormalUnit FormalUnit :cost 999)
     )
 )

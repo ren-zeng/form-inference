@@ -20,10 +20,13 @@ Output analysis:
 
 
 
-  Continuation   {"a" ⟦I-V None⟧} {"b" ⟦I-V-I-V Weak⟧}
-  +
-  Continuation   {"c" ⟦IV-V-I None⟧} {"d" ⟦VI-VII-I-V Weak⟧}
-  +
-  Continuation
-    {"a" ⟦I-V None⟧}
+  Period
+    <<"b.i." := {"a" ⟦I-V None⟧}>>
+    "b.i."
+    +
+    {"b" ⟦I-V-I-V Weak⟧}
+    +
+    Continuation   {"c" ⟦IV-V-I None⟧} {"d" ⟦VI-VII-I-V Weak⟧}
+    "b.i."
+    +
     {"b" ⟦I-V-I-V Weak⟧} + Continuation   {"c" ⟦V None⟧} {"e" ⟦I Strong⟧}
