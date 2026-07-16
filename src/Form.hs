@@ -14,7 +14,6 @@ import Formatting
 import Prettyprinter
 
 data CadenceStrength = Weak | Strong | None deriving (Show, Read)
-
 data Harmony = I | II | III | IV | V | VI | VII deriving (Show, Read)
 data Idea
   = Label String
@@ -32,7 +31,7 @@ data FormalUnitBinding = BindFormalUnit String FormalUnit deriving (Show)
 data FormalUnit
   = Leaf Idea PhraseParam
   | RefFormalUnit String
-  | ZipFormalUnit Idea PhraseParam
+  | UseIdeaWith Idea PhraseParam
   | Sentence IdeaBinding FormalUnit FormalUnit
   | Period FormalUnitBinding FormalUnit FormalUnit
   | Presentation IdeaBinding FormalUnit FormalUnit
@@ -66,9 +65,9 @@ instance Pretty FormalUnit where
   pretty =
     align . \case
       Leaf idea param -> "{" <> hsep [pretty idea, pretty param] <> "}"
-      ZipFormalUnit idea param ->
+      UseIdeaWith idea param ->
         sep
-          [ "ZipFormalUnit"
+          [ "UseIdeaWith"
           , indent 2 $
               sep
                 [ pretty idea
@@ -100,7 +99,7 @@ instance Pretty FormalUnit where
         sep
           [ "Presentation"
           , indent 2 $
-              sep
+              vsep
                 [ pretty id1
                 , pretty param1
                 , pretty param2
@@ -179,8 +178,8 @@ instance FromEggLog FormalUnit where
         (fromEggLog iBinding)
         (fromEggLog x)
         (fromEggLog y)
-    WFSList [WFSAtom "ZipFormalUnit", x, y] ->
-      ZipFormalUnit
+    WFSList [WFSAtom "UseIdeaWith", x, y] ->
+      UseIdeaWith
         (fromEggLog x)
         (fromEggLog y)
     WFSList [WFSAtom "Period", uBinding, param1, param2] ->

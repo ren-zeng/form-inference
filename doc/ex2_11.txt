@@ -1,0 +1,15 @@
+Input surface:
+  {a ⟦I None⟧} + {a ⟦IV None⟧}
+
+
+
+
+Output analysis:
+  Presentation
+    <"b.i." := "a">
+    UseIdeaWith   "b.i." ⟦I None⟧
+    UseIdeaWith   "b.i." ⟦IV None⟧
+
+
+
+  {"a" ⟦I None⟧} + {"a" ⟦IV None⟧}

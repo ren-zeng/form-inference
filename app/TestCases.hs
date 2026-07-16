@@ -11,11 +11,13 @@ testCases =
     [ --     ("ex1", firstHalf ++ secondHalf)
       -- , ("first", firstHalf)
       -- , ("second", secondHalf)
-      ("ex6_1", ex6_1)
+      ("ex2_11",ex2_11)
+      , ("ex2_12",ex2_12)
+      ,("ex6_1", ex6_1)
       , ("ex6_2",ex6_2)
       , ("ex6_5",ex6_5)
     ]
-  where
+
 
 -- firstHalf =
 --     [ Leaf "a" (Param [I] None)
@@ -84,3 +86,18 @@ ex6_5 =
     -- , leaf "c" [I] None 
     -- , leaf "e" [VII,V,I] Strong
     ]
+
+ex2_11 :: NonEmpty FormalUnit
+ex2_11 = [
+  leaf "a" [I] None,
+  leaf "a" [IV] None
+  ]
+
+
+ex2_12 :: NonEmpty FormalUnit
+ex2_12 = [
+  leaf "a" [I,V] None,
+  leaf "b" [I,III] None,
+  leaf "a" [VI,II] None,
+  leaf "b" [VI,III] None
+  ]

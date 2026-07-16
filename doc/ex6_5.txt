@@ -6,12 +6,16 @@ Input surface:
   {b ⟦IV-I None⟧}
   +
   {b ⟦IV-I None⟧} + {c ⟦II None⟧} + {c ⟦I None⟧} + {d ⟦V Weak⟧}
+
+
+
+
 Output analysis:
   Continuation
     Presentation
       <"b.i." := "a">
-      ZipFormalUnit   "b.i." ⟦I-V None⟧
-      ZipFormalUnit   "b.i." ⟦V-I None⟧
+      UseIdeaWith   "b.i." ⟦I-V None⟧
+      UseIdeaWith   "b.i." ⟦V-I None⟧
     Continuation
       {"b" ⟦IV-I None⟧}
       Continuation
@@ -25,111 +29,11 @@ Output analysis:
     <"aSent" := "a">
     Presentation
       <"b.i." := "aSent">
-      ZipFormalUnit   "b.i." ⟦I-V None⟧
-      ZipFormalUnit   "b.i." ⟦V-I None⟧
+      UseIdeaWith   "b.i." ⟦I-V None⟧
+      UseIdeaWith   "b.i." ⟦V-I None⟧
     Continuation
       {"b" ⟦IV-I None⟧}
       Continuation
         {"b" ⟦IV-I None⟧}
         Continuation
           {"c" ⟦II None⟧} Continuation   {"c" ⟦I None⟧} {"d" ⟦V Weak⟧}
-
-
-
-  Continuation
-    {"a" ⟦I-V None⟧}
-    Continuation
-      {"a" ⟦V-I None⟧}
-      Continuation
-        {"b" ⟦IV-I None⟧}
-        Continuation
-          {"b" ⟦IV-I None⟧}
-          Continuation
-            {"c" ⟦II None⟧} Continuation   {"c" ⟦I None⟧} {"d" ⟦V Weak⟧}
-
-
-
-  Presentation
-    <"b.i." := "a">
-    ZipFormalUnit   "b.i." ⟦I-V None⟧
-    ZipFormalUnit   "b.i." ⟦V-I None⟧
-  +
-  Continuation
-    {"b" ⟦IV-I None⟧}
-    Continuation
-      {"b" ⟦IV-I None⟧}
-      Continuation
-        {"c" ⟦II None⟧} Continuation   {"c" ⟦I None⟧} {"d" ⟦V Weak⟧}
-
-
-
-  Continuation
-    Presentation
-      <"b.i." := "a">
-      ZipFormalUnit   "b.i." ⟦I-V None⟧
-      ZipFormalUnit   "b.i." ⟦V-I None⟧
-    +
-    {"b" ⟦IV-I None⟧}
-    Continuation
-      {"b" ⟦IV-I None⟧}
-      Continuation
-        {"c" ⟦II None⟧} Continuation   {"c" ⟦I None⟧} {"d" ⟦V Weak⟧}
-
-
-
-  {"a" ⟦I-V None⟧}
-  +
-  Continuation
-    {"a" ⟦V-I None⟧}
-    Continuation
-      {"b" ⟦IV-I None⟧}
-      Continuation
-        {"b" ⟦IV-I None⟧}
-        Continuation
-          {"c" ⟦II None⟧} Continuation   {"c" ⟦I None⟧} {"d" ⟦V Weak⟧}
-
-
-
-  Presentation
-    <"b.i." := "a">
-    ZipFormalUnit   "b.i." ⟦I-V None⟧
-    ZipFormalUnit   "b.i." ⟦V-I None⟧
-  +
-  {"b" ⟦IV-I None⟧}
-  +
-  Continuation
-    {"b" ⟦IV-I None⟧}
-    Continuation   {"c" ⟦II None⟧} Continuation   {"c" ⟦I None⟧} {"d" ⟦V Weak⟧}
-
-
-
-  Continuation
-    Presentation
-      <"b.i." := "a">
-      ZipFormalUnit   "b.i." ⟦I-V None⟧
-      ZipFormalUnit   "b.i." ⟦V-I None⟧
-    +
-    {"b" ⟦IV-I None⟧} + {"b" ⟦IV-I None⟧}
-    Continuation   {"c" ⟦II None⟧} Continuation   {"c" ⟦I None⟧} {"d" ⟦V Weak⟧}
-
-
-
-  Presentation
-    <"b.i." := "a">
-    ZipFormalUnit   "b.i." ⟦I-V None⟧
-    ZipFormalUnit   "b.i." ⟦V-I None⟧
-  +
-  {"b" ⟦IV-I None⟧} + {"b" ⟦IV-I None⟧}
-  +
-  Continuation   {"c" ⟦II None⟧} Continuation   {"c" ⟦I None⟧} {"d" ⟦V Weak⟧}
-
-
-
-  Continuation
-    Presentation
-      <"b.i." := "a">
-      ZipFormalUnit   "b.i." ⟦I-V None⟧
-      ZipFormalUnit   "b.i." ⟦V-I None⟧
-    +
-    {"b" ⟦IV-I None⟧} + {"b" ⟦IV-I None⟧} + {"c" ⟦II None⟧}
-    Continuation   {"c" ⟦I None⟧} {"d" ⟦V Weak⟧}

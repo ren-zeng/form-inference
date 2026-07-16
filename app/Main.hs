@@ -33,6 +33,8 @@ main = do
         vsep
           [ "Input surface:"
           , indent 2 $ pretty surface
+          , nLines 3
+          
           , "Output analysis:"
           , indent 2 $ vsep $ punctuate  (nLines 3) $ map pretty terms
           ]
@@ -43,7 +45,7 @@ egglogMain var =
     [ "(include \"egglog/form.egglog\")"
     , "(include \"egglog/testCases.egglog\")"
     , "(run 100)"
-    , "(extract $" <> pretty var <+> "10)"
+    , "(extract $" <> pretty var <+> "2)"
     -- , "(print-function GetStartingHarmony)"
     ]
 

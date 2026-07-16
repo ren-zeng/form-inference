@@ -3,185 +3,186 @@
 == Form inference 
 
 
-== Iteration 1
+// == Iteration 1
 
+// ```hs
+// data CadenceStrength = Weak | Strong | None
+
+// data Harmony = I | II | III | IV | V | VI | VII
+
+// data Idea
+//   = Label String
+//   | Concat Idea Idea
+//   | Twice Idea
+
+// data PhraseParam = Param [Harmony] CadenceStrength
+
+// data FormalUnit
+//   = Leaf Idea PhraseParam
+//   | Sentence Idea Idea PhraseParam PhraseParam
+//   | Period Idea Idea Idea PhraseParam PhraseParam
+//   | Presentation Idea PhraseParam PhraseParam
+//   | Concatenate FormalUnit FormalUnit
+// ```
+
+// === example
+
+// ```
+// ex1 = Period
+//         "a"+"b" 
+//         "c"+"d"
+//         "c"+"e"
+//         ⟦I-V-I-V-I-V-IV-V-I-VI-VII-I-V Weak⟧ 
+//         ⟦I-I-V-V-I Strong⟧ 
+
+//       -- which desugars to
+//       Period 
+//         (Concat (Label "a") (Label "b")) 
+//         (Concat (Label "c") (Label "d")) 
+//         (Concat (Label "c") (Label "e")) 
+//         (Param [I,V,I,V,I,V,IV,V,I,VI,VII,I,V] Weak) 
+//         (Param [I,I,V,V,I] Strong)
+      
+//       -- and have size 31 (number of constructors)
+// ```
+
+
+
+// === notation
+
+// `"a"+"b"` $->$ `Concat (Label "a") (Label "b")`
+
+// `⟦I-I-V-V-I Strong⟧` $->$ `Param [I,I,V,V,I] Strong`
+
+
+
+
+// ```
+// Input surface:
+//   {a ⟦I-V None⟧} + {b ⟦I-V-I-V Weak⟧} + {c ⟦IV-V-I None⟧} + {d ⟦VI-VII-I-V Weak⟧} + {a ⟦I-V None⟧} + {b ⟦I-V-I-V Weak⟧} + {c ⟦V None⟧} + {e ⟦I Strong⟧}
+
+// Output analysis:
+//   [ Period
+//     "a"+"b"
+//     "c"+"d"
+//     "c"+"e"
+//     ⟦I-V-I-V-I-V-IV-V-I-VI-VII-I-V Weak⟧
+//     ⟦I-V-I-V-I-V-V-I Strong⟧
+//   , Period
+//     "a"
+//     "b"+"c"+"d"
+//     "b"+"c"+"e"
+//     ⟦I-V-I-V-I-V-IV-V-I-VI-VII-I-V Weak⟧
+//     ⟦I-V-I-V-I-V-V-I Strong⟧
+//   , {"a" ⟦I-V None⟧} + {"b" ⟦I-V-I-V Weak⟧} + Period
+//     "c" "d"+"a"+"b" "e" ⟦IV-V-I-VI-VII-I-V-I-V-I-V-I-V Weak⟧ ⟦V-I Strong⟧
+//   , {"a" ⟦I-V None⟧} + {"b" ⟦I-V-I-V Weak⟧} + Period
+//     "c" "d"+"a"+"b" "e" ⟦IV-V-I-VI-VII-I-V-I-V-I-V-I-V Weak⟧ ⟦V-I Strong⟧
+//   , {"a" ⟦I-V None⟧} + {"b" ⟦I-V-I-V Weak⟧} + {"c" ⟦IV-V-I None⟧} + {"d" ⟦VI-VII-I-V Weak⟧} + {"a" ⟦I-V None⟧} + {"b" ⟦I-V-I-V Weak⟧} + {"c" ⟦V None⟧} + {"e" ⟦I Strong⟧} ]
+// ```
+
+// good: 
+// - we captured the sharing of information and can thus use MDL to disambiguate among multiple parses
+// bad: 
+// - we lose the information about harmony segmentation to the idea level
+// - we don't get sentence embeded in period directly in the AST 
+
+// next step:
+// - [keep] we want to factor out formal repeats (compressible)
+// - [change] we want to be able to recover the original surface (lossless encoding)
+// - [change] we want the AST to be recursive, sentence and period should take FormalUnit as arguments (recursive)
+
+== Overview
+We break the overarching form inference (model : piece at the note level $->$ FormTree) into 3 parts
+
+- harmonic reduction model : piece at the note level $->$ harmony and cadence label
+
+  - example output: `[I, V(HC), IV, V, I(PAC)]`
+
+- motivic repetition model : piece at the note level $->$ material markers
+
+  - example output: `["a","b","c","a","b","c","d","e","a","b","c"]`
+
+- *form structure model : (material marker, harmony, cadence) $->$ FormTree*
+  - example input 
+  `{a ⟦I-V None⟧} + {b ⟦I-III None⟧} + {a ⟦VI-II None⟧} + {b ⟦VI-III None⟧}`
+  - we want to say that this is the same idea expressed in different harmonic context
+  ```
+    description 
+      -- the trivial description
+      = {a ⟦I-V None⟧} + {b ⟦I-III None⟧} + {a ⟦VI-II None⟧} + {b ⟦VI-III None⟧}
+
+      -- a short description
+      = (idea usedOn ⟦I-V None⟧) + ( idea usedOn ⟦I-V None⟧)
+                where idea := "a" + "b" 
+
+      -- a short description using formal functions
+      = Presentation <b.i. := "a" + "b" > 
+          (idea usedOn ⟦I-V None⟧)
+          (idea usedOn ⟦I-V None⟧)
+  ```
+
+  
+  - Formal function imposes constraints on what kind of analysis is possible 
+  - Description length impose a ranking on alternative analysis (so the model should prefer the third instead of the first). 
+
+=== The idea
+- we represent analysis as a term (of a recursive type).
+- we define term rewriting rules encoding music theoretical knowledge on form. 
+  ```
+  premises
+        match = Concatenate x y
+        AND IdeaOf x = IdeaOf y
+        AND StartingHarmonyOf x = I
+    
+  conclusions
+        match ~>
+            (Presentation 
+                (BindIdea "b.i." (IdeaOf x)) 
+                (UseIdeaWith (RefIdea "b.i.") (GetParam x)) 
+                (UseIdeaWith (RefIdea "b.i.") (GetParam y)) 
+            )
+  ```
+- we search for the smallest equivalent term (reachable by the collection of rewrite rules).
+
+=== Represent analysis as a term (of a recursive type)
+
+Goals:
+- we want to be able to recover the original surface (lossless encoding)
+- we want to factor out formal repeats (compressible)
+- we want the AST to be recursive, sentence and period should take FormalUnit as arguments (recursive)
+
+The main AST
 ```hs
-data CadenceStrength = Weak | Strong | None
+data FormalUnit
+  = Leaf Idea PhraseParam
+  | RefFormalUnit String
+  | UseIdeaWith Idea PhraseParam
+  | Sentence IdeaBinding FormalUnit FormalUnit
+  | Period FormalUnitBinding FormalUnit FormalUnit
+  | Presentation IdeaBinding FormalUnit FormalUnit
+  | Continuation FormalUnit FormalUnit
+  | Concatenate FormalUnit FormalUnit
+  | ...
 
-data Harmony = I | II | III | IV | V | VI | VII
+```
 
+Auxillary definitions
+```
+data CadenceStrength = Weak | Strong | None 
+data Harmony = I | II | III | IV | V | VI | VII 
 data Idea
   = Label String
   | Concat Idea Idea
-  | Twice Idea
+  | RefIdea String
 
-data PhraseParam = Param [Harmony] CadenceStrength
+data PhraseParam
+  = Param [Harmony] CadenceStrength
+  | ConcatParam PhraseParam PhraseParam
 
-data FormalUnit
-  = Leaf Idea PhraseParam
-  | Sentence Idea Idea PhraseParam PhraseParam
-  | Period Idea Idea Idea PhraseParam PhraseParam
-  | Presentation Idea PhraseParam PhraseParam
-  | Concatenate FormalUnit FormalUnit
-```
-
-=== example
-
-```
-ex1 = Period
-        "a"+"b" 
-        "c"+"d"
-        "c"+"e"
-        ⟦I-V-I-V-I-V-IV-V-I-VI-VII-I-V Weak⟧ 
-        ⟦I-I-V-V-I Strong⟧ 
-
-      -- which desugars to
-      Period 
-        (Concat (Label "a") (Label "b")) 
-        (Concat (Label "c") (Label "d")) 
-        (Concat (Label "c") (Label "e")) 
-        (Param [I,V,I,V,I,V,IV,V,I,VI,VII,I,V] Weak) 
-        (Param [I,I,V,V,I] Strong)
-      
-      -- and have size 31 (number of constructors)
-```
-
-
-
-=== notation
-
-`"a"+"b"` $->$ `Concat (Label "a") (Label "b")`
-
-`⟦I-I-V-V-I Strong⟧` $->$ `Param [I,I,V,V,I] Strong`
-
-
-#image("/assets/image.png")
-
-```
-Input surface:
-  {a ⟦I-V None⟧} + {b ⟦I-V-I-V Weak⟧} + {c ⟦IV-V-I None⟧} + {d ⟦VI-VII-I-V Weak⟧} + {a ⟦I-V None⟧} + {b ⟦I-V-I-V Weak⟧} + {c ⟦V None⟧} + {e ⟦I Strong⟧}
-
-Output analysis:
-  [ Period
-    "a"+"b"
-    "c"+"d"
-    "c"+"e"
-    ⟦I-V-I-V-I-V-IV-V-I-VI-VII-I-V Weak⟧
-    ⟦I-V-I-V-I-V-V-I Strong⟧
-  , Period
-    "a"
-    "b"+"c"+"d"
-    "b"+"c"+"e"
-    ⟦I-V-I-V-I-V-IV-V-I-VI-VII-I-V Weak⟧
-    ⟦I-V-I-V-I-V-V-I Strong⟧
-  , {"a" ⟦I-V None⟧} + {"b" ⟦I-V-I-V Weak⟧} + Period
-    "c" "d"+"a"+"b" "e" ⟦IV-V-I-VI-VII-I-V-I-V-I-V-I-V Weak⟧ ⟦V-I Strong⟧
-  , {"a" ⟦I-V None⟧} + {"b" ⟦I-V-I-V Weak⟧} + Period
-    "c" "d"+"a"+"b" "e" ⟦IV-V-I-VI-VII-I-V-I-V-I-V-I-V Weak⟧ ⟦V-I Strong⟧
-  , {"a" ⟦I-V None⟧} + {"b" ⟦I-V-I-V Weak⟧} + {"c" ⟦IV-V-I None⟧} + {"d" ⟦VI-VII-I-V Weak⟧} + {"a" ⟦I-V None⟧} + {"b" ⟦I-V-I-V Weak⟧} + {"c" ⟦V None⟧} + {"e" ⟦I Strong⟧} ]
-```
-
-good: 
-- we captured the sharing of information and can thus use MDL to disambiguate among multiple parses
-bad: 
-- we lose the information about harmony segmentation to the idea level
-- we don't get sentence embeded in period directly in the AST 
-
-next step:
-- [keep] we want to factor out formal repeats (compressible)
-- [change] we want to be able to recover the original surface (lossless encoding)
-- [change] we want the AST to be recursive, sentence and period should take FormalUnit as arguments (recursive)
-
-=== Iteration 2
-To achieve all of this in a single model, what we can do is use a variable binding (with scope).
-
-```hs
-...
-
-data Idea 
-  = Label String
-  | Reference IdeaVar 
-  | Concat Idea Idea 
-  
-
-data FormalUnit 
-  = Leaf Idea PhraseParam 
-  | RefFormalUnit FormVar
-  | Period   FormalUnitBinding FormalUnit FormalUnit
-  | Sentence   FormalUnit FormalUnit
-  | Hybrid    FormalUnit FormalUnit
-  | Presentation IdeaBinding FormalUnitBinding  FormalUnit FormalUnit
-  ...
-
+data IdeaBinding = BindIdea String Idea 
+data FormalUnitBinding = BindFormalUnit String FormalUnit 
 ```
 
 Note that FormalUnit is now a recursive AST
-
-ex 6.1
-#image("/assets/image.png")
-hand encoded
-```
-Period 
-  < A:= Concatenate {a ⟦I-V None⟧} {b ⟦I-V-I-V Weak⟧} > 
-  < >
-  Hybrid 
-    A 
-    Continuation {c ⟦IV-V-I None⟧} {d ⟦VI-VII-I-V Weak⟧}
-  Hybrid 
-    A
-    Continuation {c ⟦V None⟧} {e ⟦I Strong⟧})
-```
-model Output
-
-#{  }
-#raw(read("ex6_1.txt"),block:true)
-```
-```
-
-ex 6.2
-#image("/assets/image-3.png")
-```
-Sentence 
-  < y := ... >
-  Presentation 
-    < u := "x"+y >
-    CompondBasicIdea 
-      {u ⟦I None⟧}
-      {"a" ⟦I None⟧}
-    CompondBasicIdea 
-      {u ⟦V None⟧}
-      {"b" ⟦V None⟧}
-  Continuation
-    Concatenate 
-      {y ⟦I-VI None⟧}
-      {y ⟦IV-bII None⟧}
-    Concatenate
-      {y ⟦V None⟧}
-      {"c" ⟦I-II-V-I Strong⟧}
-```
-
-
-
-ex 2.11
-#image("/assets/image-1.png")
-```
-Presentation 
-  < x := "a" >
-  {x ⟦I None⟧ }
-  {x ⟦IV None⟧}
-```
-
-
-ex 2.22
-#image("/assets/image-2.png")
-```
-Presentation
-  < x := "a" >
-  {x ⟦I-V-IV-V-V/VI⟧ }
-  {x ⟦VI-V/VI-V/IV-IVNone⟧}
-
-```
-
-
-
 

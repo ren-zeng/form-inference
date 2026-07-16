@@ -17,7 +17,7 @@
 (sort Progression (Vec Harmony))
 
 (datatype Idea
-    (Label String :cost 10)
+    (Label String :cost 99)
     (LocalVar i64)
     (Concat Idea Idea)
     (Twice Idea)
@@ -49,7 +49,7 @@
     )
     ( FormalUnit
         (Leaf Idea PhraseParam)
-        (ZipFormalUnit Idea PhraseParam)
+        (UseIdeaWith Idea PhraseParam)
         (RefFormalUnit String)
         (Sentence IdeaBinding  FormalUnit FormalUnit)
         (Period FormalUnitBinding  FormalUnit FormalUnit)
@@ -198,8 +198,8 @@
         (union match 
             (Presentation 
                 (BindIdea "b.i." (GetIdea x)) 
-                (ZipFormalUnit (RefIdea "b.i.") (GetParam x)) 
-                (ZipFormalUnit (RefIdea "b.i.") (GetParam y)) 
+                (UseIdeaWith (RefIdea "b.i.") (GetParam x)) 
+                (UseIdeaWith (RefIdea "b.i.") (GetParam y)) 
             )
         )
     )

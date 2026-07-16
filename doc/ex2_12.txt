@@ -1,0 +1,17 @@
+Input surface:
+  {a ⟦I-V None⟧} + {b ⟦I-III None⟧} + {a ⟦VI-II None⟧} + {b ⟦VI-III None⟧}
+
+
+
+
+Output analysis:
+  Presentation
+    <"b.i." := "a"+"b">
+    UseIdeaWith   "b.i." ⟦I-V None⟧+⟦I-III None⟧
+    UseIdeaWith   "b.i." ⟦VI-II None⟧+⟦VI-III None⟧
+
+
+
+  {"a" ⟦I-V None⟧}
+  +
+  {"b" ⟦I-III None⟧} + {"a" ⟦VI-II None⟧} + {"b" ⟦VI-III None⟧}
