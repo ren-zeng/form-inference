@@ -21,10 +21,8 @@ jobs:
           restore-keys: ${{ runner.os }}-egglog-
       - name: Install Egglog
         run: |
-          if ! command -v egglog &> /dev/null; then
-              curl -L --proto '=https' --tlsv1.2 -sSf https://githubusercontent.com | sh
-              cargo binstall -y egglog
-          fi
+          git clone git@github.com:egraphs-good/egglog.git
+          cargo install --path=egglog
 
       # Upload the egglog binary file so the Haskell job can use it
       - name: Upload Egglog Binary
