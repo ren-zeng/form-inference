@@ -1,0 +1,37 @@
+name: setup-egglog
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+
+jobs:
+  # Job 1: Install Egglog and upload the binary
+  install-egglog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Cargo Binaries
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/bin
+          key: ${{ runner.os }}-egglog-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-egglog-
+
+      - name: Install Egglog
+        run: |
+          if ! command -v egglog &> /dev/null; then
+            curl -L --proto '=https' --tlsv1.2 -sSf https://githubusercontent.com | sh
+            cargo binstall -y egglog
+          fi
+
+      # Upload the egglog binary file so the Haskell job can use it
+      - name: Upload Egglog Binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: egglog-binary
+          path: ~/.cargo/bin/egglog
+
+permissions:
+  contents: write
