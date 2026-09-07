@@ -1,0 +1,8 @@
+[package]
+name = "..."
+version = "0.0.1"
+entrypoint = "..."
+
+[[tool.prequery.jobs]]
+name = "download"
+kind = "web-resource"

@@ -17,29 +17,31 @@ Input surface:
 
 
 Output analysis:
+  size=62
   Continuation
     Presentation
-      <"b.i." := "a"+"b"+"c">
-      UseIdeaWith   "b.i." ⟦I None⟧+⟦I None⟧+⟦I None⟧
-      UseIdeaWith   "b.i." ⟦V None⟧+⟦V None⟧+⟦V None⟧
+      basicIdea= "a"+"b"+"c"
+      occur1= UseIdeaWith   $0 ⟦I None⟧+⟦I None⟧+⟦I None⟧
+      occur2= UseIdeaWith   $0 ⟦V None⟧+⟦V None⟧+⟦V None⟧
     Continuation
       Presentation
-        <"b.i." := "b">
-        UseIdeaWith   "b.i." ⟦I-VI None⟧
-        UseIdeaWith   "b.i." ⟦IV-II None⟧
+        basicIdea= "b"
+        occur1= UseIdeaWith   $0 ⟦I-VI None⟧
+        occur2= UseIdeaWith   $0 ⟦IV-II None⟧
       Continuation   {"b" ⟦V None⟧} {"d" ⟦I-II-V-I Strong⟧}
 
 
 
+  size=63
   Sentence
-    <"aSent" := "a"+"b"+"c">
-    Presentation
-      <"b.i." := "aSent">
-      UseIdeaWith   "b.i." ⟦I None⟧+⟦I None⟧+⟦I None⟧
-      UseIdeaWith   "b.i." ⟦V None⟧+⟦V None⟧+⟦V None⟧
-    Continuation
-      Presentation
-        <"b.i." := "b">
-        UseIdeaWith   "b.i." ⟦I-VI None⟧
-        UseIdeaWith   "b.i." ⟦IV-II None⟧
-      Continuation   {"b" ⟦V None⟧} {"d" ⟦I-II-V-I Strong⟧}
+    basicIdea= "a"+"b"+"c"
+    presentation= Presentation
+                    basicIdea= $0
+                    occur1= UseIdeaWith   $0 ⟦I None⟧+⟦I None⟧+⟦I None⟧
+                    occur2= UseIdeaWith   $0 ⟦V None⟧+⟦V None⟧+⟦V None⟧
+    continuation= Continuation
+                    Presentation
+                      basicIdea= "b"
+                      occur1= UseIdeaWith   $0 ⟦I-VI None⟧
+                      occur2= UseIdeaWith   $0 ⟦IV-II None⟧
+                    Continuation   {"b" ⟦V None⟧} {"d" ⟦I-II-V-I Strong⟧}

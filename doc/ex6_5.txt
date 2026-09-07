@@ -11,11 +11,12 @@ Input surface:
 
 
 Output analysis:
+  size=46
   Continuation
     Presentation
-      <"b.i." := "a">
-      UseIdeaWith   "b.i." ⟦I-V None⟧
-      UseIdeaWith   "b.i." ⟦V-I None⟧
+      basicIdea= "a"
+      occur1= UseIdeaWith   $0 ⟦I-V None⟧
+      occur2= UseIdeaWith   $0 ⟦V-I None⟧
     Continuation
       {"b" ⟦IV-I None⟧}
       Continuation
@@ -25,15 +26,17 @@ Output analysis:
 
 
 
+  size=47
   Sentence
-    <"aSent" := "a">
-    Presentation
-      <"b.i." := "aSent">
-      UseIdeaWith   "b.i." ⟦I-V None⟧
-      UseIdeaWith   "b.i." ⟦V-I None⟧
-    Continuation
-      {"b" ⟦IV-I None⟧}
-      Continuation
-        {"b" ⟦IV-I None⟧}
-        Continuation
-          {"c" ⟦II None⟧} Continuation   {"c" ⟦I None⟧} {"d" ⟦V Weak⟧}
+    basicIdea= "a"
+    presentation= Presentation
+                    basicIdea= $0
+                    occur1= UseIdeaWith   $0 ⟦I-V None⟧
+                    occur2= UseIdeaWith   $0 ⟦V-I None⟧
+    continuation= Continuation
+                    {"b" ⟦IV-I None⟧}
+                    Continuation
+                      {"b" ⟦IV-I None⟧}
+                      Continuation
+                        {"c" ⟦II None⟧}
+                        Continuation   {"c" ⟦I None⟧} {"d" ⟦V Weak⟧}

@@ -1,11 +1,46 @@
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveTraversable #-}
+{-# LANGUAGE ExplicitForAll #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE OverloadedLists #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
 
-module Form where
+module Form (
+  -- ** Recursive form data type
+  FormalUnit (..),
 
-import Data.List
-import Data.List.NonEmpty
+  -- *** Supporting data types
+  CadenceStrength (..),
+  Harmony (..),
+  Idea (..),
+  PhraseParam (..),
+  IdeaBinding (..),
+  FormalUnitBinding (..),
+  
+
+  -- ** operations on formal unit
+  sizeFormalUnit,
+  -- depthFormalUnit,
+  depressFormalUnit,
+
+  -- *** generic operations on formal unit
+  FormalUnitF (..),
+  foldFormalUnit,
+  unfoldFormalUnit,
+
+  -- ** Utility
+  fromSurface,
+  zipLeaf,
+) where
+
+import Data.Functor.Foldable
+import Data.Functor.Foldable.TH
+import Data.Generics
+import Data.List.NonEmpty hiding (map)
 import Data.SCargot.Repr
 import Data.String
 import Data.Text (Text)
@@ -13,31 +48,35 @@ import qualified Data.Text as T
 import Formatting
 import Prettyprinter
 
-data CadenceStrength = Weak | Strong | None deriving (Show, Read)
-data Harmony = I | II | III | IV | V | VI | VII deriving (Show, Read)
+data CadenceStrength = Weak | Strong | None deriving (Show, Read, Data)
+data Harmony = I | II | III | IV | V | VI | VII deriving (Show, Read, Data)
 data Idea
   = Label String
   | Concat Idea Idea
   | Twice Idea
   | RefIdea String
-  deriving (Show)
+  | LocalVar Int
+  deriving (Show, Data)
 
 data PhraseParam
   = Param [Harmony] CadenceStrength
   | ConcatParam PhraseParam PhraseParam
-  deriving (Show)
+  deriving (Show, Data)
 data IdeaBinding = BindIdea String Idea deriving (Show)
 data FormalUnitBinding = BindFormalUnit String FormalUnit deriving (Show)
 data FormalUnit
   = Leaf Idea PhraseParam
   | RefFormalUnit String
+  | LocalFormalUnit Int
   | UseIdeaWith Idea PhraseParam
-  | Sentence IdeaBinding FormalUnit FormalUnit
-  | Period FormalUnitBinding FormalUnit FormalUnit
-  | Presentation IdeaBinding FormalUnit FormalUnit
+  | Sentence Idea FormalUnit FormalUnit
+  | Period {antecedentHead :: FormalUnit, antecedent :: FormalUnit, consequent :: FormalUnit}
+  | Presentation {basicIdea :: Idea, usage1 :: FormalUnit, usage2 :: FormalUnit}
   | Continuation FormalUnit FormalUnit
   | Concatenate FormalUnit FormalUnit
-  deriving (Show)
+  deriving (Show, Data)
+
+makeBaseFunctor ''FormalUnit
 
 instance IsString Idea where
   fromString = Label
@@ -50,6 +89,7 @@ instance Pretty Idea where
     Concat x y -> pretty x <> "+" <> pretty y
     Twice x -> "Twice" <+> pretty x
     RefIdea x -> pretty x
+    LocalVar x -> "$" <> pretty x
 instance Pretty PhraseParam where
   pretty = \case
     Param hs cad -> "⟦" <> hsep [hcat $ punctuate "-" (fmap pretty hs), pretty cad] <> "⟧"
@@ -74,15 +114,16 @@ instance Pretty FormalUnit where
                 , pretty param
                 ]
           ]
+      LocalFormalUnit i -> "$" <> pretty i
       RefFormalUnit v -> pretty v
-      Sentence iBinding x y ->
+      Sentence idea x y ->
         sep
           [ "Sentence"
           , indent 2 $
               sep
-                [ pretty iBinding
-                , pretty x
-                , pretty y
+                [ "basicIdea" <> "=" <+> pretty idea
+                , "presentation" <> "=" <+> pretty x
+                , "continuation" <> "=" <+> pretty y
                 ]
           ]
       Period uBinding x y ->
@@ -90,9 +131,9 @@ instance Pretty FormalUnit where
           [ "Period"
           , indent 2 $
               sep
-                [ pretty uBinding
-                , pretty x
-                , pretty y
+                [ "antecedentHead" <> "=" <+> pretty uBinding
+                , "antecedent" <> "=" <+> pretty x
+                , "consequent" <> "=" <+> pretty y
                 ]
           ]
       Presentation id1 param1 param2 ->
@@ -100,9 +141,9 @@ instance Pretty FormalUnit where
           [ "Presentation"
           , indent 2 $
               vsep
-                [ pretty id1
-                , pretty param1
-                , pretty param2
+                [ "basicIdea" <> "=" <+> pretty id1
+                , "occur1" <> "=" <+> pretty param1
+                , "occur2" <> "=" <+> pretty param2
                 ]
           ]
       Concatenate u1 u2 ->
@@ -127,9 +168,12 @@ instance FromEggLog Idea where
     WFSList ["Concat", x, y] -> Concat (fromEggLog x) (fromEggLog y)
     WFSList ["Twice", x] -> Twice (fromEggLog x)
     WFSList ["RefIdea", WFSAtom x] -> RefIdea (T.unpack x)
+    WFSList ["LocalVar", WFSAtom x] -> LocalVar (read $ T.unpack x)
     x -> error $ "[FromEggLog Idea] bad input " <> show x
 
-  toEggLog (Label x) = WFSList [WFSAtom "Label", toEggLog $ T.pack x]
+  toEggLog = \case
+    Label x -> WFSList [WFSAtom "Label", toEggLog $ T.pack x]
+    LocalVar i -> WFSList [WFSAtom "LocalVar", WFSAtom $ T.pack $ show i]
 
 instance FromEggLog CadenceStrength where
   fromEggLog = \case
@@ -200,6 +244,7 @@ instance FromEggLog FormalUnit where
       Concatenate
         (fromEggLog u1)
         (fromEggLog u2)
+    WFSList [WFSAtom "LocalFormalUnit", WFSAtom i] -> LocalFormalUnit $ read $ T.unpack i
     x -> error $ "[fromEggLog FormalUnit] bad input " <> show x
   toEggLog = \case
     Leaf idea param -> WFSList [WFSAtom "Leaf", toEggLog idea, toEggLog param]
@@ -234,6 +279,69 @@ instance (FromEggLog a) => FromEggLog [a] where
     WFSList (WFSAtom "vec-of" : xs) -> fromEggLog <$> xs
   toEggLog xs = WFSList (WFSAtom "vec-of" : (toEggLog <$> xs))
 
-buildSurface :: NonEmpty FormalUnit -> FormalUnit
-buildSurface (x :| []) = x
-buildSurface (x :| y : ys) = Concatenate x (buildSurface $ y :| ys)
+{- | Given a non-empty list of atomic formal units, construct a trivial formal unit using (right branching) `Concatenate`
+
+>>>  fromSurface [Leaf "a" (Param [I,V] None), Leaf "b" (Param [II] None), Leaf "a" (Param [V,I] Strong)]
+Concatenate (Leaf (Label "a") (Param [I,V] None)) (Concatenate (Leaf (Label "b") (Param [II] None)) (Leaf (Label "a") (Param [V,I] Strong)))
+-}
+fromSurface :: NonEmpty FormalUnit -> FormalUnit
+fromSurface (x :| []) = x
+fromSurface (x :| y : ys) = Concatenate x (fromSurface $ y :| ys)
+
+{- |
+@
+extractHarmony ::
+@
+-}
+foldFormalUnit :: (FormalUnitF a -> a) -> FormalUnit -> a
+foldFormalUnit = cata
+
+unfoldFormalUnit :: (a -> FormalUnitF a) -> a -> FormalUnit
+unfoldFormalUnit = ana
+
+sizeFormalUnit :: FormalUnit -> Int
+sizeFormalUnit = gSize
+
+gSize :: forall a. (Data a) => a -> Int
+gSize =
+  (\x -> 1 + sum (gmapQ gSize x))
+    `extQ` const @Int @String 0
+    `extQ` const @Int @Int 0
+    `extQ` (listSize @Int)
+    `extQ` (listSize @String)
+    `extQ` (listSize @Harmony)
+
+listSize :: (Data b) => [b] -> Int
+listSize = sum . map gSize
+
+-- depthFormalUnit = undefined
+
+depressFormalUnit :: FormalUnit -> FormalUnit
+depressFormalUnit = foldFormalUnit $ \case
+  LeafF idea param -> Leaf idea param
+  UseIdeaWithF idea param -> zipLeaf idea param
+
+
+{-| zip the concat trees of idea and phrase param
+
+>>> pretty $ zipLeaf (Concat "a" (Concat "b" "c")) (ConcatParam (Param [I] None) (ConcatParam (Param [I] None) (Param [V] None)))
+{a ⟦I None⟧} + {b ⟦I None⟧} + {c ⟦V None⟧}
+
+
+when the idea and phrase parameter are not concatenated in the same shape,  it results in error
+
+>>> zipLeaf (Concat "a" "b") (Param [I] None)
+[zipLeaf malformed arguments]: zipLeaf
+                                 a+b
+                                 ⟦I None⟧
+
+
+-}
+zipLeaf :: Idea -> PhraseParam -> FormalUnit
+zipLeaf idea@Label{} param@Param{} = Leaf idea param
+zipLeaf (Concat x y) (ConcatParam a b) = Concatenate (zipLeaf x a) (zipLeaf y b)
+zipLeaf idea param =
+  prettyError
+    "zipLeaf malformed arguments"
+    (prettyApp "zipLeaf" [pretty idea, pretty param])
+

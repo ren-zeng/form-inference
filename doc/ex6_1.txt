@@ -13,20 +13,24 @@ Input surface:
 
 
 Output analysis:
+  size=47
   Period
-    <<"b.i." := Continuation   {"a" ⟦I-V None⟧} {"b" ⟦I-V-I-V Weak⟧}>>
-    "b.i." + Continuation   {"c" ⟦IV-V-I None⟧} {"d" ⟦VI-VII-I-V Weak⟧}
-    "b.i." + Continuation   {"c" ⟦V None⟧} {"e" ⟦I Strong⟧}
+    antecedentHead= Continuation   {"a" ⟦I-V None⟧} {"b" ⟦I-V-I-V Weak⟧}
+    antecedent= $0 + Continuation   {"c" ⟦IV-V-I None⟧} {"d" ⟦VI-VII-I-V Weak⟧}
+    consequent= $0 + Continuation   {"c" ⟦V None⟧} {"e" ⟦I Strong⟧}
 
 
 
+  size=56
   Period
-    <<"b.i." := {"a" ⟦I-V None⟧}>>
-    "b.i."
-    +
-    {"b" ⟦I-V-I-V Weak⟧}
-    +
-    Continuation   {"c" ⟦IV-V-I None⟧} {"d" ⟦VI-VII-I-V Weak⟧}
-    "b.i."
-    +
-    {"b" ⟦I-V-I-V Weak⟧} + Continuation   {"c" ⟦V None⟧} {"e" ⟦I Strong⟧}
+    antecedentHead= {"a" ⟦I-V None⟧}
+    antecedent= $0
+                +
+                {"b" ⟦I-V-I-V Weak⟧}
+                +
+                Continuation   {"c" ⟦IV-V-I None⟧} {"d" ⟦VI-VII-I-V Weak⟧}
+    consequent= $0
+                +
+                {"b" ⟦I-V-I-V Weak⟧}
+                +
+                Continuation   {"c" ⟦V None⟧} {"e" ⟦I Strong⟧}

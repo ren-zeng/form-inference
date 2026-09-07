@@ -5,13 +5,15 @@ Input surface:
 
 
 Output analysis:
+  size=26
   Presentation
-    <"b.i." := "a"+"b">
-    UseIdeaWith   "b.i." ⟦I-V None⟧+⟦I-III None⟧
-    UseIdeaWith   "b.i." ⟦VI-II None⟧+⟦VI-III None⟧
+    basicIdea= "a"+"b"
+    occur1= UseIdeaWith   $0 ⟦I-V None⟧+⟦I-III None⟧
+    occur2= UseIdeaWith   $0 ⟦VI-II None⟧+⟦VI-III None⟧
 
 
 
+  size=27
   {"a" ⟦I-V None⟧}
   +
   {"b" ⟦I-III None⟧} + {"a" ⟦VI-II None⟧} + {"b" ⟦VI-III None⟧}

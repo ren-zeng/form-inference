@@ -17,13 +17,15 @@
 (sort Progression (Vec Harmony))
 
 (datatype Idea
-    (Label String :cost 999)
-    (LocalVar i64)
-    (Concat Idea Idea)
+    (Label String :cost 999) ;; a repetition marker ("a","b","varA", ...) we are only comparing equality on the markeres parent functional call.
+    (LocalVar i64) ;; Reference to positional arguments, points to the i-th argument of the 
+    (Concat Idea Idea) ;; Succession of two ideas
     (Twice Idea)
     (RefIdea String)
 )
 
+
+;; Associativity rule for concatenation x + (y + z) <~> (x + y) + z, used to generate all possible (recursive) groupings  of a list (of ideas). 
 (birewrite
     (Concat x (Concat y z))
     (Concat (Concat x y) z)
@@ -34,6 +36,7 @@
     (Twice x)
 )
 
+;; the actual content of a phrase, currently defined as harmony progression and cadence strength
 (datatype PhraseParam
     (Param Progression CadenceStrength)
     (ConcatParam PhraseParam PhraseParam)
@@ -50,21 +53,21 @@
     ( FormalUnit
         (Leaf Idea PhraseParam)
         (UseIdeaWith Idea PhraseParam)
+        (LocalFormalUnit i64)
         (RefFormalUnit String)
-        (Sentence IdeaBinding  FormalUnit FormalUnit)
-        (Period FormalUnitBinding  FormalUnit FormalUnit)
-        (Presentation IdeaBinding FormalUnit FormalUnit)
+        (Sentence Idea FormalUnit FormalUnit)
+        (Period FormalUnit  FormalUnit FormalUnit)
+        (Presentation Idea FormalUnit FormalUnit)
         (Continuation FormalUnit FormalUnit)
         (Concatenate FormalUnit FormalUnit :cost 999)
+        (Let IdeaBinding FormalUnitBinding FormalUnit)
     )
 )
-
-
 
 (constructor GetParam (FormalUnit) PhraseParam )
 (constructor GetCadence (FormalUnit) CadenceStrength )
 (constructor GetStartingHarmony (FormalUnit) Harmony )
-
+(constructor GetIdea (FormalUnit) Idea)
 
 (relation NoWeaker (CadenceStrength CadenceStrength))
 
@@ -76,6 +79,8 @@
 (NoWeaker (Strong) (Weak))
 
 
+;; [Auxillary function] Concatenate 
+;; For two segments x and y, if y's cadence is no weaker than the candence of x, then x + y is a segment.
 (rule
     (
     (= match (Concatenate x (Concatenate y z)))
@@ -96,7 +101,9 @@
     )
 )
 
-(constructor GetIdea (FormalUnit) Idea)
+
+;; [Auxillary function] GetIdea 
+
 (rule
     (
         (= match (Leaf x _))
@@ -119,7 +126,7 @@
 
 (rule
     (
-        (= match (Presentation (BindIdea _ x) a b))
+        (= match (Presentation x a b))
     )
     (
         (union (GetIdea match) (Twice x))
@@ -127,7 +134,7 @@
 )
 
 
-
+;; [Auxillary function] GetStartingHarmony 
 (rule
     (
         (= match (Leaf _ (Param x _)))
@@ -148,6 +155,7 @@
 )
 
 
+;; [Auxillary function] GetCadence 
 (rule
     (
         (= match (Leaf _ (Param _ cad)))
@@ -166,6 +174,8 @@
     )
 )
 
+
+;; [Auxillary function] GetParam 
 (rule
     (
         (= match (Leaf _ x))
@@ -187,7 +197,10 @@
 
 
 
-
+;; [Form Theory] Presentation
+;; A segment of the form x + y is a presentation if
+;; 1. x and y have the same motivic idea
+;; 2. x start with tonic
 (rule
     (
         (= match (Concatenate x y))
@@ -197,15 +210,18 @@
     (
         (union match 
             (Presentation 
-                (BindIdea "b.i." (GetIdea x)) 
-                (UseIdeaWith (RefIdea "b.i.") (GetParam x)) 
-                (UseIdeaWith (RefIdea "b.i.") (GetParam y)) 
+                (GetIdea x) 
+                (UseIdeaWith (LocalVar 0) (GetParam x)) 
+                (UseIdeaWith (LocalVar 0) (GetParam y)) 
             )
         )
     )
 )
 
-
+;; [Form Theory] Continuation
+;; A segment of the form x + y is a Continuation if
+;; 1. x does not have a cadence
+;; 2. y has a cadence
 (rule
     (
         (= match (Concatenate x y))
@@ -217,22 +233,27 @@
     )
 )
 
+
+
+;; [Form Theory] Presentation
 (rule
     (
         (= match (Concatenate u1 u2))
-        (= u1 (Presentation (BindIdea _ idea) x y))
+        (= u1 (Presentation idea x y))
         (= u2 (Continuation _ _))
         
     )
     (
-        (union match (Sentence (BindIdea "aSent" idea) 
-            (Presentation (BindIdea "b.i." (RefIdea "aSent"))
+        (union match (Sentence idea 
+            (Presentation (LocalVar 0)
                 x y
             ) 
             u2))
     )
 )
 
+
+;; [Form Theory] Period
 (rule
     (
         (= match (Concatenate antecedent consequent))
@@ -243,6 +264,6 @@
         (= (GetCadence u4) (Strong))
     )
     (
-        (union match (Period (BindFormalUnit "b.i." u1) (Concatenate (RefFormalUnit "b.i.") u2) (Concatenate (RefFormalUnit "b.i.") u4)))
+        (union match (Period u1 (Concatenate (LocalFormalUnit 0) u2) (Concatenate (LocalFormalUnit 0) u4)))
     )
 )

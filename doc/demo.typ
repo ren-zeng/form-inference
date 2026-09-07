@@ -141,8 +141,8 @@ We break the overarching form inference (model : piece at the note level $->$ Fo
     - a short description using formal functions
       ```
           = Presentation <b.i. := "a" + "b" > 
-              (idea usedOn ⟦I-V None⟧+⟦I-III None⟧)
-              (idea usedOn ⟦VI-II None⟧+⟦VI-III None⟧)
+              (b.i. usedOn ⟦I-V None⟧+⟦I-III None⟧)
+              (b.i. usedOn ⟦VI-II None⟧+⟦VI-III None⟧)
       ```
 === The strategy
 - we represent form analysis as a term (of a recursive type).

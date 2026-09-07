@@ -1,14 +1,25 @@
 {-# LANGUAGE LambdaCase #-}
-module Formatting (sExprList,
-   sExpr,FromEggLog(..),egglogLet,bracket) where
+{-# LANGUAGE OverloadedStrings #-}
+
+module Formatting (
+  -- ** egglog translation to s-expression datatype
+  sExprList,
+  sExpr,
+  FromEggLog (..),
+  egglogLet,
+  bracket,
+
+  -- ** pretty printting util
+  prettyApp,
+  prettyError,
+) where
+
+import Data.SCargot
 import Data.SCargot.Repr
 import qualified Data.Text as T
-import Data.SCargot
-import Text.Parsec
+import GHC.Stack (HasCallStack)
 import Prettyprinter
-import Data.List.NonEmpty
-import Data.Aeson
-
+import Text.Parsec
 
 pString = do
   mid <- between (char '"') (char '"') $ many (noneOf ['"'])
@@ -30,23 +41,36 @@ sExpr x = case decodeOne myParser x of
   Left err -> error $ "Error: " ++ err
   _ -> error $ "expecting s-expression list but got atom"
 
-
-class FromEggLog a where 
-  fromEggLog ::  WellFormedSExpr T.Text -> a 
+class FromEggLog a where
+  fromEggLog :: WellFormedSExpr T.Text -> a
   toEggLog :: a -> WellFormedSExpr T.Text
 
-
-
-instance Pretty a => Pretty (WellFormedSExpr a) where 
-  pretty = \case 
+instance (Pretty a) => Pretty (WellFormedSExpr a) where
+  pretty = \case
     WFSAtom x -> pretty x
-    WFSList (x:xs) -> vsep [pretty x, indent 2 $ vsep $ pretty <$> xs]
+    WFSList (x : xs) -> vsep [pretty x, indent 2 $ vsep $ pretty <$> xs]
 
 egglogLet :: (a -> String) -> String -> a -> String
-egglogLet f var x = bracket ["let", "$"<>var, f x]
+egglogLet f var x = bracket ["let", "$" <> var, f x]
 
 egglogVec :: [String] -> String
 egglogVec x = bracket ("vec-of" : x)
 
 bracket :: [String] -> String
 bracket x = "(" <> unwords x <> ")"
+
+{- | Format function application using indentation
+>>> prettyApp "f" [prettyApp "h" ["y1","y2"],"x1", prettyApp "g" ["x2"]]
+f
+  h
+    y1
+    y2
+  x1
+  g
+    x2
+-}
+prettyApp :: Doc ann -> [Doc ann] -> Doc ann
+prettyApp f args = vsep [f, indent 2 $ vsep args]
+
+prettyError :: (HasCallStack) => Doc ann -> Doc ann -> a
+prettyError title msg = error $ show $ surround title "[" "]:"  <+> align msg
