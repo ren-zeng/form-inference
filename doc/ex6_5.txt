@@ -1,42 +1,43 @@
 Input surface:
-  {a ⟦I-V None⟧}
-  +
-  {a ⟦V-I None⟧}
-  +
-  {b ⟦IV-I None⟧}
-  +
-  {b ⟦IV-I None⟧} + {c ⟦II None⟧} + {c ⟦I None⟧} + {d ⟦V Weak⟧}
+  [ {a ⟦I-V None⟧}
+  , {a ⟦V-I None⟧}
+  , {b ⟦IV-I None⟧}
+  , {b ⟦IV-I None⟧}
+  , {c ⟦II None⟧}
+  , {c ⟦I None⟧}
+  , {d ⟦V Weak⟧} ]
 
 
 
 
 Output analysis:
-  size=46
-  Continuation
-    Presentation
-      basicIdea= "a"
-      occur1= UseIdeaWith   $0 ⟦I-V None⟧
-      occur2= UseIdeaWith   $0 ⟦V-I None⟧
-    Continuation
-      {"b" ⟦IV-I None⟧}
-      Continuation
-        {"b" ⟦IV-I None⟧}
-        Continuation
-          {"c" ⟦II None⟧} Continuation   {"c" ⟦I None⟧} {"d" ⟦V Weak⟧}
-
-
-
-  size=47
+  size=40
   Sentence
     basicIdea= "a"
-    presentation= Presentation
-                    basicIdea= $0
-                    occur1= UseIdeaWith   $0 ⟦I-V None⟧
-                    occur2= UseIdeaWith   $0 ⟦V-I None⟧
-    continuation= Continuation
-                    {"b" ⟦IV-I None⟧}
-                    Continuation
+    presentation= Concatenate
+                    UseIdeaWith   $0 ⟦I-V None⟧
+                    UseIdeaWith   $0 ⟦V-I None⟧
+    continuation= Concatenate
+                    TwiceFormalUnit
                       {"b" ⟦IV-I None⟧}
-                      Continuation
-                        {"c" ⟦II None⟧}
-                        Continuation   {"c" ⟦I None⟧} {"d" ⟦V Weak⟧}
+                    Concatenate
+                      {"c" ⟦II None⟧}
+                      Concatenate
+                        {"c" ⟦I None⟧}
+                        {"d" ⟦V Weak⟧}
+
+
+
+  size=39
+  Concatenate
+    {"a" ⟦I-V None⟧}
+    Concatenate
+      {"a" ⟦V-I None⟧}
+      Concatenate
+        TwiceFormalUnit
+          {"b" ⟦IV-I None⟧}
+        Concatenate
+          {"c" ⟦II None⟧}
+          Concatenate
+            {"c" ⟦I None⟧}
+            {"d" ⟦V Weak⟧}

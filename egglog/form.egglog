@@ -57,10 +57,15 @@
         (RefFormalUnit String)
         (Sentence Idea FormalUnit FormalUnit)
         (Period FormalUnit  FormalUnit FormalUnit)
-        (Presentation Idea FormalUnit FormalUnit)
-        (Continuation FormalUnit FormalUnit)
-        (Concatenate FormalUnit FormalUnit :cost 999)
+
+        ;;(Presentation Idea FormalUnit FormalUnit)
+        (HybridAntCont  FormalUnit FormalUnit)
+        (SimpleBinary FormalUnit FormalUnit)
+        (RoundedBinary FormalUnit FormalUnit)
+        (Ternary FormalUnit FormalUnit)
+        (Concatenate FormalUnit FormalUnit ) 
         (Let IdeaBinding FormalUnitBinding FormalUnit)
+        (TwiceFormalUnit FormalUnit)
     )
 )
 
@@ -68,8 +73,17 @@
 (constructor GetCadence (FormalUnit) CadenceStrength )
 (constructor GetStartingHarmony (FormalUnit) Harmony )
 (constructor GetIdea (FormalUnit) Idea)
+(constructor ReplaceIdeaWithRef (Idea Idea FormalUnit) FormalUnit)
 
 (relation NoWeaker (CadenceStrength CadenceStrength))
+(relation WithoutAnyCadence (FormalUnit))
+(relation NoInternalCadence (FormalUnit))
+;; These are constraints on adjacent units: (Antecedent x y) means x+y can potentially serve a antecedent function. The reason we don't make them a constructor to union with (x + y) is that we don't want things like (Antecedent _ (Antecedent _ _)). There interpretation should depend on the surrounding context and not purely bottom up driven. We want say that x is an antecedent only if it is followed by a phrase ends with a strong cadence.
+(relation Antecedent (FormalUnit FormalUnit))
+(relation Consequent (FormalUnit FormalUnit))
+(relation Continuation (FormalUnit FormalUnit))
+(relation Presentation (FormalUnit FormalUnit))
+
 
 (NoWeaker (None) (None))
 (NoWeaker (Weak) (Weak))
@@ -101,6 +115,48 @@
     )
 )
 
+;; [Auxillary function] WithoutAnyCadence 
+(rule
+    (
+        (= match (Concatenate x y))
+        (WithoutAnyCadence x)
+        (WithoutAnyCadence y)
+    )
+    (
+        (WithoutAnyCadence match)
+    )
+)
+
+(rule
+    (
+    (= match (Leaf _ (Param _ (None))))
+    )
+    (
+    (WithoutAnyCadence match)
+    )
+)
+
+;; [Auxillary function] NoInternalCadence 
+(rule
+    (
+        (= match (Concatenate x y))
+        (WithoutAnyCadence x)
+        (NoInternalCadence y)
+    )
+    (
+        (NoInternalCadence match)
+    )
+)
+
+(rule
+    (
+        (= match (Leaf _ _))
+    )
+    (
+        (NoInternalCadence match)
+    )
+)
+
 
 ;; [Auxillary function] GetIdea 
 
@@ -124,14 +180,49 @@
     )
 )
 
-(rule
-    (
-        (= match (Presentation x a b))
+
+
+;; [Auxillary function] ReplaceIdeaWithRef 
+(rule 
+    (   (= match (ReplaceIdeaWithRef idea ref x))
+        (= x (Leaf idea param))
     )
     (
-        (union (GetIdea match) (Twice x))
+        (union match (Leaf ref param))
     )
-)
+) 
+
+(rule 
+    (   (= match (ReplaceIdeaWithRef idea ref x))
+        (= x (Leaf idea' param))
+        (!= idea idea')
+    )
+    (
+        (union match x)
+    )
+) 
+
+(rule 
+    (   (= match (ReplaceIdeaWithRef idea ref x))
+        (= x (UseIdeaWith idea param))
+    )
+    (
+        (union match (UseIdeaWith ref param))
+    )
+) 
+
+(rule 
+    (   (= match (ReplaceIdeaWithRef idea ref (Concatenate x y)))
+    )
+    (
+        (union match 
+            (Concatenate 
+                (ReplaceIdeaWithRef idea ref x) 
+                (ReplaceIdeaWithRef idea ref y)
+            )
+        )
+    )
+) 
 
 
 ;; [Auxillary function] GetStartingHarmony 
@@ -201,54 +292,58 @@
 ;; A segment of the form x + y is a presentation if
 ;; 1. x and y have the same motivic idea
 ;; 2. x start with tonic
+;; 3. there is no cadence in (x+y)
 (rule
     (
         (= match (Concatenate x y))
         (= (GetIdea x) (GetIdea y))
         (= (I) (GetStartingHarmony x))
+        (= (GetCadence y) (None))
+        (WithoutAnyCadence match)
     )
     (
-        (union match 
-            (Presentation 
-                (GetIdea x) 
-                (UseIdeaWith (LocalVar 0) (GetParam x)) 
-                (UseIdeaWith (LocalVar 0) (GetParam y)) 
-            )
-        )
+
+        (Presentation  x y)
+        
     )
 )
 
 ;; [Form Theory] Continuation
 ;; A segment of the form x + y is a Continuation if
-;; 1. x does not have a cadence
-;; 2. y has a cadence
+;; 1. (x+y) only has a cadence at the very end
+;; 2. x and y has contrasting ideas
 (rule
     (
         (= match (Concatenate x y))
-        (= (GetCadence x) (None))
+        (!= (GetIdea x) (GetIdea y))
         (!= (GetCadence y) (None))
+        (NoInternalCadence match)
     )
     (
-        (union match (Continuation x y))
+        (Continuation x y)
     )
 )
 
 
 
-;; [Form Theory] Presentation
+;; [Form Theory] Sentence
 (rule
     (
-        (= match (Concatenate u1 u2))
-        (= u1 (Presentation idea x y))
-        (= u2 (Continuation _ _))
-        
+        (= match (Concatenate (Concatenate x y) (Concatenate u3 u4)))
+        (Presentation x y)
+        (Continuation u3 u4)
+        (= idea (GetIdea x))
     )
+    
     (
-        (union match (Sentence idea 
-            (Presentation (LocalVar 0)
-                x y
-            ) 
-            u2))
+        (union match (Sentence 
+            idea
+            (Concatenate 
+                (UseIdeaWith (LocalVar 0) (GetParam x)) 
+                (UseIdeaWith (LocalVar 0) (GetParam y)) 
+            )
+            (ReplaceIdeaWithRef idea (LocalVar 0) (Concatenate u3 u4)))
+        )
     )
 )
 
@@ -256,14 +351,108 @@
 ;; [Form Theory] Period
 (rule
     (
-        (= match (Concatenate antecedent consequent))
-        (= antecedent (Concatenate u1 u2))
-        (= consequent (Concatenate u3 u4))
-        (= u1 u3)
-        (= (GetCadence u2) (Weak))
-        (= (GetCadence u4) (Strong))
+        (= match (Concatenate (Concatenate u1 u2) (Concatenate u1 u4)))
+        (Antecedent u1 u2)
+        (Consequent u1 u4)
     )
     (
-        (union match (Period u1 (Concatenate (LocalFormalUnit 0) u2) (Concatenate (LocalFormalUnit 0) u4)))
+        (union match 
+            (Period u1 
+                (Concatenate (LocalFormalUnit 0) u2) 
+                (Concatenate (LocalFormalUnit 0) u4)
+            )
+        )
     )
 )
+
+;; [Form Theory] Antecendent 
+
+(rule
+    (
+        (= match (Concatenate u1 u2))
+        (!= (GetIdea u1) (GetIdea u2))
+        (= (GetCadence u1) (None))
+        (= (GetCadence u2) (Weak))
+    )
+    (
+        (Antecedent u1 u2)
+    )
+)
+
+;; [Form Theory] Consequent 
+(rule
+    (
+        (= match (Concatenate u1 u2))
+        (!= (GetIdea u1) (GetIdea u2))
+        (= (GetCadence u1) (None))
+        (= (GetCadence u2) (Strong))
+    )
+    (
+        (Consequent u1 u2)
+    )
+)
+
+;; [Form Theory] Hybrid: antecedent + continuation
+(rule
+    (
+        (= match (Concatenate (Concatenate u1 u2) (Concatenate u3 u4)))
+        (Antecedent u1 u2) 
+        (Continuation u3 u4)
+    )
+    (
+        (union match (HybridAntCont (Concatenate u1 u2) (Concatenate u3 u4)))
+    )
+)
+
+
+
+
+;; [Form Theory] SimpleBinary |: A :|: B :|
+(rule
+    (
+        (= match (Concatenate (TwiceFormalUnit x) (TwiceFormalUnit y)))
+        (!= (GetCadence x) (None))
+        (!= (GetCadence y) (None))
+    )
+    (
+        (union match (SimpleBinary x y))
+    )
+)
+
+;; [Form Theory] RoundedBinary |: A :|: B A :|
+(rule
+    (
+        (= match (Concatenate 
+            (TwiceFormalUnit x) 
+            (TwiceFormalUnit (Concatenate y x)))
+        )
+        (!= (GetCadence x) (None))
+    
+    )
+        
+    (
+        (union match (RoundedBinary x y))
+    )
+)
+
+;; [Form Theory] Ternary |A B A|
+(rule
+    (
+        (= match (Concatenate x (Concatenate y x)))
+        (!= (GetCadence x) (None))
+        (!= (GetCadence y) (None))
+    )
+    (
+        (union match (Ternary x y))
+    )
+)
+
+(rule
+    (
+        (= match (Concatenate x x))
+    )
+    (
+        (union match (TwiceFormalUnit x))
+    )
+)
+

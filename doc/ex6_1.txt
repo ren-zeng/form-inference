@@ -1,36 +1,41 @@
 Input surface:
-  {a ⟦I-V None⟧}
-  +
-  {b ⟦I-V-I-V Weak⟧}
-  +
-  {c ⟦IV-V-I None⟧}
-  +
-  {d ⟦VI-VII-I-V Weak⟧}
-  +
-  {a ⟦I-V None⟧} + {b ⟦I-V-I-V Weak⟧} + {c ⟦V None⟧} + {e ⟦I Strong⟧}
+  [ {a ⟦I-V None⟧}
+  , {b ⟦I-V-I-V Weak⟧}
+  , {c ⟦IV-V-I None⟧}
+  , {d ⟦VI-VII-I-V Weak⟧}
+  , {a ⟦I-V None⟧}
+  , {b ⟦I-V-I-V Weak⟧}
+  , {c ⟦V None⟧}
+  , {e ⟦I Strong⟧} ]
 
 
 
 
 Output analysis:
-  size=47
-  Period
-    antecedentHead= Continuation   {"a" ⟦I-V None⟧} {"b" ⟦I-V-I-V Weak⟧}
-    antecedent= $0 + Continuation   {"c" ⟦IV-V-I None⟧} {"d" ⟦VI-VII-I-V Weak⟧}
-    consequent= $0 + Continuation   {"c" ⟦V None⟧} {"e" ⟦I Strong⟧}
+  size=44
+  Concatenate
+    Ternary
+      Concatenate
+        {"a" ⟦I-V None⟧}
+        {"b" ⟦I-V-I-V Weak⟧}
+      Concatenate
+        {"c" ⟦IV-V-I None⟧}
+        {"d" ⟦VI-VII-I-V Weak⟧}
+    Concatenate
+      {"c" ⟦V None⟧}
+      {"e" ⟦I Strong⟧}
 
 
 
-  size=56
-  Period
-    antecedentHead= {"a" ⟦I-V None⟧}
-    antecedent= $0
-                +
-                {"b" ⟦I-V-I-V Weak⟧}
-                +
-                Continuation   {"c" ⟦IV-V-I None⟧} {"d" ⟦VI-VII-I-V Weak⟧}
-    consequent= $0
-                +
-                {"b" ⟦I-V-I-V Weak⟧}
-                +
-                Continuation   {"c" ⟦V None⟧} {"e" ⟦I Strong⟧}
+  size=44
+  HybridAntCont
+    Ternary
+      Concatenate
+        {"a" ⟦I-V None⟧}
+        {"b" ⟦I-V-I-V Weak⟧}
+      Concatenate
+        {"c" ⟦IV-V-I None⟧}
+        {"d" ⟦VI-VII-I-V Weak⟧}
+    Concatenate
+      {"c" ⟦V None⟧}
+      {"e" ⟦I Strong⟧}

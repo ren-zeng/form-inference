@@ -20,7 +20,6 @@ module Form (
   PhraseParam (..),
   IdeaBinding (..),
   FormalUnitBinding (..),
-  
 
   -- ** operations on formal unit
   sizeFormalUnit,
@@ -40,13 +39,20 @@ module Form (
 import Data.Functor.Foldable
 import Data.Functor.Foldable.TH
 import Data.Generics
+import Data.IntMap (IntMap)
 import Data.List.NonEmpty hiding (map)
+import Data.Map (Map)
+import qualified Data.Map as Map
 import Data.SCargot.Repr
 import Data.String
 import Data.Text (Text)
 import qualified Data.Text as T
+import Data.Tree (Tree)
 import Formatting
 import Prettyprinter
+import Relude
+import Relude.Unsafe
+import Prelude ()
 
 data CadenceStrength = Weak | Strong | None deriving (Show, Read, Data)
 data Harmony = I | II | III | IV | V | VI | VII deriving (Show, Read, Data)
@@ -74,6 +80,13 @@ data FormalUnit
   | Presentation {basicIdea :: Idea, usage1 :: FormalUnit, usage2 :: FormalUnit}
   | Continuation FormalUnit FormalUnit
   | Concatenate FormalUnit FormalUnit
+  | TwiceFormalUnit FormalUnit
+  | HybridAntCont FormalUnit FormalUnit
+  | SimpleBinary FormalUnit FormalUnit
+  | RoundedBinary FormalUnit FormalUnit
+  | Ternary FormalUnit FormalUnit
+  | Antecedent FormalUnit FormalUnit
+  | Consequent FormalUnit FormalUnit
   deriving (Show, Data)
 
 makeBaseFunctor ''FormalUnit
@@ -108,8 +121,8 @@ instance Pretty FormalUnit where
       UseIdeaWith idea param ->
         sep
           [ "UseIdeaWith"
-          , indent 2 $
-              sep
+          , indent 2
+              $ sep
                 [ pretty idea
                 , pretty param
                 ]
@@ -119,8 +132,8 @@ instance Pretty FormalUnit where
       Sentence idea x y ->
         sep
           [ "Sentence"
-          , indent 2 $
-              sep
+          , indent 2
+              $ sep
                 [ "basicIdea" <> "=" <+> pretty idea
                 , "presentation" <> "=" <+> pretty x
                 , "continuation" <> "=" <+> pretty y
@@ -129,8 +142,8 @@ instance Pretty FormalUnit where
       Period uBinding x y ->
         sep
           [ "Period"
-          , indent 2 $
-              sep
+          , indent 2
+              $ sep
                 [ "antecedentHead" <> "=" <+> pretty uBinding
                 , "antecedent" <> "=" <+> pretty x
                 , "consequent" <> "=" <+> pretty y
@@ -139,25 +152,30 @@ instance Pretty FormalUnit where
       Presentation id1 param1 param2 ->
         sep
           [ "Presentation"
-          , indent 2 $
-              vsep
+          , indent 2
+              $ vsep
                 [ "basicIdea" <> "=" <+> pretty id1
                 , "occur1" <> "=" <+> pretty param1
                 , "occur2" <> "=" <+> pretty param2
                 ]
           ]
-      Concatenate u1 u2 ->
-        sep
-          [pretty u1, "+", pretty u2]
+      Concatenate u1 u2 -> prettyApp "Concatenate" [pretty u1, pretty u2]
       Continuation u1 u2 ->
         sep
           [ "Continuation"
-          , indent 2 $
-              sep
+          , indent 2
+              $ sep
                 [ pretty u1
                 , pretty u2
                 ]
           ]
+      TwiceFormalUnit x -> prettyApp "TwiceFormalUnit" [pretty x]
+      HybridAntCont  x y -> prettyApp "HybridAntCont" [ pretty x, pretty y]
+      Antecedent x y -> prettyApp "Antecedent" [pretty x, pretty y]
+      Consequent x y -> prettyApp "Consequent" [pretty x, pretty y]
+      SimpleBinary x y -> prettyApp "SimpleBinary" [pretty x, pretty y]
+      RoundedBinary x y -> prettyApp "RoundedBinary" [pretty x, pretty y]
+      Ternary x y -> prettyApp "Ternary" [pretty x, pretty y]
 
 bracketPretty x = "(" <> x <> ")"
 
@@ -245,6 +263,13 @@ instance FromEggLog FormalUnit where
         (fromEggLog u1)
         (fromEggLog u2)
     WFSList [WFSAtom "LocalFormalUnit", WFSAtom i] -> LocalFormalUnit $ read $ T.unpack i
+    WFSList [WFSAtom "TwiceFormalUnit", x] -> TwiceFormalUnit $ fromEggLog x
+    WFSList [WFSAtom "HybridAntCont", x, y] -> HybridAntCont  (fromEggLog x) (fromEggLog y)
+    WFSList [WFSAtom "Antecedent", x, y] -> Antecedent (fromEggLog x) (fromEggLog y)
+    WFSList [WFSAtom "Consequent", x, y] -> Consequent (fromEggLog x) (fromEggLog y)
+    WFSList [WFSAtom "SimpleBinary", x, y] -> SimpleBinary (fromEggLog x) (fromEggLog y)
+    WFSList [WFSAtom "RoundedBinary", x, y] -> RoundedBinary (fromEggLog x) (fromEggLog y)
+    WFSList [WFSAtom "Ternary", x, y] -> Ternary (fromEggLog x) (fromEggLog y)
     x -> error $ "[fromEggLog FormalUnit] bad input " <> show x
   toEggLog = \case
     Leaf idea param -> WFSList [WFSAtom "Leaf", toEggLog idea, toEggLog param]
@@ -272,6 +297,8 @@ instance FromEggLog FormalUnit where
     Concatenate u1 u2 ->
       WFSList
         [WFSAtom "Concatenate", toEggLog u1, toEggLog u2]
+
+
 
 instance (FromEggLog a) => FromEggLog [a] where
   fromEggLog = \case
@@ -321,8 +348,7 @@ depressFormalUnit = foldFormalUnit $ \case
   LeafF idea param -> Leaf idea param
   UseIdeaWithF idea param -> zipLeaf idea param
 
-
-{-| zip the concat trees of idea and phrase param
+{- | zip the concat trees of idea and phrase param
 
 >>> pretty $ zipLeaf (Concat "a" (Concat "b" "c")) (ConcatParam (Param [I] None) (ConcatParam (Param [I] None) (Param [V] None)))
 {a ⟦I None⟧} + {b ⟦I None⟧} + {c ⟦V None⟧}
@@ -334,8 +360,6 @@ when the idea and phrase parameter are not concatenated in the same shape,  it r
 [zipLeaf malformed arguments]: zipLeaf
                                  a+b
                                  ⟦I None⟧
-
-
 -}
 zipLeaf :: Idea -> PhraseParam -> FormalUnit
 zipLeaf idea@Label{} param@Param{} = Leaf idea param
@@ -345,3 +369,17 @@ zipLeaf idea param =
     "zipLeaf malformed arguments"
     (prettyApp "zipLeaf" [pretty idea, pretty param])
 
+data Ctx = FormBinding (Map String FormalUnit) (IntMap FormalUnit)
+
+-- eval :: FormalUnit -> FormalUnit
+-- eval  = flip evalState (FormBinding mempty mempty) . hylo alg coalg
+--   where
+--     alg :: FormalUnitF (State Ctx FormalUnit) -> State Ctx FormalUnit
+--     alg = \case
+--       LeafF _ _ -> undefined
+
+--     coalg :: FormalUnit -> FormalUnitF (State Ctx FormalUnit)
+--     coalg = \case
+--       Leaf _ _ -> undefined
+
+-- RefFormalUnitF ref ->  return $ varBinds `Map.lookup` ref

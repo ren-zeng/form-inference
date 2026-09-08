@@ -19,10 +19,10 @@ jobs:
           path: ~/.cargo/bin
           key: ${{ runner.os }}-egglog-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: ${{ runner.os }}-egglog-
-      - name: Install Egglog
-        run: |
-          git clone https://github.com/egraphs-good/egglog.git --force
-          cargo install --path=egglog
+      # - name: Install Egglog
+      #   run: |
+      #     git clone https://github.com/egraphs-good/egglog.git --force
+      #     cargo install --path=egglog
 
       # Upload the egglog binary file so the Haskell job can use it
       - name: Upload Egglog Binary

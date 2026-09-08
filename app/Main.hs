@@ -30,7 +30,7 @@ main = do
         (egglogLet $ T.unpack . encodeOne printer . toEggLog . fromSurface)
         ex
     writeFile "egglog/main.egglog" $ show $ egglogMain (fst ex)
-    let surface = (fromSurface . snd) ex
+    let surface =  snd ex
     out <- readProcess "egglog" ["egglog/main.egglog"] ""
     putStrLn out
     let terms = fromEggLog @FormalUnit <$> sExprList (T.pack out)
@@ -64,7 +64,7 @@ egglogMain var =
   vsep
     [ "(include \"egglog/form.egglog\")"
     , "(include \"egglog/testCases.egglog\")"
-    , "(run 100)"
+    , "(run 200)"
     , "(extract $" <> pretty var <+> "2)"
     -- , "(print-function GetStartingHarmony)"
     ]

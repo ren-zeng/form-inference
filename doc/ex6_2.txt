@@ -1,47 +1,54 @@
 Input surface:
-  {a ⟦I None⟧}
-  +
-  {b ⟦I None⟧}
-  +
-  {c ⟦I None⟧}
-  +
-  {a ⟦V None⟧}
-  +
-  {b ⟦V None⟧}
-  +
-  {c ⟦V None⟧}
-  +
-  {b ⟦I-VI None⟧} + {b ⟦IV-II None⟧} + {b ⟦V None⟧} + {d ⟦I-II-V-I Strong⟧}
+  [ {a ⟦I None⟧}
+  , {b ⟦I None⟧}
+  , {c ⟦I None⟧}
+  , {a ⟦V None⟧}
+  , {b ⟦V None⟧}
+  , {c ⟦V None⟧}
+  , {b ⟦I-VI None⟧}
+  , {b ⟦IV-II None⟧}
+  , {b ⟦V None⟧}
+  , {d ⟦I-II-V-I Strong⟧} ]
 
 
 
 
 Output analysis:
   size=62
-  Continuation
-    Presentation
-      basicIdea= "a"+"b"+"c"
-      occur1= UseIdeaWith   $0 ⟦I None⟧+⟦I None⟧+⟦I None⟧
-      occur2= UseIdeaWith   $0 ⟦V None⟧+⟦V None⟧+⟦V None⟧
-    Continuation
-      Presentation
-        basicIdea= "b"
-        occur1= UseIdeaWith   $0 ⟦I-VI None⟧
-        occur2= UseIdeaWith   $0 ⟦IV-II None⟧
-      Continuation   {"b" ⟦V None⟧} {"d" ⟦I-II-V-I Strong⟧}
-
-
-
-  size=63
   Sentence
     basicIdea= "a"+"b"+"c"
-    presentation= Presentation
-                    basicIdea= $0
-                    occur1= UseIdeaWith   $0 ⟦I None⟧+⟦I None⟧+⟦I None⟧
-                    occur2= UseIdeaWith   $0 ⟦V None⟧+⟦V None⟧+⟦V None⟧
-    continuation= Continuation
-                    Presentation
-                      basicIdea= "b"
-                      occur1= UseIdeaWith   $0 ⟦I-VI None⟧
-                      occur2= UseIdeaWith   $0 ⟦IV-II None⟧
-                    Continuation   {"b" ⟦V None⟧} {"d" ⟦I-II-V-I Strong⟧}
+    presentation= Concatenate
+                    UseIdeaWith   $0 ⟦I None⟧+⟦I None⟧+⟦I None⟧
+                    UseIdeaWith   $0 ⟦V None⟧+⟦V None⟧+⟦V None⟧
+    continuation= Sentence
+                    basicIdea= "b"
+                    presentation= Concatenate
+                                    UseIdeaWith   $0 ⟦I-VI None⟧
+                                    UseIdeaWith   $0 ⟦IV-II None⟧
+                    continuation= Concatenate
+                                    {$0 ⟦V None⟧}
+                                    {"d" ⟦I-II-V-I Strong⟧}
+
+
+
+  size=65
+  Concatenate
+    {"a" ⟦I None⟧}
+    Concatenate
+      {"b" ⟦I None⟧}
+      Concatenate
+        {"c" ⟦I None⟧}
+        Concatenate
+          {"a" ⟦V None⟧}
+          Concatenate
+            {"b" ⟦V None⟧}
+            Concatenate
+              {"c" ⟦V None⟧}
+              Sentence
+                basicIdea= "b"
+                presentation= Concatenate
+                                UseIdeaWith   $0 ⟦I-VI None⟧
+                                UseIdeaWith   $0 ⟦IV-II None⟧
+                continuation= Concatenate
+                                {$0 ⟦V None⟧}
+                                {"d" ⟦I-II-V-I Strong⟧}

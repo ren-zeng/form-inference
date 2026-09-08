@@ -1,17 +1,11 @@
 Input surface:
-  {a ⟦I None⟧} + {a ⟦IV None⟧}
+  [{a ⟦I None⟧}, {a ⟦IV None⟧}]
 
 
 
 
 Output analysis:
-  size=12
-  Presentation
-    basicIdea= "a"
-    occur1= UseIdeaWith   $0 ⟦I None⟧
-    occur2= UseIdeaWith   $0 ⟦IV None⟧
-
-
-
   size=11
-  {"a" ⟦I None⟧} + {"a" ⟦IV None⟧}
+  Concatenate
+    {"a" ⟦I None⟧}
+    {"a" ⟦IV None⟧}
