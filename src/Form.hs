@@ -70,6 +70,10 @@ data PhraseParam
   deriving (Show, Data)
 data IdeaBinding = BindIdea String Idea deriving (Show)
 data FormalUnitBinding = BindFormalUnit String FormalUnit deriving (Show)
+
+{- |
+A FormalUnit is a program that generates a list of pairs (Idea , PhraseParam parameter). 
+-}
 data FormalUnit
   = Leaf Idea PhraseParam
   | RefFormalUnit String
