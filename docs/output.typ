@@ -19,7 +19,7 @@ Among the #link("https://acf.research.mcgill.ca/supp_list.php")complete list of 
   #link(caplinWebsite + prefix + num + ".php")[#prequery.image(
     caplinWebsite + prefix + num + ".png",
     "assets/" + prefix + num + ".png",
-    width: 50%,
+    width: 100%,
   )]
   #link(caplinWebsite + prefix + num + ".mp3")[
     🔊 *Click to Play*
@@ -35,7 +35,7 @@ Among the #link("https://acf.research.mcgill.ca/supp_list.php")complete list of 
 
 We distinguish between bindings for idea and bindings for formal unit binding. For the presentation, it is the idea that is repeats, while for the period the repeating thing is the formal unit (ABAC)
 
-#raw(read("ex2_11.txt"), block: true)
+#raw(read("model-outputs/ex2_11.txt"), block: true)
 
 This example illustrates the basics of how variable binding leads to smaller size. By default, we assign a high cost of raw repetition markers from the input (as they are placeholders for the surface motivic ideas). On the other hand, calling a binding variable just cost 1.
 
@@ -46,7 +46,7 @@ This example illustrates the basics of how variable binding leads to smaller siz
 
 This time we make the input a little bit harder in that the basic idea is not an atomic marker, but the concatenation of two. And the model need to identify the repetition of "a"+"b" as the basic idea, and correctly build up the phrase parameter for the concatenated phrases.
 
-#raw(read("ex2_12.txt"), block: true)
+#raw(read("model-outputs/ex2_12.txt"), block: true)
 #pagebreak()
 
 === Identifying compound themes
@@ -54,19 +54,19 @@ This time we make the input a little bit harder in that the basic idea is not an
 
 #example("6-1")
 
-#raw(read("ex6_1.txt"), block: true)
+#raw(read("model-outputs/ex6_1.txt"), block: true)
 #pagebreak()
 
 
 #example("6-2")
 
-#raw(read("ex6_2.txt"), block: true)
+#raw(read("model-outputs/ex6_2.txt"), block: true)
 #pagebreak()
 
 
 #example("6-5")
 
-#raw(read("ex6_5.txt"), block: true)
+#raw(read("model-outputs/ex6_5.txt"), block: true)
 #pagebreak()
 
 === Others
@@ -74,3 +74,18 @@ This time we make the input a little bit harder in that the basic idea is not an
 #supp("6-1")
 
 #example("5-11")
+
+
+=== examples from annotation_pilot
+
+
+
+
+#raw(read("model-outputs/bwv1008_04_Sarabande.txt"), block: true)
+#pagebreak()
+
+
+
+#raw(read("model-outputs/haydn_sonata_XVI_07_C_2_menuet.txt"), block: true)
+#pagebreak()
+

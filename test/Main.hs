@@ -1,28 +1,26 @@
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE TypeApplications,DeriveDataTypeable #-}
+{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE ExplicitForAll #-}
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RequiredTypeArguments #-}
-{-# LANGUAGE TypeAbstractions #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TypeAbstractions #-}
+{-# LANGUAGE TypeApplications #-}
 
 module Main where
 
 import Control.Monad
 
+import Data.List.NonEmpty (NonEmpty)
+import Data.SCargot
+import Data.SCargot.Repr
 import qualified Data.Text as T
 import Form
 import Formatting
 import Prettyprinter
 import System.Process (readProcess)
 import TestCases
-import Data.SCargot
-import Data.SCargot.Repr
-import Data.List.NonEmpty (NonEmpty)
-
-
-
-
-
+import Prettyprinter.Render.String (renderString)
+import qualified Data.List.NonEmpty as NonEmpty
 
 main :: IO ()
 main = do
@@ -31,33 +29,42 @@ main = do
     writeFile "egglog/auto-gen/main.egglog" $ show $ egglogMain (fst ex)
     out <- readProcess "egglog" ["egglog/auto-gen/main.egglog"] ""
     -- putStrLn out
+    let surface = snd ex
+    let surfaceSize = sizeFormalUnit $ fromSurface surface
     let terms = fromEggLog @FormalUnit <$> sExprList (T.pack out)
-    let prettyResults = vsep $ punctuate (nLines 3) $ map progInfoDoc terms
+    let prettyResults = vsep $ punctuate (nLines 3) $ map (progInfoDoc surfaceSize) terms
+
     print prettyResults
-    writeFile ("docs/" <> fst ex <> ".txt") $
-      show $
+    writeFile  (  "docs/model-outputs/" <>  fst ex <> ".txt")$ renderString $
+       layoutPretty (LayoutOptions Unbounded) $
         vsep
           [ "Input surface:"
-          , indent 2 $ pretty $ snd ex
+          , "size" <+> "=" <+> pretty surfaceSize
+          , indent 2 $ vsep $ pretty <$> NonEmpty.toList (snd ex)
           , nLines 3
           , "Output analysis:"
           , indent 2 prettyResults
           ]
---   generateDoc
+  generateDoc
+
 
 testExampleToEggLog :: String -> NonEmpty FormalUnit -> String
 testExampleToEggLog = egglogLet $ T.unpack . encodeOne printer . toEggLog . fromSurface
-    where printer = setFromCarrier fromWellFormed (basicPrint id)
+ where
+  printer = setFromCarrier fromWellFormed (basicPrint id)
 
-generateDoc :: IO () 
-generateDoc =  do
+generateDoc :: IO ()
+generateDoc = do
   void $ readProcess "prequery" ["docs/output.typ"] ""
-  void $ readProcess "typst" ["compile","docs/output.typ"] ""
-   
+  void $ readProcess "typst" ["compile", "docs/output.typ"] ""
 
-
-progInfoDoc :: FormalUnit -> Doc ann
-progInfoDoc u = vsep ["size=" <> pretty  (sizeFormalUnit  u) ,pretty u]
+progInfoDoc :: Int -> FormalUnit -> Doc ann
+progInfoDoc n u =
+  vsep
+    [ hsep ["size=" <> pretty (sizeFormalUnit u)
+    , "compressionRate=" <> pretty (fromIntegral n / fromIntegral (sizeFormalUnit u))]
+    , pretty u
+    ]
 
 egglogMain :: String -> Doc ann
 egglogMain var =

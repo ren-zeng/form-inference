@@ -1,0 +1,255 @@
+Input surface:
+size = 623
+  {a ⟦I None⟧}
+  {a ⟦V None⟧}
+  {a ⟦I None⟧}
+  {b ⟦V Weak⟧}
+  {c ⟦I None⟧}
+  {c ⟦I None⟧}
+  {d ⟦I None⟧}
+  {e ⟦I Strong⟧}
+  {a ⟦I None⟧}
+  {a ⟦V None⟧}
+  {a ⟦I None⟧}
+  {b ⟦V Weak⟧}
+  {c ⟦I None⟧}
+  {c ⟦I None⟧}
+  {d ⟦I None⟧}
+  {e ⟦I Strong⟧}
+  {a ⟦I None⟧}
+  {a ⟦V None⟧}
+  {f ⟦V None⟧}
+  {b ⟦V Weak⟧}
+  {c ⟦I None⟧}
+  {c ⟦I None⟧}
+  {d ⟦V None⟧}
+  {e ⟦I Strong⟧}
+  {a ⟦I None⟧}
+  {a ⟦V None⟧}
+  {f ⟦V None⟧}
+  {b ⟦V Weak⟧}
+  {c ⟦I None⟧}
+  {c ⟦I None⟧}
+  {d ⟦V None⟧}
+  {e ⟦I Strong⟧}
+  {g ⟦I None⟧}
+  {h ⟦I None⟧}
+  {g ⟦V None⟧}
+  {h ⟦V None⟧}
+  {g ⟦I None⟧}
+  {h ⟦IV None⟧}
+  {i ⟦V None⟧}
+  {j ⟦I Strong⟧}
+  {g ⟦I None⟧}
+  {h ⟦I None⟧}
+  {g ⟦V None⟧}
+  {h ⟦V None⟧}
+  {g ⟦I None⟧}
+  {h ⟦IV None⟧}
+  {i ⟦V None⟧}
+  {j ⟦I Strong⟧}
+  {g ⟦I None⟧}
+  {k ⟦IV None⟧}
+  {g ⟦II None⟧}
+  {k ⟦V None⟧}
+  {g ⟦I None⟧}
+  {h ⟦I None⟧}
+  {g ⟦V None⟧}
+  {h ⟦V None⟧}
+  {g ⟦I None⟧}
+  {h ⟦IV None⟧}
+  {i ⟦V None⟧}
+  {j ⟦I Strong⟧}
+  {g ⟦I None⟧}
+  {k ⟦IV None⟧}
+  {g ⟦II None⟧}
+  {k ⟦V None⟧}
+  {g ⟦I None⟧}
+  {h ⟦I None⟧}
+  {g ⟦V None⟧}
+  {h ⟦V None⟧}
+  {g ⟦I None⟧}
+  {h ⟦IV None⟧}
+  {i ⟦V None⟧}
+  {j ⟦I Strong⟧}
+  {a ⟦I None⟧}
+  {a ⟦V None⟧}
+  {a ⟦I None⟧}
+  {b ⟦V Weak⟧}
+  {c ⟦I None⟧}
+  {c ⟦I None⟧}
+  {d ⟦I None⟧}
+  {e ⟦I Strong⟧}
+  {a ⟦I None⟧}
+  {a ⟦V None⟧}
+  {a ⟦I None⟧}
+  {b ⟦V Weak⟧}
+  {c ⟦I None⟧}
+  {c ⟦I None⟧}
+  {d ⟦I None⟧}
+  {e ⟦I Strong⟧}
+  {a ⟦I None⟧}
+  {a ⟦V None⟧}
+  {f ⟦V None⟧}
+  {b ⟦V Weak⟧}
+  {c ⟦I None⟧}
+  {c ⟦I None⟧}
+  {d ⟦V None⟧}
+  {e ⟦I Strong⟧}
+  {a ⟦I None⟧}
+  {a ⟦V None⟧}
+  {f ⟦V None⟧}
+  {b ⟦V Weak⟧}
+  {c ⟦I None⟧}
+  {c ⟦I None⟧}
+  {d ⟦V None⟧}
+  {e ⟦I Strong⟧}
+
+
+
+
+Output analysis:
+  size=148 compressionRate=4.20945945945946
+  Ternary
+    exposition = SimpleBinary
+                   aPart = HybridAntCont
+                             antecedent = Sentence
+                                            basicIdea = "a"
+                                            presentation = Concatenate
+                                                             UseIdeaWith   $0 ⟦I None⟧
+                                                             UseIdeaWith   $0 ⟦V None⟧
+                                            continuation = Concatenate
+                                                             {$0 ⟦I None⟧}
+                                                             {"b" ⟦V Weak⟧}
+                             continuation = Concatenate
+                                              TwiceFormalUnit
+                                                {"c" ⟦I None⟧}
+                                              Concatenate
+                                                {"d" ⟦I None⟧}
+                                                {"e" ⟦I Strong⟧}
+                   bPart = HybridAntCont
+                             antecedent = Concatenate
+                                            Seq
+                                              idea = "a"
+                                              parameters = ConcatParam
+                                                ⟦I None⟧
+                                                ⟦V None⟧
+                                            Concatenate
+                                              {"f" ⟦V None⟧}
+                                              {"b" ⟦V Weak⟧}
+                             continuation = Concatenate
+                                              TwiceFormalUnit
+                                                {"c" ⟦I None⟧}
+                                              Concatenate
+                                                {"d" ⟦V None⟧}
+                                                {"e" ⟦I Strong⟧}
+    contrastingMiddile = RoundedBinary
+                           exposition = Concatenate
+                                          Seq
+                                            idea = "g"+"h"
+                                            parameters = ConcatParam
+                                              ConcatParam
+                                                ⟦I None⟧
+                                                ⟦I None⟧
+                                              ConcatParam
+                                                ⟦V None⟧
+                                                ⟦V None⟧
+                                          Concatenate
+                                            Concatenate
+                                              {"g" ⟦I None⟧}
+                                              {"h" ⟦IV None⟧}
+                                            Concatenate
+                                              {"i" ⟦V None⟧}
+                                              {"j" ⟦I Strong⟧}
+                           contrastingMiddile = Seq
+                                                  idea = "g"+"k"
+                                                  parameters = ConcatParam
+                                                    ConcatParam
+                                                      ⟦I None⟧
+                                                      ⟦IV None⟧
+                                                    ConcatParam
+                                                      ⟦II None⟧
+                                                      ⟦V None⟧
+
+
+
+  size=195 compressionRate=3.194871794871795
+  Concatenate
+    TwiceFormalUnit
+      HybridAntCont
+        antecedent = Sentence
+                       basicIdea = "a"
+                       presentation = Concatenate
+                                        UseIdeaWith   $0 ⟦I None⟧
+                                        UseIdeaWith   $0 ⟦V None⟧
+                       continuation = Concatenate
+                                        {$0 ⟦I None⟧}
+                                        {"b" ⟦V Weak⟧}
+        continuation = Concatenate
+                         TwiceFormalUnit
+                           {"c" ⟦I None⟧}
+                         Concatenate
+                           {"d" ⟦I None⟧}
+                           {"e" ⟦I Strong⟧}
+    Ternary
+      exposition = TwiceFormalUnit
+                     HybridAntCont
+                       antecedent = Concatenate
+                                      Seq
+                                        idea = "a"
+                                        parameters = ConcatParam
+                                          ⟦I None⟧
+                                          ⟦V None⟧
+                                      Concatenate
+                                        {"f" ⟦V None⟧}
+                                        {"b" ⟦V Weak⟧}
+                       continuation = Concatenate
+                                        TwiceFormalUnit
+                                          {"c" ⟦I None⟧}
+                                        Concatenate
+                                          {"d" ⟦V None⟧}
+                                          {"e" ⟦I Strong⟧}
+      contrastingMiddile = Concatenate
+                             RoundedBinary
+                               exposition = Concatenate
+                                              Seq
+                                                idea = "g"+"h"
+                                                parameters = ConcatParam
+                                                  ConcatParam
+                                                    ⟦I None⟧
+                                                    ⟦I None⟧
+                                                  ConcatParam
+                                                    ⟦V None⟧
+                                                    ⟦V None⟧
+                                              Concatenate
+                                                Concatenate
+                                                  {"g" ⟦I None⟧}
+                                                  {"h" ⟦IV None⟧}
+                                                Concatenate
+                                                  {"i" ⟦V None⟧}
+                                                  {"j" ⟦I Strong⟧}
+                               contrastingMiddile = Seq
+                                                      idea = "g"+"k"
+                                                      parameters = ConcatParam
+                                                        ConcatParam
+                                                          ⟦I None⟧
+                                                          ⟦IV None⟧
+                                                        ConcatParam
+                                                          ⟦II None⟧
+                                                          ⟦V None⟧
+                             TwiceFormalUnit
+                               HybridAntCont
+                                 antecedent = Sentence
+                                                basicIdea = "a"
+                                                presentation = Concatenate
+                                                                 UseIdeaWith   $0 ⟦I None⟧
+                                                                 UseIdeaWith   $0 ⟦V None⟧
+                                                continuation = Concatenate
+                                                                 {$0 ⟦I None⟧}
+                                                                 {"b" ⟦V Weak⟧}
+                                 continuation = Concatenate
+                                                  TwiceFormalUnit
+                                                    {"c" ⟦I None⟧}
+                                                  Concatenate
+                                                    {"d" ⟦I None⟧}
+                                                    {"e" ⟦I Strong⟧}

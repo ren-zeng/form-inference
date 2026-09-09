@@ -40,15 +40,10 @@ module Form (
 import Data.Functor.Foldable
 import Data.Functor.Foldable.TH
 import Data.Generics
-import Data.IntMap (IntMap)
 import Data.List.NonEmpty hiding (map)
-import Data.Map (Map)
-import qualified Data.Map as Map
 import Data.SCargot.Repr
 import Data.String
-import Data.Text (Text)
 import qualified Data.Text as T
-import Data.Tree (Tree)
 import Formatting
 import Prettyprinter
 import Relude
@@ -89,6 +84,7 @@ data FormalUnit
   | SimpleBinary FormalUnit FormalUnit
   | RoundedBinary {exposition::FormalUnit, contrastingMiddle::FormalUnit}
   | Ternary FormalUnit FormalUnit
+  | Seq Idea PhraseParam
   -- | Presentation {basicIdea :: Idea, usage1 :: FormalUnit, usage2 :: FormalUnit}
   -- | Continuation FormalUnit FormalUnit
    -- | Antecedent FormalUnit FormalUnit
@@ -113,13 +109,16 @@ instance Pretty Idea where
 instance Pretty PhraseParam where
   pretty = \case
     Param hs cad -> "⟦" <> hsep [hcat $ punctuate "-" (fmap pretty hs), pretty cad] <> "⟧"
-    ConcatParam x y -> pretty x <> "+" <> pretty y
+    ConcatParam x y -> prettyApp "ConcatParam" [pretty x,pretty y]
 
 instance Pretty IdeaBinding where
   pretty (BindIdea v x) = "<" <> pretty v <+> ":=" <+> pretty x <> ">"
 
 instance Pretty FormalUnitBinding where
   pretty (BindFormalUnit v x) = "<<" <> pretty v <+> ":=" <+> pretty x <> ">>"
+
+(.=) :: Doc ann -> Doc ann -> Doc ann
+x .= y = x <+> "=" <+> y
 
 instance Pretty FormalUnit where
   pretty u =
@@ -136,18 +135,18 @@ instance Pretty FormalUnit where
           ]
       LocalFormalUnit i -> "$" <> pretty i
       RefFormalUnit v -> pretty v
-      Sentence idea x y -> pretty $ show u
+      Sentence idea x y -> prettyApp "Sentence" [
+        "basicIdea" .= pretty idea, 
+        "presentation" .= pretty x, 
+        "continuation" .= pretty y
+        ]
 
-      Period uBinding x y ->
-        sep
-          [ "Period"
-          , indent 2
-              $ sep
-                [ "antecedentHead" <> "=" <+> pretty uBinding
-                , "antecedent" <> "=" <+> pretty x
-                , "consequent" <> "=" <+> pretty y
-                ]
-          ]
+      Period uBinding x y -> prettyApp "Period"
+        [ "antecedentHead" .= pretty uBinding
+        , "antecedent" .= pretty x
+        , "consequent" .= pretty y
+        ]
+          
       -- Presentation id1 param1 param2 ->
         -- sep
         --   [ "Presentation"
@@ -169,13 +168,21 @@ instance Pretty FormalUnit where
       --           ]
       --     ]
       TwiceFormalUnit x -> prettyApp "TwiceFormalUnit" [pretty x]
-      HybridAntCont  x y -> prettyApp "HybridAntCont" [ pretty x, pretty y]
-      HybridPresCons  x y -> prettyApp "HybridPresCons" [ pretty x, pretty y]
+      HybridAntCont  x y -> prettyApp "HybridAntCont" [ 
+        "antecedent" .= pretty x, "continuation" .= pretty y]
+      HybridPresCons  x y -> prettyApp "HybridPresCons" [ 
+        "presentation" .= pretty x, "continuation" .= pretty y]
       -- Antecedent x y -> prettyApp "Antecedent" [pretty x, pretty y]
       -- Consequent x y -> prettyApp "Consequent" [pretty x, pretty y]
-      SimpleBinary x y -> prettyApp "SimpleBinary" [pretty x, pretty y]
-      RoundedBinary x y -> prettyApp "RoundedBinary" [pretty x, pretty y]
-      Ternary x y -> prettyApp "Ternary" [pretty x, pretty y]
+      SimpleBinary x y -> prettyApp "SimpleBinary" [
+        "aPart" .= pretty x, "bPart" .= pretty y]
+      RoundedBinary x y -> prettyApp "RoundedBinary" [
+        "exposition".=pretty x, "contrastingMiddile".=pretty y]
+      Ternary x y -> prettyApp "Ternary" [
+        "exposition".=pretty x, "contrastingMiddile".=pretty y]
+      Seq idea param -> prettyApp "Seq" [
+        "idea" .= pretty idea, "parameters" .= pretty param
+        ]
       
 
 bracketPretty x = "(" <> x <> ")"
@@ -271,6 +278,7 @@ instance FromEggLog FormalUnit where
     WFSList [WFSAtom "SimpleBinary", x, y] -> SimpleBinary (fromEggLog x) (fromEggLog y)
     WFSList [WFSAtom "RoundedBinary", x, y] -> RoundedBinary (fromEggLog x) (fromEggLog y)
     WFSList [WFSAtom "Ternary", x, y] -> Ternary (fromEggLog x) (fromEggLog y)
+    WFSList [WFSAtom "Seq",idea , y] -> Seq (fromEggLog idea) (fromEggLog y)
     x -> error $ "[fromEggLog FormalUnit] bad input " <> show x
   toEggLog = \case
     Leaf idea param -> WFSList [WFSAtom "Leaf", toEggLog idea, toEggLog param]

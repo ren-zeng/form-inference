@@ -1,0 +1,32 @@
+Input surface:
+size = 27
+  {a ⟦I-V None⟧}
+  {b ⟦I-III None⟧}
+  {a ⟦VI-II None⟧}
+  {b ⟦VI-III None⟧}
+
+
+
+
+Output analysis:
+  size=23 compressionRate=1.173913043478261
+  Seq
+    idea = "a"+"b"
+    parameters = ConcatParam
+      ⟦I-V None⟧
+      ConcatParam
+        ⟦I-III None⟧
+        ConcatParam
+          ⟦VI-II None⟧
+          ⟦VI-III None⟧
+
+
+
+  size=27 compressionRate=1.0
+  Concatenate
+    {"a" ⟦I-V None⟧}
+    Concatenate
+      {"b" ⟦I-III None⟧}
+      Concatenate
+        {"a" ⟦VI-II None⟧}
+        {"b" ⟦VI-III None⟧}

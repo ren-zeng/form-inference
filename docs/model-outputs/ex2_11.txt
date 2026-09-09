@@ -1,0 +1,22 @@
+Input surface:
+size = 11
+  {a ⟦I None⟧}
+  {a ⟦IV None⟧}
+
+
+
+
+Output analysis:
+  size=9 compressionRate=1.2222222222222223
+  Seq
+    idea = "a"
+    parameters = ConcatParam
+      ⟦I None⟧
+      ⟦IV None⟧
+
+
+
+  size=11 compressionRate=1.0
+  Concatenate
+    {"a" ⟦I None⟧}
+    {"a" ⟦IV None⟧}

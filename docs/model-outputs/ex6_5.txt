@@ -1,0 +1,54 @@
+Input surface:
+size = 92
+  {a ⟦I-V None⟧}
+  {a ⟦V-I None⟧}
+  {b ⟦IV-I None⟧}
+  {b ⟦IV-I None⟧}
+  {c ⟦II None⟧}
+  {c ⟦I None⟧}
+  {d ⟦V Weak⟧}
+  {a ⟦I-V None⟧}
+  {a ⟦V-I None⟧}
+  {b ⟦IV-I None⟧}
+  {b ⟦IV-I None⟧}
+  {c ⟦II None⟧}
+  {c ⟦I None⟧}
+  {e ⟦V-I Strong⟧}
+
+
+
+
+Output analysis:
+  size=80 compressionRate=1.15
+  Period
+    antecedentHead = Twice "a"+Twice "b"+Twice "c"
+    antecedent = Concatenate
+                   UseIdeaWith   $0 ConcatParam   ConcatParam   ⟦I-V None⟧ ConcatParam   ⟦V-I None⟧ ⟦IV-I None⟧ ConcatParam   ⟦IV-I None⟧ ConcatParam   ⟦II None⟧ ⟦I None⟧
+                   {"d" ⟦V Weak⟧}
+    consequent = Concatenate
+                   UseIdeaWith   $0 ConcatParam   ConcatParam   ⟦I-V None⟧ ConcatParam   ⟦V-I None⟧ ⟦IV-I None⟧ ConcatParam   ⟦IV-I None⟧ ConcatParam   ⟦II None⟧ ⟦I None⟧
+                   {"e" ⟦V-I Strong⟧}
+
+
+
+  size=81 compressionRate=1.1358024691358024
+  Period
+    antecedentHead = Twice "a"+Twice "b"
+    antecedent = Concatenate
+                   UseIdeaWith   $0 ConcatParam   ConcatParam   ⟦I-V None⟧ ⟦V-I None⟧ ConcatParam   ⟦IV-I None⟧ ⟦IV-I None⟧
+                   Concatenate
+                     Seq
+                       idea = "c"
+                       parameters = ConcatParam
+                         ⟦II None⟧
+                         ⟦I None⟧
+                     {"d" ⟦V Weak⟧}
+    consequent = Concatenate
+                   UseIdeaWith   $0 ConcatParam   ConcatParam   ⟦I-V None⟧ ⟦V-I None⟧ ConcatParam   ⟦IV-I None⟧ ⟦IV-I None⟧
+                   Concatenate
+                     Seq
+                       idea = "c"
+                       parameters = ConcatParam
+                         ⟦II None⟧
+                         ⟦I None⟧
+                     {"e" ⟦V-I Strong⟧}

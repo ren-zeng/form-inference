@@ -1,0 +1,57 @@
+Input surface:
+size = 64
+  {a ⟦I None⟧}
+  {b ⟦I None⟧}
+  {c ⟦I None⟧}
+  {a ⟦V None⟧}
+  {b ⟦V None⟧}
+  {c ⟦V None⟧}
+  {b ⟦I-VI None⟧}
+  {b ⟦IV-II None⟧}
+  {b ⟦V None⟧}
+  {d ⟦I-II-V-I Strong⟧}
+
+
+
+
+Output analysis:
+  size=59 compressionRate=1.0847457627118644
+  Concatenate
+    Seq
+      idea = "a"+"b"+"c"
+      parameters = ConcatParam
+        ConcatParam
+          ⟦I None⟧
+          ConcatParam
+            ⟦I None⟧
+            ⟦I None⟧
+        ConcatParam
+          ⟦V None⟧
+          ConcatParam
+            ⟦V None⟧
+            ⟦V None⟧
+    Sentence
+      basicIdea = "b"
+      presentation = Concatenate
+                       UseIdeaWith   $0 ⟦I-VI None⟧
+                       UseIdeaWith   $0 ⟦IV-II None⟧
+      continuation = Concatenate
+                       {$0 ⟦V None⟧}
+                       {"d" ⟦I-II-V-I Strong⟧}
+
+
+
+  size=62 compressionRate=1.032258064516129
+  Sentence
+    basicIdea = "a"+"b"+"c"
+    presentation = Concatenate
+                     UseIdeaWith   $0 ConcatParam   ⟦I None⟧ ConcatParam   ⟦I None⟧ ⟦I None⟧
+                     UseIdeaWith   $0 ConcatParam   ⟦V None⟧ ConcatParam   ⟦V None⟧ ⟦V None⟧
+    continuation = Sentence
+                     basicIdea = "b"
+                     presentation = Concatenate
+                                      UseIdeaWith   $0 ⟦I-VI None⟧
+                                      UseIdeaWith   $0 ⟦IV-II None⟧
+                     continuation = Concatenate
+                                      {$0 ⟦V None⟧}
+                                      {"d" ⟦I-II-V-I Strong⟧}

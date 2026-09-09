@@ -57,6 +57,7 @@
         (RefFormalUnit String)
         (Sentence Idea FormalUnit FormalUnit)
         (Period Idea  FormalUnit FormalUnit)
+        (Seq Idea PhraseParam)
 
         ;;(Presentation Idea FormalUnit FormalUnit)
         (HybridAntCont  FormalUnit FormalUnit)
@@ -286,6 +287,19 @@
     )
 )
 
+;; [Form Theory] Seq 
+(rule
+    (
+        (= match (Concatenate x y))
+        (= idea (GetIdea x))
+        (= idea (GetIdea y))
+    )
+    (
+        (union match (Seq idea (ConcatParam (GetParam x) (GetParam y))))
+    )
+)
+
+
 
 
 ;; [Form Theory] Presentation
@@ -302,9 +316,7 @@
         (WithoutAnyCadence match)
     )
     (
-
         (Presentation  x y)
-        
     )
 )
 
@@ -348,6 +360,7 @@
 )
 
 
+
 ;; [Form Theory] Period
 (rule
     (
@@ -355,7 +368,7 @@
         (Antecedent u1 u2)
         (Consequent u3 u4)
         (= idea (GetIdea u1))
-        (= idea (GetIdea u2))
+        (= idea (GetIdea u3))
     )
     (
         (union match 
@@ -373,7 +386,6 @@
     (
         (= match (Concatenate u1 u2))
         (!= (GetIdea u1) (GetIdea u2))
-        (= (GetCadence u1) (None))
         (= (GetCadence u2) (Weak))
     )
     (
@@ -386,7 +398,6 @@
     (
         (= match (Concatenate u1 u2))
         (!= (GetIdea u1) (GetIdea u2))
-        (= (GetCadence u1) (None))
         (= (GetCadence u2) (Strong))
     )
     (
@@ -413,7 +424,7 @@
 (rule
     (
         (= match (Concatenate (TwiceFormalUnit x) (TwiceFormalUnit y)))
-        (!= (GetCadence x) (None))
+        (= (GetCadence x) (Strong))
         (!= (GetCadence y) (None))
     )
     (
@@ -428,7 +439,7 @@
             (TwiceFormalUnit x) 
             (TwiceFormalUnit (Concatenate y x)))
         )
-        (!= (GetCadence x) (None))
+        (= (GetCadence x) (Strong))
     
     )
         
@@ -437,11 +448,11 @@
     )
 )
 
-;; [Form Theory] Ternary |A B A|
+;; [Form Theory] Ternary |A B A(Strong)|
 (rule
     (
         (= match (Concatenate x (Concatenate y x)))
-        (!= (GetCadence x) (None))
+        (= (GetCadence x) (Strong))
         (!= (GetCadence y) (None))
     )
     (

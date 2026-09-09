@@ -81,13 +81,13 @@ ex6_5 =
     , leaf "c" [II] None
     , leaf "c" [I] None
     , leaf "d" [V] Weak
-    -- , leaf "a" [I,V] None
-    -- , leaf "a" [V,I] None
-    -- , leaf "b" [IV,I] None
-    -- , leaf "b" [IV,I] None
-    -- , leaf "c" [II] None
-    -- , leaf "c" [I] None
-    -- , leaf "e" [VII,V,I] Strong
+    , leaf "a" [I,V] None
+    , leaf "a" [V,I] None
+    , leaf "b" [IV,I] None
+    , leaf "b" [IV,I] None
+    , leaf "c" [II] None
+    , leaf "c" [I] None
+    , leaf "e" [V,I] Strong
     ]
 
 ex2_11 :: NonEmpty FormalUnit

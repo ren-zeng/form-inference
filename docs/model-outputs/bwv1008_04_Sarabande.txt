@@ -1,0 +1,166 @@
+Input surface:
+size = 335
+  {A ⟦I None⟧}
+  {B ⟦I None⟧}
+  {C ⟦I None⟧}
+  {D ⟦I Weak⟧}
+  {A ⟦I None⟧}
+  {B ⟦I None⟧}
+  {E ⟦I None⟧}
+  {D ⟦I Weak⟧}
+  {A' ⟦I None⟧}
+  {A' ⟦I None⟧}
+  {F ⟦I None⟧}
+  {G ⟦I Strong⟧}
+  {A ⟦I None⟧}
+  {B ⟦I None⟧}
+  {C ⟦I None⟧}
+  {D ⟦I Weak⟧}
+  {A ⟦I None⟧}
+  {B ⟦I None⟧}
+  {E ⟦I None⟧}
+  {D ⟦I Weak⟧}
+  {A' ⟦I None⟧}
+  {A' ⟦I None⟧}
+  {F ⟦I None⟧}
+  {G ⟦I Strong⟧}
+  {H ⟦I None⟧}
+  {I ⟦I None⟧}
+  {J ⟦I None⟧}
+  {B ⟦I Weak⟧}
+  {K ⟦I None⟧}
+  {K ⟦I None⟧}
+  {L ⟦I None⟧}
+  {M ⟦I Weak⟧}
+  {A' ⟦I None⟧}
+  {A' ⟦I None⟧}
+  {N ⟦I None⟧}
+  {G' ⟦I Strong⟧}
+  {H' ⟦I None⟧}
+  {H' ⟦I None⟧}
+  {F ⟦I None⟧}
+  {G ⟦I Strong⟧}
+  {H ⟦I None⟧}
+  {I ⟦I None⟧}
+  {J ⟦I None⟧}
+  {B ⟦I Weak⟧}
+  {K ⟦I None⟧}
+  {K ⟦I None⟧}
+  {L ⟦I None⟧}
+  {M ⟦I Weak⟧}
+  {A' ⟦I None⟧}
+  {A' ⟦I None⟧}
+  {N ⟦I None⟧}
+  {G' ⟦I Strong⟧}
+  {H' ⟦I None⟧}
+  {H' ⟦I None⟧}
+  {F ⟦I None⟧}
+  {G ⟦I Strong⟧}
+
+
+
+
+Output analysis:
+  size=146 compressionRate=2.2945205479452055
+  SimpleBinary
+    aPart = Period
+              antecedentHead = "A"+"B"
+              antecedent = Concatenate
+                             UseIdeaWith   $0 ConcatParam   ⟦I None⟧ ⟦I None⟧
+                             Concatenate
+                               {"C" ⟦I None⟧}
+                               {"D" ⟦I Weak⟧}
+              consequent = Concatenate
+                             UseIdeaWith   $0 ConcatParam   ⟦I None⟧ ⟦I None⟧
+                             HybridAntCont
+                               antecedent = Concatenate
+                                              {"E" ⟦I None⟧}
+                                              {"D" ⟦I Weak⟧}
+                               continuation = Concatenate
+                                                TwiceFormalUnit
+                                                  {"A'" ⟦I None⟧}
+                                                Concatenate
+                                                  {"F" ⟦I None⟧}
+                                                  {"G" ⟦I Strong⟧}
+    bPart = Concatenate
+              {"H" ⟦I None⟧}
+              Concatenate
+                {"I" ⟦I None⟧}
+                Concatenate
+                  {"J" ⟦I None⟧}
+                  Concatenate
+                    Concatenate
+                      {"B" ⟦I Weak⟧}
+                      Concatenate
+                        TwiceFormalUnit
+                          {"K" ⟦I None⟧}
+                        Concatenate
+                          {"L" ⟦I None⟧}
+                          {"M" ⟦I Weak⟧}
+                    Concatenate
+                      TwiceFormalUnit
+                        {"A'" ⟦I None⟧}
+                      Concatenate
+                        Concatenate
+                          {"N" ⟦I None⟧}
+                          {"G'" ⟦I Strong⟧}
+                        Concatenate
+                          TwiceFormalUnit
+                            {"H'" ⟦I None⟧}
+                          Concatenate
+                            {"F" ⟦I None⟧}
+                            {"G" ⟦I Strong⟧}
+
+
+
+  size=148 compressionRate=2.2635135135135136
+  Concatenate
+    TwiceFormalUnit
+      Period
+        antecedentHead = "A"+"B"
+        antecedent = Concatenate
+                       UseIdeaWith   $0 ConcatParam   ⟦I None⟧ ⟦I None⟧
+                       Concatenate
+                         {"C" ⟦I None⟧}
+                         {"D" ⟦I Weak⟧}
+        consequent = Concatenate
+                       UseIdeaWith   $0 ConcatParam   ⟦I None⟧ ⟦I None⟧
+                       HybridAntCont
+                         antecedent = Concatenate
+                                        {"E" ⟦I None⟧}
+                                        {"D" ⟦I Weak⟧}
+                         continuation = Concatenate
+                                          TwiceFormalUnit
+                                            {"A'" ⟦I None⟧}
+                                          Concatenate
+                                            {"F" ⟦I None⟧}
+                                            {"G" ⟦I Strong⟧}
+    TwiceFormalUnit
+      Concatenate
+        {"H" ⟦I None⟧}
+        Concatenate
+          {"I" ⟦I None⟧}
+          Concatenate
+            {"J" ⟦I None⟧}
+            Concatenate
+              Concatenate
+                {"B" ⟦I Weak⟧}
+                Concatenate
+                  TwiceFormalUnit
+                    {"K" ⟦I None⟧}
+                  Concatenate
+                    {"L" ⟦I None⟧}
+                    {"M" ⟦I Weak⟧}
+              Concatenate
+                TwiceFormalUnit
+                  {"A'" ⟦I None⟧}
+                Concatenate
+                  Concatenate
+                    {"N" ⟦I None⟧}
+                    {"G'" ⟦I Strong⟧}
+                  Concatenate
+                    TwiceFormalUnit
+                      {"H'" ⟦I None⟧}
+                    Concatenate
+                      {"F" ⟦I None⟧}
+                      {"G" ⟦I Strong⟧}
