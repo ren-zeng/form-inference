@@ -27,8 +27,9 @@ jobs:
           restore-keys: ${{ runner.os }}-egglog-
 
       - name: Install Egglog
+        if: steps.cache-egglog.outputs.cache-hit != 'true'
         run: cargo install egglog
-
+            
       # Upload the egglog binary file so the Haskell job can use it
       - name: Upload Egglog Binary
         uses: actions/upload-artifact@v4
