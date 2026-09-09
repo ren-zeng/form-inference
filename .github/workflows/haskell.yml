@@ -50,6 +50,20 @@ jobs:
       CONFIG: "--enable-tests --enable-benchmarks"
 
     steps:
+      # 1. Download the compiled binary out of artifact storage
+      - name: Download Egglog Binary
+        uses: actions/download-artifact@v4
+        with:
+          name: egglog-binary
+          path: ./bin
+      # 2. Re-apply executable permissions lost in transition
+      - name: Make Egglog Executable
+        run: chmod +x ./bin/egglog
+
+      # 3. Expose it to this runner's environment variable path
+      - name: Add Egglog to Path
+        run: echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
+        
       - run: egglog --version
       - uses: actions/checkout@v4
       - uses: haskell-actions/setup@v2
