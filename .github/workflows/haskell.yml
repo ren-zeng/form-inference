@@ -19,16 +19,17 @@ jobs:
   setup-egglog:
     runs-on: ubuntu-latest
     steps:
+
+      - name: Install Egglog
+        run: cargo install egglog
+
       - name: Cache Cargo Binaries
         uses: actions/cache@v4
         with:
           path: ~/.cargo/bin
           key: ${{ runner.os }}-egglog-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: ${{ runner.os }}-egglog-
-      - name: Install Egglog
-        run: |
-          cargo install --force --git https://github.com/egraphs-good/egglog.git --bin=egglog
-
+      
       # Upload the egglog binary file so the Haskell job can use it
       - name: Upload Egglog Binary
         uses: actions/upload-artifact@v4
@@ -47,6 +48,7 @@ jobs:
       CONFIG: "--enable-tests --enable-benchmarks"
 
     steps:
+      - run: egglog --version
       - uses: actions/checkout@v4
       - uses: haskell-actions/setup@v2
         id: setup-haskell-cabal

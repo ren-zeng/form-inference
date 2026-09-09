@@ -112,14 +112,7 @@ Output analysis:
   Ternary
     SimpleBinary
       HybridAntCont
-        Sentence
-          basicIdea= "a"
-          presentation= Concatenate
-                          UseIdeaWith   $0 ⟦I None⟧
-                          UseIdeaWith   $0 ⟦V None⟧
-          continuation= Concatenate
-                          {$0 ⟦I None⟧}
-                          {"b" ⟦V Weak⟧}
+        Sentence {basicIdea = Label "\"a\"", presentation = Concatenate (UseIdeaWith (LocalVar 0) (Param [I] None)) (UseIdeaWith (LocalVar 0) (Param [V] None)), continuation = Concatenate (Leaf (LocalVar 0) (Param [I] None)) (Leaf (Label "\"b\"") (Param [V] Weak))}
         Concatenate
           TwiceFormalUnit
             {"c" ⟦I None⟧}
@@ -127,14 +120,7 @@ Output analysis:
             {"d" ⟦I None⟧}
             {"e" ⟦I Strong⟧}
       HybridAntCont
-        Sentence
-          basicIdea= "a"
-          presentation= Concatenate
-                          UseIdeaWith   $0 ⟦I None⟧
-                          UseIdeaWith   $0 ⟦V None⟧
-          continuation= Concatenate
-                          {"f" ⟦V None⟧}
-                          {"b" ⟦V Weak⟧}
+        Sentence {basicIdea = Label "\"a\"", presentation = Concatenate (UseIdeaWith (LocalVar 0) (Param [I] None)) (UseIdeaWith (LocalVar 0) (Param [V] None)), continuation = Concatenate (Leaf (Label "\"f\"") (Param [V] None)) (Leaf (Label "\"b\"") (Param [V] Weak))}
         Concatenate
           TwiceFormalUnit
             {"c" ⟦I None⟧}
@@ -142,18 +128,7 @@ Output analysis:
             {"d" ⟦V None⟧}
             {"e" ⟦I Strong⟧}
     RoundedBinary
-      Sentence
-        basicIdea= "g"+"h"
-        presentation= Concatenate
-                        UseIdeaWith   $0 ⟦I None⟧+⟦I None⟧
-                        UseIdeaWith   $0 ⟦V None⟧+⟦V None⟧
-        continuation= Concatenate
-                        Concatenate
-                          {"g" ⟦I None⟧}
-                          {"h" ⟦IV None⟧}
-                        Concatenate
-                          {"i" ⟦V None⟧}
-                          {"j" ⟦I Strong⟧}
+      Sentence {basicIdea = Concat (Label "\"g\"") (Label "\"h\""), presentation = Concatenate (UseIdeaWith (LocalVar 0) (ConcatParam (Param [I] None) (Param [I] None))) (UseIdeaWith (LocalVar 0) (ConcatParam (Param [V] None) (Param [V] None))), continuation = Concatenate (Concatenate (Leaf (Label "\"g\"") (Param [I] None)) (Leaf (Label "\"h\"") (Param [IV] None))) (Concatenate (Leaf (Label "\"i\"") (Param [V] None)) (Leaf (Label "\"j\"") (Param [I] Strong)))}
       Concatenate
         Concatenate
           {"g" ⟦I None⟧}
@@ -168,14 +143,7 @@ Output analysis:
   Concatenate
     TwiceFormalUnit
       HybridAntCont
-        Sentence
-          basicIdea= "a"
-          presentation= Concatenate
-                          UseIdeaWith   $0 ⟦I None⟧
-                          UseIdeaWith   $0 ⟦V None⟧
-          continuation= Concatenate
-                          {$0 ⟦I None⟧}
-                          {"b" ⟦V Weak⟧}
+        Sentence {basicIdea = Label "\"a\"", presentation = Concatenate (UseIdeaWith (LocalVar 0) (Param [I] None)) (UseIdeaWith (LocalVar 0) (Param [V] None)), continuation = Concatenate (Leaf (LocalVar 0) (Param [I] None)) (Leaf (Label "\"b\"") (Param [V] Weak))}
         Concatenate
           TwiceFormalUnit
             {"c" ⟦I None⟧}
@@ -185,14 +153,7 @@ Output analysis:
     Ternary
       TwiceFormalUnit
         HybridAntCont
-          Sentence
-            basicIdea= "a"
-            presentation= Concatenate
-                            UseIdeaWith   $0 ⟦I None⟧
-                            UseIdeaWith   $0 ⟦V None⟧
-            continuation= Concatenate
-                            {"f" ⟦V None⟧}
-                            {"b" ⟦V Weak⟧}
+          Sentence {basicIdea = Label "\"a\"", presentation = Concatenate (UseIdeaWith (LocalVar 0) (Param [I] None)) (UseIdeaWith (LocalVar 0) (Param [V] None)), continuation = Concatenate (Leaf (Label "\"f\"") (Param [V] None)) (Leaf (Label "\"b\"") (Param [V] Weak))}
           Concatenate
             TwiceFormalUnit
               {"c" ⟦I None⟧}
@@ -201,18 +162,7 @@ Output analysis:
               {"e" ⟦I Strong⟧}
       Concatenate
         RoundedBinary
-          Sentence
-            basicIdea= "g"+"h"
-            presentation= Concatenate
-                            UseIdeaWith   $0 ⟦I None⟧+⟦I None⟧
-                            UseIdeaWith   $0 ⟦V None⟧+⟦V None⟧
-            continuation= Concatenate
-                            Concatenate
-                              {"g" ⟦I None⟧}
-                              {"h" ⟦IV None⟧}
-                            Concatenate
-                              {"i" ⟦V None⟧}
-                              {"j" ⟦I Strong⟧}
+          Sentence {basicIdea = Concat (Label "\"g\"") (Label "\"h\""), presentation = Concatenate (UseIdeaWith (LocalVar 0) (ConcatParam (Param [I] None) (Param [I] None))) (UseIdeaWith (LocalVar 0) (ConcatParam (Param [V] None) (Param [V] None))), continuation = Concatenate (Concatenate (Leaf (Label "\"g\"") (Param [I] None)) (Leaf (Label "\"h\"") (Param [IV] None))) (Concatenate (Leaf (Label "\"i\"") (Param [V] None)) (Leaf (Label "\"j\"") (Param [I] Strong)))}
           Concatenate
             Concatenate
               {"g" ⟦I None⟧}
@@ -222,14 +172,7 @@ Output analysis:
               {"k" ⟦V None⟧}
         TwiceFormalUnit
           HybridAntCont
-            Sentence
-              basicIdea= "a"
-              presentation= Concatenate
-                              UseIdeaWith   $0 ⟦I None⟧
-                              UseIdeaWith   $0 ⟦V None⟧
-              continuation= Concatenate
-                              {$0 ⟦I None⟧}
-                              {"b" ⟦V Weak⟧}
+            Sentence {basicIdea = Label "\"a\"", presentation = Concatenate (UseIdeaWith (LocalVar 0) (Param [I] None)) (UseIdeaWith (LocalVar 0) (Param [V] None)), continuation = Concatenate (Leaf (LocalVar 0) (Param [I] None)) (Leaf (Label "\"b\"") (Param [V] Weak))}
             Concatenate
               TwiceFormalUnit
                 {"c" ⟦I None⟧}

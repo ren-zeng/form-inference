@@ -12,19 +12,7 @@ Input surface:
 
 Output analysis:
   size=40
-  Sentence
-    basicIdea= "a"
-    presentation= Concatenate
-                    UseIdeaWith   $0 ⟦I-V None⟧
-                    UseIdeaWith   $0 ⟦V-I None⟧
-    continuation= Concatenate
-                    TwiceFormalUnit
-                      {"b" ⟦IV-I None⟧}
-                    Concatenate
-                      {"c" ⟦II None⟧}
-                      Concatenate
-                        {"c" ⟦I None⟧}
-                        {"d" ⟦V Weak⟧}
+  Sentence {basicIdea = Label "\"a\"", presentation = Concatenate (UseIdeaWith (LocalVar 0) (Param [I,V] None)) (UseIdeaWith (LocalVar 0) (Param [V,I] None)), continuation = Concatenate (TwiceFormalUnit (Leaf (Label "\"b\"") (Param [IV,I] None))) (Concatenate (Leaf (Label "\"c\"") (Param [II] None)) (Concatenate (Leaf (Label "\"c\"") (Param [I] None)) (Leaf (Label "\"d\"") (Param [V] Weak))))}
 
 
 

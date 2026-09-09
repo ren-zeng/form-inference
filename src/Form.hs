@@ -84,7 +84,8 @@ data FormalUnit
   | Period {basicIdea :: Idea, antecedent :: FormalUnit, consequent :: FormalUnit}
   | Concatenate FormalUnit FormalUnit
   | TwiceFormalUnit FormalUnit
-  | HybridAntCont FormalUnit FormalUnit
+  | HybridAntCont {antecedent::FormalUnit,continuation::FormalUnit}
+  | HybridPresCons {presentation::FormalUnit,consequent:: FormalUnit}
   | SimpleBinary FormalUnit FormalUnit
   | RoundedBinary {exposition::FormalUnit, contrastingMiddle::FormalUnit}
   | Ternary FormalUnit FormalUnit
@@ -121,8 +122,8 @@ instance Pretty FormalUnitBinding where
   pretty (BindFormalUnit v x) = "<<" <> pretty v <+> ":=" <+> pretty x <> ">>"
 
 instance Pretty FormalUnit where
-  pretty =
-    align . \case
+  pretty u =
+    align $ case u of
       Leaf idea param -> "{" <> hsep [pretty idea, pretty param] <> "}"
       UseIdeaWith idea param ->
         sep
@@ -135,16 +136,8 @@ instance Pretty FormalUnit where
           ]
       LocalFormalUnit i -> "$" <> pretty i
       RefFormalUnit v -> pretty v
-      Sentence idea x y ->
-        sep
-          [ "Sentence"
-          , indent 2
-              $ sep
-                [ "basicIdea" <> "=" <+> pretty idea
-                , "presentation" <> "=" <+> pretty x
-                , "continuation" <> "=" <+> pretty y
-                ]
-          ]
+      Sentence idea x y -> pretty $ show u
+
       Period uBinding x y ->
         sep
           [ "Period"
@@ -177,11 +170,13 @@ instance Pretty FormalUnit where
       --     ]
       TwiceFormalUnit x -> prettyApp "TwiceFormalUnit" [pretty x]
       HybridAntCont  x y -> prettyApp "HybridAntCont" [ pretty x, pretty y]
+      HybridPresCons  x y -> prettyApp "HybridPresCons" [ pretty x, pretty y]
       -- Antecedent x y -> prettyApp "Antecedent" [pretty x, pretty y]
       -- Consequent x y -> prettyApp "Consequent" [pretty x, pretty y]
       SimpleBinary x y -> prettyApp "SimpleBinary" [pretty x, pretty y]
       RoundedBinary x y -> prettyApp "RoundedBinary" [pretty x, pretty y]
       Ternary x y -> prettyApp "Ternary" [pretty x, pretty y]
+      
 
 bracketPretty x = "(" <> x <> ")"
 

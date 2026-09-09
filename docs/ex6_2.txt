@@ -15,19 +15,7 @@ Input surface:
 
 Output analysis:
   size=62
-  Sentence
-    basicIdea= "a"+"b"+"c"
-    presentation= Concatenate
-                    UseIdeaWith   $0 ⟦I None⟧+⟦I None⟧+⟦I None⟧
-                    UseIdeaWith   $0 ⟦V None⟧+⟦V None⟧+⟦V None⟧
-    continuation= Sentence
-                    basicIdea= "b"
-                    presentation= Concatenate
-                                    UseIdeaWith   $0 ⟦I-VI None⟧
-                                    UseIdeaWith   $0 ⟦IV-II None⟧
-                    continuation= Concatenate
-                                    {$0 ⟦V None⟧}
-                                    {"d" ⟦I-II-V-I Strong⟧}
+  Sentence {basicIdea = Concat (Label "\"a\"") (Concat (Label "\"b\"") (Label "\"c\"")), presentation = Concatenate (UseIdeaWith (LocalVar 0) (ConcatParam (Param [I] None) (ConcatParam (Param [I] None) (Param [I] None)))) (UseIdeaWith (LocalVar 0) (ConcatParam (Param [V] None) (ConcatParam (Param [V] None) (Param [V] None)))), continuation = Sentence {basicIdea = Label "\"b\"", presentation = Concatenate (UseIdeaWith (LocalVar 0) (Param [I,VI] None)) (UseIdeaWith (LocalVar 0) (Param [IV,II] None)), continuation = Concatenate (Leaf (LocalVar 0) (Param [V] None)) (Leaf (Label "\"d\"") (Param [I,II,V,I] Strong))}}
 
 
 
@@ -44,11 +32,4 @@ Output analysis:
             {"b" ⟦V None⟧}
             Concatenate
               {"c" ⟦V None⟧}
-              Sentence
-                basicIdea= "b"
-                presentation= Concatenate
-                                UseIdeaWith   $0 ⟦I-VI None⟧
-                                UseIdeaWith   $0 ⟦IV-II None⟧
-                continuation= Concatenate
-                                {$0 ⟦V None⟧}
-                                {"d" ⟦I-II-V-I Strong⟧}
+              Sentence {basicIdea = Label "\"b\"", presentation = Concatenate (UseIdeaWith (LocalVar 0) (Param [I,VI] None)) (UseIdeaWith (LocalVar 0) (Param [IV,II] None)), continuation = Concatenate (Leaf (LocalVar 0) (Param [V] None)) (Leaf (Label "\"d\"") (Param [I,II,V,I] Strong))}
