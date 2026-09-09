@@ -43,7 +43,7 @@ main = do
           , "Output analysis:"
           , indent 2 prettyResults
           ]
-  generateDoc
+--   generateDoc
 
 testExampleToEggLog :: String -> NonEmpty FormalUnit -> String
 testExampleToEggLog = egglogLet $ T.unpack . encodeOne printer . toEggLog . fromSurface
