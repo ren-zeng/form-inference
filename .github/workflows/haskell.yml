@@ -84,10 +84,10 @@ jobs:
             ${{ runner.os }}-${{ matrix.ghc }}-
       - run: cabal v2-build $CONFIG
         env:
-          PATH: ${{ env.PATH }}
+          PATH: ${{ env.PATH }}:$PATH
       - run: cabal v2-test $CONFIG
         env:
-          PATH: ${{ env.PATH }}
+          PATH: ${{ env.PATH }}:$PATH
       
       - run: cabal v2-haddock $CONFIG --haddock-output-dir=./docs/haddock --haddock-quickjump
 
