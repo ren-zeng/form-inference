@@ -60,29 +60,30 @@ Input surface:
 
 
 Output analysis:
-  size=138
+  size=147
   SimpleBinary
-    Period
-      antecedentHead= Concatenate
-                        {"A" ⟦I None⟧}
-                        {"B" ⟦I None⟧}
-      antecedent= Concatenate
-                    $0
-                    Concatenate
-                      {"C" ⟦I None⟧}
-                      {"D" ⟦I Weak⟧}
-      consequent= Concatenate
-                    $0
-                    HybridAntCont
-                      Concatenate
-                        {"E" ⟦I None⟧}
-                        {"D" ⟦I Weak⟧}
-                      Concatenate
-                        TwiceFormalUnit
-                          {"A'" ⟦I None⟧}
-                        Concatenate
-                          {"F" ⟦I None⟧}
-                          {"G" ⟦I Strong⟧}
+    HybridAntCont
+      HybridAntCont
+        Concatenate
+          Concatenate
+            {"A" ⟦I None⟧}
+            {"B" ⟦I None⟧}
+          Concatenate
+            {"C" ⟦I None⟧}
+            {"D" ⟦I Weak⟧}
+        Concatenate
+          Concatenate
+            {"A" ⟦I None⟧}
+            {"B" ⟦I None⟧}
+          Concatenate
+            {"E" ⟦I None⟧}
+            {"D" ⟦I Weak⟧}
+      Concatenate
+        TwiceFormalUnit
+          {"A'" ⟦I None⟧}
+        Concatenate
+          {"F" ⟦I None⟧}
+          {"G" ⟦I Strong⟧}
     Concatenate
       {"H" ⟦I None⟧}
       Concatenate
@@ -114,30 +115,31 @@ Output analysis:
 
 
 
-  size=140
+  size=149
   Concatenate
     TwiceFormalUnit
-      Period
-        antecedentHead= Concatenate
-                          {"A" ⟦I None⟧}
-                          {"B" ⟦I None⟧}
-        antecedent= Concatenate
-                      $0
-                      Concatenate
-                        {"C" ⟦I None⟧}
-                        {"D" ⟦I Weak⟧}
-        consequent= Concatenate
-                      $0
-                      HybridAntCont
-                        Concatenate
-                          {"E" ⟦I None⟧}
-                          {"D" ⟦I Weak⟧}
-                        Concatenate
-                          TwiceFormalUnit
-                            {"A'" ⟦I None⟧}
-                          Concatenate
-                            {"F" ⟦I None⟧}
-                            {"G" ⟦I Strong⟧}
+      HybridAntCont
+        HybridAntCont
+          Concatenate
+            Concatenate
+              {"A" ⟦I None⟧}
+              {"B" ⟦I None⟧}
+            Concatenate
+              {"C" ⟦I None⟧}
+              {"D" ⟦I Weak⟧}
+          Concatenate
+            Concatenate
+              {"A" ⟦I None⟧}
+              {"B" ⟦I None⟧}
+            Concatenate
+              {"E" ⟦I None⟧}
+              {"D" ⟦I Weak⟧}
+        Concatenate
+          TwiceFormalUnit
+            {"A'" ⟦I None⟧}
+          Concatenate
+            {"F" ⟦I None⟧}
+            {"G" ⟦I Strong⟧}
     TwiceFormalUnit
       Concatenate
         {"H" ⟦I None⟧}

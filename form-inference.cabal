@@ -101,7 +101,7 @@ executable form-inference
 
     -- Modules included in this executable, other than Main.
     other-modules:
-        TestCases,
+
 
     -- LANGUAGE extensions used by modules in this package.
     other-extensions: OverloadedStrings
@@ -113,7 +113,6 @@ executable form-inference
         process,
         text,
         prettyprinter,
-        s-cargot,
         
         
 
@@ -131,10 +130,11 @@ test-suite form-inference-test
     default-language: Haskell2010
 
     -- Modules included in this executable, other than Main.
-    -- other-modules:
+    other-modules: TestCases
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
+
 
     -- The interface type and version of the test suite.
     type:             exitcode-stdio-1.0
@@ -148,4 +148,8 @@ test-suite form-inference-test
     -- Test dependencies.
     build-depends:
         base ^>=4.21.0.0,
-        form-inference
+        form-inference,
+        text,
+        prettyprinter,
+        process,
+        s-cargot,

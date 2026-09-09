@@ -6,7 +6,7 @@ module TestCases where
 import Data.List.NonEmpty (NonEmpty)
 import qualified Data.List.NonEmpty as NonEmpty
 import Form
-import GHC.Num (naturalXor)
+
 
 testCases :: [(String, NonEmpty FormalUnit)]
 testCases =

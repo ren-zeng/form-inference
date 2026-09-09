@@ -7,7 +7,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeApplications #-}
-{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeFamilies, DuplicateRecordFields#-}
+
 
 module Form (
   -- ** Recursive form data type
@@ -79,18 +80,19 @@ data FormalUnit
   | RefFormalUnit String
   | LocalFormalUnit Int
   | UseIdeaWith Idea PhraseParam
-  | Sentence Idea FormalUnit FormalUnit
-  | Period {antecedentHead :: FormalUnit, antecedent :: FormalUnit, consequent :: FormalUnit}
-  | Presentation {basicIdea :: Idea, usage1 :: FormalUnit, usage2 :: FormalUnit}
-  | Continuation FormalUnit FormalUnit
+  | Sentence {basicIdea:: Idea, presentation::FormalUnit, continuation:: FormalUnit}
+  | Period {basicIdea :: Idea, antecedent :: FormalUnit, consequent :: FormalUnit}
   | Concatenate FormalUnit FormalUnit
   | TwiceFormalUnit FormalUnit
   | HybridAntCont FormalUnit FormalUnit
   | SimpleBinary FormalUnit FormalUnit
-  | RoundedBinary FormalUnit FormalUnit
+  | RoundedBinary {exposition::FormalUnit, contrastingMiddle::FormalUnit}
   | Ternary FormalUnit FormalUnit
-  | Antecedent FormalUnit FormalUnit
-  | Consequent FormalUnit FormalUnit
+  -- | Presentation {basicIdea :: Idea, usage1 :: FormalUnit, usage2 :: FormalUnit}
+  -- | Continuation FormalUnit FormalUnit
+   -- | Antecedent FormalUnit FormalUnit
+  -- | Consequent FormalUnit FormalUnit
+ 
   deriving (Show, Data)
 
 makeBaseFunctor ''FormalUnit
@@ -153,30 +155,30 @@ instance Pretty FormalUnit where
                 , "consequent" <> "=" <+> pretty y
                 ]
           ]
-      Presentation id1 param1 param2 ->
-        sep
-          [ "Presentation"
-          , indent 2
-              $ vsep
-                [ "basicIdea" <> "=" <+> pretty id1
-                , "occur1" <> "=" <+> pretty param1
-                , "occur2" <> "=" <+> pretty param2
-                ]
-          ]
+      -- Presentation id1 param1 param2 ->
+        -- sep
+        --   [ "Presentation"
+        --   , indent 2
+        --       $ vsep
+        --         [ "basicIdea" <> "=" <+> pretty id1
+        --         , "occur1" <> "=" <+> pretty param1
+        --         , "occur2" <> "=" <+> pretty param2
+        --         ]
+        --   ]
       Concatenate u1 u2 -> prettyApp "Concatenate" [pretty u1, pretty u2]
-      Continuation u1 u2 ->
-        sep
-          [ "Continuation"
-          , indent 2
-              $ sep
-                [ pretty u1
-                , pretty u2
-                ]
-          ]
+      -- Continuation u1 u2 ->
+      --   sep
+      --     [ "Continuation"
+      --     , indent 2
+      --         $ sep
+      --           [ pretty u1
+      --           , pretty u2
+      --           ]
+      --     ]
       TwiceFormalUnit x -> prettyApp "TwiceFormalUnit" [pretty x]
       HybridAntCont  x y -> prettyApp "HybridAntCont" [ pretty x, pretty y]
-      Antecedent x y -> prettyApp "Antecedent" [pretty x, pretty y]
-      Consequent x y -> prettyApp "Consequent" [pretty x, pretty y]
+      -- Antecedent x y -> prettyApp "Antecedent" [pretty x, pretty y]
+      -- Consequent x y -> prettyApp "Consequent" [pretty x, pretty y]
       SimpleBinary x y -> prettyApp "SimpleBinary" [pretty x, pretty y]
       RoundedBinary x y -> prettyApp "RoundedBinary" [pretty x, pretty y]
       Ternary x y -> prettyApp "Ternary" [pretty x, pretty y]
@@ -253,15 +255,15 @@ instance FromEggLog FormalUnit where
         (fromEggLog uBinding)
         (fromEggLog param1)
         (fromEggLog param2)
-    WFSList [WFSAtom "Presentation", id1, param1, param2] ->
-      Presentation
-        (fromEggLog id1)
-        (fromEggLog param1)
-        (fromEggLog param2)
-    WFSList [WFSAtom "Continuation", u1, u2] ->
-      Continuation
-        (fromEggLog u1)
-        (fromEggLog u2)
+    -- WFSList [WFSAtom "Presentation", id1, param1, param2] ->
+    --   Presentation
+    --     (fromEggLog id1)
+    --     (fromEggLog param1)
+    --     (fromEggLog param2)
+    -- WFSList [WFSAtom "Continuation", u1, u2] ->
+    --   Continuation
+    --     (fromEggLog u1)
+    --     (fromEggLog u2)
     WFSList [WFSAtom "Concatenate", u1, u2] ->
       Concatenate
         (fromEggLog u1)
@@ -269,8 +271,8 @@ instance FromEggLog FormalUnit where
     WFSList [WFSAtom "LocalFormalUnit", WFSAtom i] -> LocalFormalUnit $ read $ T.unpack i
     WFSList [WFSAtom "TwiceFormalUnit", x] -> TwiceFormalUnit $ fromEggLog x
     WFSList [WFSAtom "HybridAntCont", x, y] -> HybridAntCont  (fromEggLog x) (fromEggLog y)
-    WFSList [WFSAtom "Antecedent", x, y] -> Antecedent (fromEggLog x) (fromEggLog y)
-    WFSList [WFSAtom "Consequent", x, y] -> Consequent (fromEggLog x) (fromEggLog y)
+    -- WFSList [WFSAtom "Antecedent", x, y] -> Antecedent (fromEggLog x) (fromEggLog y)
+    -- WFSList [WFSAtom "Consequent", x, y] -> Consequent (fromEggLog x) (fromEggLog y)
     WFSList [WFSAtom "SimpleBinary", x, y] -> SimpleBinary (fromEggLog x) (fromEggLog y)
     WFSList [WFSAtom "RoundedBinary", x, y] -> RoundedBinary (fromEggLog x) (fromEggLog y)
     WFSList [WFSAtom "Ternary", x, y] -> Ternary (fromEggLog x) (fromEggLog y)
@@ -291,13 +293,13 @@ instance FromEggLog FormalUnit where
         , toEggLog x
         , toEggLog y
         ]
-    Presentation id1 param1 param2 ->
-      WFSList
-        [ WFSAtom "Presentation"
-        , toEggLog id1
-        , toEggLog param1
-        , toEggLog param2
-        ]
+    -- Presentation id1 param1 param2 ->
+    --   WFSList
+    --     [ WFSAtom "Presentation"
+    --     , toEggLog id1
+    --     , toEggLog param1
+    --     , toEggLog param2
+        -- ]
     Concatenate u1 u2 ->
       WFSList
         [WFSAtom "Concatenate", toEggLog u1, toEggLog u2]

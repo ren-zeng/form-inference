@@ -56,7 +56,7 @@
         (LocalFormalUnit i64)
         (RefFormalUnit String)
         (Sentence Idea FormalUnit FormalUnit)
-        (Period FormalUnit  FormalUnit FormalUnit)
+        (Period Idea  FormalUnit FormalUnit)
 
         ;;(Presentation Idea FormalUnit FormalUnit)
         (HybridAntCont  FormalUnit FormalUnit)
@@ -351,15 +351,17 @@
 ;; [Form Theory] Period
 (rule
     (
-        (= match (Concatenate (Concatenate u1 u2) (Concatenate u1 u4)))
+        (= match (Concatenate (Concatenate u1 u2) (Concatenate u3 u4)))
         (Antecedent u1 u2)
-        (Consequent u1 u4)
+        (Consequent u3 u4)
+        (= idea (GetIdea u1))
+        (= idea (GetIdea u2))
     )
     (
         (union match 
-            (Period u1 
-                (Concatenate (LocalFormalUnit 0) u2) 
-                (Concatenate (LocalFormalUnit 0) u4)
+            (Period idea 
+                (Concatenate (UseIdeaWith (LocalVar 0) (GetParam u1)) u2) 
+                (Concatenate (UseIdeaWith (LocalVar 0) (GetParam u3)) u4)
             )
         )
     )

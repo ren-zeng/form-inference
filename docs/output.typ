@@ -1,6 +1,6 @@
 #import "@preview/zebraw:0.6.3": *
 #import "@preview/prequery:0.2.0"
-#show: zebraw
+#show: zebraw-init
 
 
 == Musical examples
@@ -19,7 +19,7 @@ Among the #link("https://acf.research.mcgill.ca/supp_list.php")complete list of 
   #link(caplinWebsite + prefix + num + ".php")[#prequery.image(
     caplinWebsite + prefix + num + ".png",
     "assets/" + prefix + num + ".png",
-    width: 100%,
+    width: 50%,
   )]
   #link(caplinWebsite + prefix + num + ".mp3")[
     🔊 *Click to Play*

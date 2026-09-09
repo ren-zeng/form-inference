@@ -1,4 +1,4 @@
 (include "egglog/form.egglog")
-(include "egglog/testCases.egglog")
+(include "egglog/auto-gen/testCases.egglog")
 (run 200)
 (extract $haydn_sonata_XVI_07_C_2_menuet 2)
