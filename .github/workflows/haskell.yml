@@ -3,8 +3,14 @@ name: Haskell CI
 on:
   push:
     branches: ["main"]
+    paths-ignore:
+      - '**.md'
+      - '**.txt'
   pull_request:
     branches: ["main"]
+    paths-ignore:
+      - '**.md'
+      - '**.txt'
 
 permissions:
   contents: write
@@ -19,10 +25,11 @@ jobs:
           path: ~/.cargo/bin
           key: ${{ runner.os }}-egglog-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: ${{ runner.os }}-egglog-
-      # - name: Install Egglog
-      #   run: |
-      #     git clone https://github.com/egraphs-good/egglog.git --force
-      #     cargo install --path=egglog
+      - name: Install Egglog
+        run: |
+          rm -rf egglog
+          git clone https://github.com/egraphs-good/egglog.git
+          cargo install --path=egglog
 
       # Upload the egglog binary file so the Haskell job can use it
       - name: Upload Egglog Binary
