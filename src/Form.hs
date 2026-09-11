@@ -84,7 +84,7 @@ data FormalUnit
   | SimpleBinary FormalUnit FormalUnit
   | RoundedBinary {exposition::FormalUnit, contrastingMiddle::FormalUnit}
   | Ternary FormalUnit FormalUnit
-  | Seq Idea PhraseParam
+  | Seq Idea [PhraseParam]
   -- | Presentation {basicIdea :: Idea, usage1 :: FormalUnit, usage2 :: FormalUnit}
   -- | Continuation FormalUnit FormalUnit
    -- | Antecedent FormalUnit FormalUnit
@@ -181,7 +181,7 @@ instance Pretty FormalUnit where
       Ternary x y -> prettyApp "Ternary" [
         "exposition".=pretty x, "contrastingMiddile".=pretty y]
       Seq idea param -> prettyApp "Seq" [
-        "idea" .= pretty idea, "parameters" .= pretty param
+        "idea" .= pretty idea, "parameters" .= (align . vsep . fmap pretty) param
         ]
       
 

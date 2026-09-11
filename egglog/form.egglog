@@ -46,6 +46,10 @@
     (BindIdea String Idea)
 )
 
+
+
+(sort ParamList (Vec PhraseParam))
+
 (datatype*
     (FormalUnitBinding
         (BindFormalUnit String FormalUnit)
@@ -57,9 +61,7 @@
         (RefFormalUnit String)
         (Sentence Idea FormalUnit FormalUnit)
         (Period Idea  FormalUnit FormalUnit)
-        (Seq Idea PhraseParam)
-
-        ;;(Presentation Idea FormalUnit FormalUnit)
+        (Seq Idea ParamList)
         (HybridAntCont  FormalUnit FormalUnit)
         (SimpleBinary FormalUnit FormalUnit)
         (RoundedBinary FormalUnit FormalUnit)
@@ -79,6 +81,9 @@
 (relation NoWeaker (CadenceStrength CadenceStrength))
 (relation WithoutAnyCadence (FormalUnit))
 (relation NoInternalCadence (FormalUnit))
+
+
+
 ;; These are constraints on adjacent units: (Antecedent x y) means x+y can potentially serve a antecedent function. The reason we don't make them a constructor to union with (x + y) is that we don't want things like (Antecedent _ (Antecedent _ _)). There interpretation should depend on the surrounding context and not purely bottom up driven. We want say that x is an antecedent only if it is followed by a phrase ends with a strong cadence.
 (relation Antecedent (FormalUnit FormalUnit))
 (relation Consequent (FormalUnit FormalUnit))
@@ -295,7 +300,7 @@
         (= idea (GetIdea y))
     )
     (
-        (union match (Seq idea (ConcatParam (GetParam x) (GetParam y))))
+        (union match (Seq idea (vec-of (GetParam x) (GetParam y))))
     )
 )
 
@@ -350,11 +355,9 @@
     (
         (union match (Sentence 
             idea
-            (Concatenate 
-                (UseIdeaWith (LocalVar 0) (GetParam x)) 
-                (UseIdeaWith (LocalVar 0) (GetParam y)) 
+            (ReplaceIdeaWithRef idea (LocalVar 0) (Concatenate x y))
+            (ReplaceIdeaWithRef idea (LocalVar 0) (Concatenate u3 u4))
             )
-            (ReplaceIdeaWithRef idea (LocalVar 0) (Concatenate u3 u4)))
         )
     )
 )

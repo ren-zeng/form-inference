@@ -109,15 +109,16 @@ size = 623
 
 
 Output analysis:
-  size=148 compressionRate=4.20945945945946
+  size=154 compressionRate=4.045454545454546
   Ternary
     exposition = SimpleBinary
                    aPart = HybridAntCont
                              antecedent = Sentence
                                             basicIdea = "a"
-                                            presentation = Concatenate
-                                                             UseIdeaWith   $0 ⟦I None⟧
-                                                             UseIdeaWith   $0 ⟦V None⟧
+                                            presentation = Seq
+                                                             idea = $0
+                                                             parameters = ⟦I None⟧
+                                                                          ⟦V None⟧
                                             continuation = Concatenate
                                                              {$0 ⟦I None⟧}
                                                              {"b" ⟦V Weak⟧}
@@ -131,9 +132,8 @@ Output analysis:
                              antecedent = Concatenate
                                             Seq
                                               idea = "a"
-                                              parameters = ConcatParam
-                                                ⟦I None⟧
-                                                ⟦V None⟧
+                                              parameters = ⟦I None⟧
+                                                           ⟦V None⟧
                                             Concatenate
                                               {"f" ⟦V None⟧}
                                               {"b" ⟦V Weak⟧}
@@ -148,12 +148,11 @@ Output analysis:
                                           Seq
                                             idea = "g"+"h"
                                             parameters = ConcatParam
-                                              ConcatParam
-                                                ⟦I None⟧
-                                                ⟦I None⟧
-                                              ConcatParam
-                                                ⟦V None⟧
-                                                ⟦V None⟧
+                                                           ⟦I None⟧
+                                                           ⟦I None⟧
+                                                         ConcatParam
+                                                           ⟦V None⟧
+                                                           ⟦V None⟧
                                           Concatenate
                                             Concatenate
                                               {"g" ⟦I None⟧}
@@ -164,24 +163,24 @@ Output analysis:
                            contrastingMiddile = Seq
                                                   idea = "g"+"k"
                                                   parameters = ConcatParam
-                                                    ConcatParam
-                                                      ⟦I None⟧
-                                                      ⟦IV None⟧
-                                                    ConcatParam
-                                                      ⟦II None⟧
-                                                      ⟦V None⟧
+                                                                 ⟦I None⟧
+                                                                 ⟦IV None⟧
+                                                               ConcatParam
+                                                                 ⟦II None⟧
+                                                                 ⟦V None⟧
 
 
 
-  size=195 compressionRate=3.194871794871795
+  size=201 compressionRate=3.099502487562189
   Concatenate
     TwiceFormalUnit
       HybridAntCont
         antecedent = Sentence
                        basicIdea = "a"
-                       presentation = Concatenate
-                                        UseIdeaWith   $0 ⟦I None⟧
-                                        UseIdeaWith   $0 ⟦V None⟧
+                       presentation = Seq
+                                        idea = $0
+                                        parameters = ⟦I None⟧
+                                                     ⟦V None⟧
                        continuation = Concatenate
                                         {$0 ⟦I None⟧}
                                         {"b" ⟦V Weak⟧}
@@ -197,9 +196,8 @@ Output analysis:
                        antecedent = Concatenate
                                       Seq
                                         idea = "a"
-                                        parameters = ConcatParam
-                                          ⟦I None⟧
-                                          ⟦V None⟧
+                                        parameters = ⟦I None⟧
+                                                     ⟦V None⟧
                                       Concatenate
                                         {"f" ⟦V None⟧}
                                         {"b" ⟦V Weak⟧}
@@ -215,12 +213,11 @@ Output analysis:
                                               Seq
                                                 idea = "g"+"h"
                                                 parameters = ConcatParam
-                                                  ConcatParam
-                                                    ⟦I None⟧
-                                                    ⟦I None⟧
-                                                  ConcatParam
-                                                    ⟦V None⟧
-                                                    ⟦V None⟧
+                                                               ⟦I None⟧
+                                                               ⟦I None⟧
+                                                             ConcatParam
+                                                               ⟦V None⟧
+                                                               ⟦V None⟧
                                               Concatenate
                                                 Concatenate
                                                   {"g" ⟦I None⟧}
@@ -231,19 +228,19 @@ Output analysis:
                                contrastingMiddile = Seq
                                                       idea = "g"+"k"
                                                       parameters = ConcatParam
-                                                        ConcatParam
-                                                          ⟦I None⟧
-                                                          ⟦IV None⟧
-                                                        ConcatParam
-                                                          ⟦II None⟧
-                                                          ⟦V None⟧
+                                                                     ⟦I None⟧
+                                                                     ⟦IV None⟧
+                                                                   ConcatParam
+                                                                     ⟦II None⟧
+                                                                     ⟦V None⟧
                              TwiceFormalUnit
                                HybridAntCont
                                  antecedent = Sentence
                                                 basicIdea = "a"
-                                                presentation = Concatenate
-                                                                 UseIdeaWith   $0 ⟦I None⟧
-                                                                 UseIdeaWith   $0 ⟦V None⟧
+                                                presentation = Seq
+                                                                 idea = $0
+                                                                 parameters = ⟦I None⟧
+                                                                              ⟦V None⟧
                                                 continuation = Concatenate
                                                                  {$0 ⟦I None⟧}
                                                                  {"b" ⟦V Weak⟧}

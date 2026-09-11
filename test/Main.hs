@@ -35,8 +35,9 @@ main = do
     let prettyResults = vsep $ punctuate (nLines 3) $ map (progInfoDoc surfaceSize) terms
 
     print prettyResults
-    writeFile  (  "docs/model-outputs/" <>  fst ex <> ".txt")$ renderString $
-       layoutPretty (LayoutOptions Unbounded) $
+    writeFile  (  "docs/model-outputs/" <>  fst ex <> ".txt")$ 
+      -- show $
+       renderString $ layoutPretty (LayoutOptions Unbounded) $
         vsep
           [ "Input surface:"
           , "size" <+> "=" <+> pretty surfaceSize

@@ -9,16 +9,15 @@ size = 27
 
 
 Output analysis:
-  size=23 compressionRate=1.173913043478261
+  size=25 compressionRate=1.08
   Seq
     idea = "a"+"b"
     parameters = ConcatParam
-      ⟦I-V None⟧
-      ConcatParam
-        ⟦I-III None⟧
-        ConcatParam
-          ⟦VI-II None⟧
-          ⟦VI-III None⟧
+                   ⟦I-V None⟧
+                   ⟦I-III None⟧
+                 ConcatParam
+                   ⟦VI-II None⟧
+                   ⟦VI-III None⟧
 
 
 

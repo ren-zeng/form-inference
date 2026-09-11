@@ -15,43 +15,51 @@ size = 64
 
 
 Output analysis:
-  size=59 compressionRate=1.0847457627118644
+  size=61 compressionRate=1.0491803278688525
   Concatenate
     Seq
       idea = "a"+"b"+"c"
       parameters = ConcatParam
-        ConcatParam
-          ⟦I None⟧
-          ConcatParam
-            ⟦I None⟧
-            ⟦I None⟧
-        ConcatParam
-          ⟦V None⟧
-          ConcatParam
-            ⟦V None⟧
-            ⟦V None⟧
+                     ⟦I None⟧
+                     ConcatParam
+                       ⟦I None⟧
+                       ⟦I None⟧
+                   ConcatParam
+                     ⟦V None⟧
+                     ConcatParam
+                       ⟦V None⟧
+                       ⟦V None⟧
     Sentence
       basicIdea = "b"
-      presentation = Concatenate
-                       UseIdeaWith   $0 ⟦I-VI None⟧
-                       UseIdeaWith   $0 ⟦IV-II None⟧
+      presentation = Seq
+                       idea = $0
+                       parameters = ⟦I-VI None⟧
+                                    ⟦IV-II None⟧
       continuation = Concatenate
                        {$0 ⟦V None⟧}
                        {"d" ⟦I-II-V-I Strong⟧}
 
 
 
-  size=62 compressionRate=1.032258064516129
-  Sentence
-    basicIdea = "a"+"b"+"c"
-    presentation = Concatenate
-                     UseIdeaWith   $0 ConcatParam   ⟦I None⟧ ConcatParam   ⟦I None⟧ ⟦I None⟧
-                     UseIdeaWith   $0 ConcatParam   ⟦V None⟧ ConcatParam   ⟦V None⟧ ⟦V None⟧
-    continuation = Sentence
-                     basicIdea = "b"
-                     presentation = Concatenate
-                                      UseIdeaWith   $0 ⟦I-VI None⟧
-                                      UseIdeaWith   $0 ⟦IV-II None⟧
-                     continuation = Concatenate
-                                      {$0 ⟦V None⟧}
-                                      {"d" ⟦I-II-V-I Strong⟧}
+  size=60 compressionRate=1.0666666666666667
+  Concatenate
+    Concatenate
+      Seq
+        idea = "a"+"b"+"c"
+        parameters = ConcatParam
+                       ⟦I None⟧
+                       ConcatParam
+                         ⟦I None⟧
+                         ⟦I None⟧
+                     ConcatParam
+                       ⟦V None⟧
+                       ConcatParam
+                         ⟦V None⟧
+                         ⟦V None⟧
+      {"b" ⟦I-VI None⟧}
+    Concatenate
+      Seq
+        idea = "b"
+        parameters = ⟦IV-II None⟧
+                     ⟦V None⟧
+      {"d" ⟦I-II-V-I Strong⟧}

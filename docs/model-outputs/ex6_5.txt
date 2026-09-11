@@ -31,7 +31,7 @@ Output analysis:
 
 
 
-  size=81 compressionRate=1.1358024691358024
+  size=85 compressionRate=1.0823529411764705
   Period
     antecedentHead = Twice "a"+Twice "b"
     antecedent = Concatenate
@@ -39,16 +39,14 @@ Output analysis:
                    Concatenate
                      Seq
                        idea = "c"
-                       parameters = ConcatParam
-                         ⟦II None⟧
-                         ⟦I None⟧
+                       parameters = ⟦II None⟧
+                                    ⟦I None⟧
                      {"d" ⟦V Weak⟧}
     consequent = Concatenate
                    UseIdeaWith   $0 ConcatParam   ConcatParam   ⟦I-V None⟧ ⟦V-I None⟧ ConcatParam   ⟦IV-I None⟧ ⟦IV-I None⟧
                    Concatenate
                      Seq
                        idea = "c"
-                       parameters = ConcatParam
-                         ⟦II None⟧
-                         ⟦I None⟧
+                       parameters = ⟦II None⟧
+                                    ⟦I None⟧
                      {"e" ⟦V-I Strong⟧}
