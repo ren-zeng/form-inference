@@ -28,30 +28,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 1. Install & Cache Egglog
-      - name: Cache Cargo Binaries
-        id: cache-egglog
-        uses: actions/cache@v4
-        with:
-          path: ~/.cargo/bin
-          key: ${{ runner.os }}-egglog-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-egglog-
-
-      - name: Install Rust toolchain
-        if: steps.cache-egglog.outputs.cache-hit != 'true'
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Install Egglog
-        if: steps.cache-egglog.outputs.cache-hit != 'true'
-        run: cargo install egglog
-
-      # 2. Expose Egglog globally to this job's environment
-      - name: Add Cargo Bin to Path
-        run: echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-
-      - name: Verify Egglog
-        run: egglog --version
-
       # 3. Setup and Build Haskell Environment
       - uses: haskell-actions/setup@v2
         id: setup-haskell-cabal
