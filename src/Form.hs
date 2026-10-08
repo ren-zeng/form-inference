@@ -8,11 +8,13 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies, DuplicateRecordFields#-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 
 module Form (
   -- ** Recursive form data type
   FormalUnit (..),
+
 
   -- *** Supporting data types
   CadenceStrength (..),
@@ -29,6 +31,7 @@ module Form (
 
   -- *** generic operations on formal unit
   FormalUnitF (..),
+  IdeaF(..),
   foldFormalUnit,
   unfoldFormalUnit,
 
@@ -50,6 +53,7 @@ import Relude
 import Relude.Unsafe
 import Prelude ()
 
+
 data CadenceStrength = Weak | Strong | None deriving (Show, Read, Data)
 data Harmony = I | II | III | IV | V | VI | VII deriving (Show, Read, Data)
 data Idea
@@ -59,7 +63,7 @@ data Idea
   | RefIdea String
   | LocalVar Int
   deriving (Show, Data)
-
+makeBaseFunctor ''Idea
 data PhraseParam
   = Param [Harmony] CadenceStrength
   | ConcatParam PhraseParam PhraseParam
@@ -93,7 +97,8 @@ data FormalUnit
   deriving (Show, Data)
 
 makeBaseFunctor ''FormalUnit
-
+deriving instance Data a => Data (FormalUnitF a)
+deriving instance Show a => Show (FormalUnitF a)
 instance IsString Idea where
   fromString = Label
 

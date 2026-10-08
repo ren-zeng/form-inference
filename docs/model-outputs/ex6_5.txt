@@ -23,10 +23,34 @@ Output analysis:
   Period
     antecedentHead = Twice "a"+Twice "b"+Twice "c"
     antecedent = Concatenate
-                   UseIdeaWith   $0 ConcatParam   ConcatParam   ⟦I-V None⟧ ConcatParam   ⟦V-I None⟧ ⟦IV-I None⟧ ConcatParam   ⟦IV-I None⟧ ConcatParam   ⟦II None⟧ ⟦I None⟧
+                   UseIdeaWith
+                     $0
+                     ConcatParam
+                       ConcatParam
+                         ⟦I-V None⟧
+                         ConcatParam
+                           ⟦V-I None⟧
+                           ⟦IV-I None⟧
+                       ConcatParam
+                         ⟦IV-I None⟧
+                         ConcatParam
+                           ⟦II None⟧
+                           ⟦I None⟧
                    {"d" ⟦V Weak⟧}
     consequent = Concatenate
-                   UseIdeaWith   $0 ConcatParam   ConcatParam   ⟦I-V None⟧ ConcatParam   ⟦V-I None⟧ ⟦IV-I None⟧ ConcatParam   ⟦IV-I None⟧ ConcatParam   ⟦II None⟧ ⟦I None⟧
+                   UseIdeaWith
+                     $0
+                     ConcatParam
+                       ConcatParam
+                         ⟦I-V None⟧
+                         ConcatParam
+                           ⟦V-I None⟧
+                           ⟦IV-I None⟧
+                       ConcatParam
+                         ⟦IV-I None⟧
+                         ConcatParam
+                           ⟦II None⟧
+                           ⟦I None⟧
                    {"e" ⟦V-I Strong⟧}
 
 
@@ -35,7 +59,15 @@ Output analysis:
   Period
     antecedentHead = Twice "a"+Twice "b"
     antecedent = Concatenate
-                   UseIdeaWith   $0 ConcatParam   ConcatParam   ⟦I-V None⟧ ⟦V-I None⟧ ConcatParam   ⟦IV-I None⟧ ⟦IV-I None⟧
+                   UseIdeaWith
+                     $0
+                     ConcatParam
+                       ConcatParam
+                         ⟦I-V None⟧
+                         ⟦V-I None⟧
+                       ConcatParam
+                         ⟦IV-I None⟧
+                         ⟦IV-I None⟧
                    Concatenate
                      Seq
                        idea = "c"
@@ -43,7 +75,15 @@ Output analysis:
                                     ⟦I None⟧
                      {"d" ⟦V Weak⟧}
     consequent = Concatenate
-                   UseIdeaWith   $0 ConcatParam   ConcatParam   ⟦I-V None⟧ ⟦V-I None⟧ ConcatParam   ⟦IV-I None⟧ ⟦IV-I None⟧
+                   UseIdeaWith
+                     $0
+                     ConcatParam
+                       ConcatParam
+                         ⟦I-V None⟧
+                         ⟦V-I None⟧
+                       ConcatParam
+                         ⟦IV-I None⟧
+                         ⟦IV-I None⟧
                    Concatenate
                      Seq
                        idea = "c"

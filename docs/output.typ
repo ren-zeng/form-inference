@@ -69,11 +69,6 @@ This time we make the input a little bit harder in that the basic idea is not an
 #raw(read("model-outputs/ex6_5.txt"), block: true)
 #pagebreak()
 
-=== Others
-
-#supp("6-1")
-
-#example("5-11")
 
 
 === examples from annotation_pilot
@@ -88,4 +83,14 @@ This time we make the input a little bit harder in that the basic idea is not an
 
 #raw(read("model-outputs/haydn_sonata_XVI_07_C_2_menuet.txt"), block: true)
 #pagebreak()
+
+
+
+
+=== Others
+
+#supp("6-1")
+
+#example("5-11")
+
 

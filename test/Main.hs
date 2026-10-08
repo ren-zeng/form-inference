@@ -21,6 +21,8 @@ import System.Process (readProcess)
 import TestCases
 import Prettyprinter.Render.String (renderString)
 import qualified Data.List.NonEmpty as NonEmpty
+import Prettyprinter.Render.Text (putDoc)
+import Eval
 
 main :: IO ()
 main = do
@@ -33,11 +35,11 @@ main = do
     let surfaceSize = sizeFormalUnit $ fromSurface surface
     let terms = fromEggLog @FormalUnit <$> sExprList (T.pack out)
     let prettyResults = vsep $ punctuate (nLines 3) $ map (progInfoDoc surfaceSize) terms
-
+    -- testInvertable $ head terms
     print prettyResults
     writeFile  (  "docs/model-outputs/" <>  fst ex <> ".txt")$ 
-      -- show $
-       renderString $ layoutPretty (LayoutOptions Unbounded) $
+      show $
+       -- renderString $ layoutPretty (LayoutOptions Unbounded) $
         vsep
           [ "Input surface:"
           , "size" <+> "=" <+> pretty surfaceSize
@@ -47,6 +49,13 @@ main = do
           , indent 2 prettyResults
           ]
   generateDoc
+
+
+testInvertable :: FormalUnit -> IO () 
+testInvertable x = do 
+  mapM_ print result
+  where 
+    result =  leafs $ eval undefined x
 
 
 testExampleToEggLog :: String -> NonEmpty FormalUnit -> String

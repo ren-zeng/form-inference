@@ -62,6 +62,7 @@ library
         Formatting,
         Form, 
         Rules,
+        Eval,
         
         
 
@@ -86,6 +87,7 @@ library
         syb,
         relude,
         containers >= 0.8,
+        mtl,
     -- Directories containing source files.
     hs-source-dirs:   src
 

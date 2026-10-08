@@ -7,7 +7,6 @@ import Data.List.NonEmpty (NonEmpty)
 import qualified Data.List.NonEmpty as NonEmpty
 import Form
 
-
 testCases :: [(String, NonEmpty FormalUnit)]
 testCases =
     [ --     ("ex1", firstHalf ++ secondHalf)
@@ -81,13 +80,13 @@ ex6_5 =
     , leaf "c" [II] None
     , leaf "c" [I] None
     , leaf "d" [V] Weak
-    , leaf "a" [I,V] None
-    , leaf "a" [V,I] None
-    , leaf "b" [IV,I] None
-    , leaf "b" [IV,I] None
+    , leaf "a" [I, V] None
+    , leaf "a" [V, I] None
+    , leaf "b" [IV, I] None
+    , leaf "b" [IV, I] None
     , leaf "c" [II] None
     , leaf "c" [I] None
-    , leaf "e" [V,I] Strong
+    , leaf "e" [V, I] Strong
     ]
 
 ex2_11 :: NonEmpty FormalUnit
@@ -205,3 +204,5 @@ nCopies n = concat . replicate n
 
 placeHolderH :: [Harmony]
 placeHolderH = [I]
+
+-- >>> NonEmpty.toList haydn_sonata_XVI_07_C_2_menuet
