@@ -11,22 +11,29 @@ module Main where
 import Control.Monad
 
 import Data.List.NonEmpty (NonEmpty)
+import qualified Data.List.NonEmpty as NonEmpty
 import Data.SCargot
 import Data.SCargot.Repr
 import qualified Data.Text as T
+import Eval
 import Form
 import Formatting
 import Prettyprinter
+import Prettyprinter.Render.String (renderString)
+import Prettyprinter.Render.Text (putDoc)
+import System.Directory (listDirectory)
 import System.Process (readProcess)
 import TestCases
-import Prettyprinter.Render.String (renderString)
-import qualified Data.List.NonEmpty as NonEmpty
-import Prettyprinter.Render.Text (putDoc)
-import Eval
+
+linzAnnotationFolder = "test/LinzAnnotation"
+withPrefix x y = x <> y 
 
 main :: IO ()
 main = do
-  forM_ testCases $ \ex -> do
+  linzFiles <- listDirectory linzAnnotationFolder
+  linzAnnotation <- mapM (fmap readLinzAnnotation . readFile) $ 
+    fmap (withPrefix (linzAnnotationFolder <> "/")) linzFiles
+  forM_ (testCases ++ zip linzFiles linzAnnotation) $ \ex -> do
     writeFile "egglog/auto-gen/testCases.egglog" $ uncurry testExampleToEggLog ex
     writeFile "egglog/auto-gen/main.egglog" $ show $ egglogMain (fst ex)
     out <- readProcess "egglog" ["egglog/auto-gen/main.egglog"] ""
@@ -37,9 +44,9 @@ main = do
     let prettyResults = vsep $ punctuate (nLines 3) $ map (progInfoDoc surfaceSize) terms
     -- testInvertable $ head terms
     print prettyResults
-    writeFile  (  "docs/model-outputs/" <>  fst ex <> ".txt")$ 
+    writeFile ("docs/model-outputs/" <> fst ex <> ".txt") $
       show $
-       -- renderString $ layoutPretty (LayoutOptions Unbounded) $
+        -- renderString $ layoutPretty (LayoutOptions Unbounded) $
         vsep
           [ "Input surface:"
           , "size" <+> "=" <+> pretty surfaceSize
@@ -50,13 +57,11 @@ main = do
           ]
   generateDoc
 
-
-testInvertable :: FormalUnit -> IO () 
-testInvertable x = do 
+testInvertable :: FormalUnit -> IO ()
+testInvertable x = do
   mapM_ print result
-  where 
-    result =  leafs $ eval undefined x
-
+ where
+  result = leafs $ eval undefined x
 
 testExampleToEggLog :: String -> NonEmpty FormalUnit -> String
 testExampleToEggLog = egglogLet $ T.unpack . encodeOne printer . toEggLog . fromSurface
@@ -71,8 +76,10 @@ generateDoc = do
 progInfoDoc :: Int -> FormalUnit -> Doc ann
 progInfoDoc n u =
   vsep
-    [ hsep ["size=" <> pretty (sizeFormalUnit u)
-    , "compressionRate=" <> pretty (fromIntegral n / fromIntegral (sizeFormalUnit u))]
+    [ hsep
+        [ "size=" <> pretty (sizeFormalUnit u)
+        , "compressionRate=" <> pretty (fromIntegral n / fromIntegral (sizeFormalUnit u))
+        ]
     , pretty u
     ]
 

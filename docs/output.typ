@@ -85,12 +85,27 @@ This time we make the input a little bit harder in that the basic idea is not an
 #pagebreak()
 
 
+===  Examples from linz annotation (Felipe)
 
+*BTHVN_08.txt*
+#image("assets/BTHVN_08.png")
+#raw(read("model-outputs/BTHVN_08.txt.txt"), block: true)
+#pagebreak()
 
-=== Others
+*BTHVN_10.txt*
+#image("assets/BTHVN_10.png")
+#raw(read("model-outputs/BTHVN_10.txt.txt"), block: true)
+#pagebreak()
 
-#supp("6-1")
+*MNDLSSHN_3.txt*
+#image("assets/MNDLSSHN_3.png")
+#raw(read("model-outputs/MNDLSSHN_3.txt.txt"), block: true)
+#pagebreak()
 
-#example("5-11")
+// === Others
+
+// #supp("6-1")
+
+// #example("5-11")
 
 

@@ -1,0 +1,72 @@
+Input surface:
+size = 73
+  {a ⟦I None⟧}
+  {a ⟦I None⟧}
+  {a ⟦I None⟧}
+  {b ⟦IV None⟧}
+  {b ⟦VII-III None⟧}
+  {a ⟦III None⟧}
+  {a ⟦III None⟧}
+  {b ⟦I None⟧}
+  {b ⟦II None⟧}
+  {a ⟦IV None⟧}
+  {a ⟦II None⟧}
+  {c ⟦V-I Strong⟧}
+
+
+
+
+Output analysis:
+  size=61 compressionRate=1.1967213114754098
+  Sentence
+    basicIdea = "a"
+    presentation = TwiceFormalUnit
+                     {$0 ⟦I None⟧}
+    continuation = Concatenate
+                     {$0 ⟦I None⟧}
+                     Concatenate
+                       Seq
+                         idea = Twice "b"+Twice $0
+                         parameters = ConcatParam
+                                        ConcatParam
+                                          ⟦IV None⟧
+                                          ⟦VII-III None⟧
+                                        ConcatParam
+                                          ⟦III None⟧
+                                          ⟦III None⟧
+                                      ConcatParam
+                                        ConcatParam
+                                          ⟦I None⟧
+                                          ⟦II None⟧
+                                        ConcatParam
+                                          ⟦IV None⟧
+                                          ⟦II None⟧
+                       {"c" ⟦V-I Strong⟧}
+
+
+
+  size=61 compressionRate=1.1967213114754098
+  Concatenate
+    {"a" ⟦I None⟧}
+    Sentence
+      basicIdea = "a"
+      presentation = TwiceFormalUnit
+                       {$0 ⟦I None⟧}
+      continuation = Concatenate
+                       Seq
+                         idea = Twice "b"+Twice $0
+                         parameters = ConcatParam
+                                        ConcatParam
+                                          ⟦IV None⟧
+                                          ⟦VII-III None⟧
+                                        ConcatParam
+                                          ⟦III None⟧
+                                          ⟦III None⟧
+                                      ConcatParam
+                                        ConcatParam
+                                          ⟦I None⟧
+                                          ⟦II None⟧
+                                        ConcatParam
+                                          ⟦IV None⟧
+                                          ⟦II None⟧
+                       {"c" ⟦V-I Strong⟧}

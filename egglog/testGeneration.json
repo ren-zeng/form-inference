@@ -1,0 +1,728 @@
+{
+  "nodes": {
+    "function-38-PossibleInt": {
+      "op": "PossibleInt(-19)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-0-Point": {
+      "op": "Point(1)",
+      "children": [],
+      "eclass": "Expr-33",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-19-PossibleInt": {
+      "op": "PossibleInt(10)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-1-Point": {
+      "op": "Point(9)",
+      "children": [],
+      "eclass": "Expr-38",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-32-PossibleInt": {
+      "op": "PossibleInt(-16)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-2-Point": {
+      "op": "Point(10)",
+      "children": [],
+      "eclass": "Expr-36",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-37-PossibleInt": {
+      "op": "PossibleInt(19)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-3-Point": {
+      "op": "Point(7)",
+      "children": [],
+      "eclass": "Expr-35",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-20-PossibleInt": {
+      "op": "PossibleInt(-10)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-4-Point": {
+      "op": "Point(4)",
+      "children": [],
+      "eclass": "Expr-34",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-24-PossibleInt": {
+      "op": "PossibleInt(-12)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-5-Point": {
+      "op": "Point(12)",
+      "children": [],
+      "eclass": "Expr-43",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-17-PossibleInt": {
+      "op": "PossibleInt(9)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-6-Point": {
+      "op": "Point(15)",
+      "children": [],
+      "eclass": "Expr-53",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-39-PossibleInt": {
+      "op": "PossibleInt(20)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-7-Point": {
+      "op": "Point(17)",
+      "children": [],
+      "eclass": "Expr-59",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-29-PossibleInt": {
+      "op": "PossibleInt(15)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-8-Point": {
+      "op": "Point(20)",
+      "children": [],
+      "eclass": "Expr-68",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-27-PossibleInt": {
+      "op": "PossibleInt(14)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-9-Point": {
+      "op": "Point(25)",
+      "children": [],
+      "eclass": "Expr-80",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-0-Up": {
+      "op": "Up",
+      "children": [
+        "function-1-Down",
+        "function-4-Down"
+      ],
+      "eclass": "Expr-2",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-1-Up": {
+      "op": "Up",
+      "children": [
+        "function-0-Down",
+        "function-2-Down"
+      ],
+      "eclass": "Expr-18",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-2-Up": {
+      "op": "Up",
+      "children": [
+        "function-4-Up",
+        "function-5-Down"
+      ],
+      "eclass": "Expr-19",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-3-Up": {
+      "op": "Up",
+      "children": [
+        "function-0-Point",
+        "function-4-Point"
+      ],
+      "eclass": "Expr-25",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-4-Up": {
+      "op": "Up",
+      "children": [
+        "function-4-Point",
+        "function-3-Point"
+      ],
+      "eclass": "Expr-26",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-5-Up": {
+      "op": "Up",
+      "children": [
+        "function-3-Point",
+        "function-2-Point"
+      ],
+      "eclass": "Expr-27",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-6-Up": {
+      "op": "Up",
+      "children": [
+        "function-1-Point",
+        "function-5-Point"
+      ],
+      "eclass": "Expr-42",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-7-Up": {
+      "op": "Up",
+      "children": [
+        "function-6-Up",
+        "function-8-Down"
+      ],
+      "eclass": "Expr-51",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-8-Up": {
+      "op": "Up",
+      "children": [
+        "function-5-Point",
+        "function-6-Point"
+      ],
+      "eclass": "Expr-52",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-9-Up": {
+      "op": "Up",
+      "children": [
+        "function-7-Point",
+        "function-8-Point"
+      ],
+      "eclass": "Expr-67",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-0-Down": {
+      "op": "Down",
+      "children": [
+        "function-1-Point",
+        "function-4-Point"
+      ],
+      "eclass": "Expr-25",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-1-Down": {
+      "op": "Down",
+      "children": [
+        "function-6-Down",
+        "function-4-Up"
+      ],
+      "eclass": "Expr-18",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-2-Down": {
+      "op": "Down",
+      "children": [
+        "function-5-Point",
+        "function-3-Point"
+      ],
+      "eclass": "Expr-26",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-3-Down": {
+      "op": "Down",
+      "children": [
+        "function-7-Up",
+        "function-4-Down"
+      ],
+      "eclass": "Expr-2",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-4-Down": {
+      "op": "Down",
+      "children": [
+        "function-8-Down",
+        "function-5-Down"
+      ],
+      "eclass": "Expr-19",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-5-Down": {
+      "op": "Down",
+      "children": [
+        "function-6-Point",
+        "function-2-Point"
+      ],
+      "eclass": "Expr-27",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-6-Down": {
+      "op": "Down",
+      "children": [
+        "function-7-Point",
+        "function-5-Point"
+      ],
+      "eclass": "Expr-42",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-7-Down": {
+      "op": "Down",
+      "children": [
+        "function-9-Up",
+        "function-8-Up"
+      ],
+      "eclass": "Expr-51",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-8-Down": {
+      "op": "Down",
+      "children": [
+        "function-8-Point",
+        "function-6-Point"
+      ],
+      "eclass": "Expr-52",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-9-Down": {
+      "op": "Down",
+      "children": [
+        "function-9-Point",
+        "function-8-Point"
+      ],
+      "eclass": "Expr-67",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-0-Int": {
+      "op": "Int(10)",
+      "children": [],
+      "eclass": "MyInt-1",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-1-Int": {
+      "op": "Int(7)",
+      "children": [],
+      "eclass": "MyInt-17",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-2-Int": {
+      "op": "Int(4)",
+      "children": [],
+      "eclass": "MyInt-24",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-3-Int": {
+      "op": "Int(1)",
+      "children": [],
+      "eclass": "MyInt-32",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-4-Int": {
+      "op": "Int(9)",
+      "children": [],
+      "eclass": "MyInt-37",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-5-Int": {
+      "op": "Int(12)",
+      "children": [],
+      "eclass": "MyInt-41",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-6-Int": {
+      "op": "Int(15)",
+      "children": [],
+      "eclass": "MyInt-50",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-7-Int": {
+      "op": "Int(17)",
+      "children": [],
+      "eclass": "MyInt-58",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-8-Int": {
+      "op": "Int(20)",
+      "children": [],
+      "eclass": "MyInt-66",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-9-Int": {
+      "op": "Int(25)",
+      "children": [],
+      "eclass": "MyInt-79",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-28-PossibleInt": {
+      "op": "PossibleInt(-14)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-0-PossibleInt": {
+      "op": "PossibleInt(0)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-1-PossibleInt": {
+      "op": "PossibleInt(1)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-34-PossibleInt": {
+      "op": "PossibleInt(-17)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-2-PossibleInt": {
+      "op": "PossibleInt(-1)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-23-PossibleInt": {
+      "op": "PossibleInt(12)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-3-PossibleInt": {
+      "op": "PossibleInt(2)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-31-PossibleInt": {
+      "op": "PossibleInt(16)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-4-PossibleInt": {
+      "op": "PossibleInt(-2)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-26-PossibleInt": {
+      "op": "PossibleInt(-13)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-5-PossibleInt": {
+      "op": "PossibleInt(3)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-0-DemandInt": {
+      "op": "DemandInt",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 1.0,
+      "subsumed": false
+    },
+    "function-6-PossibleInt": {
+      "op": "PossibleInt(-3)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-7-PossibleInt": {
+      "op": "PossibleInt(4)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-21-PossibleInt": {
+      "op": "PossibleInt(11)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-8-PossibleInt": {
+      "op": "PossibleInt(-4)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-35-PossibleInt": {
+      "op": "PossibleInt(18)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-9-PossibleInt": {
+      "op": "PossibleInt(5)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-36-PossibleInt": {
+      "op": "PossibleInt(-18)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-10-PossibleInt": {
+      "op": "PossibleInt(-5)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-33-PossibleInt": {
+      "op": "PossibleInt(17)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-11-PossibleInt": {
+      "op": "PossibleInt(6)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-25-PossibleInt": {
+      "op": "PossibleInt(13)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-12-PossibleInt": {
+      "op": "PossibleInt(-6)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-13-PossibleInt": {
+      "op": "PossibleInt(7)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-22-PossibleInt": {
+      "op": "PossibleInt(-11)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-14-PossibleInt": {
+      "op": "PossibleInt(-7)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-18-PossibleInt": {
+      "op": "PossibleInt(-9)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-15-PossibleInt": {
+      "op": "PossibleInt(8)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-30-PossibleInt": {
+      "op": "PossibleInt(-15)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    },
+    "function-16-PossibleInt": {
+      "op": "PossibleInt(-8)",
+      "children": [],
+      "eclass": "NonDetInt-0",
+      "cost": 2.0,
+      "subsumed": false
+    }
+  },
+  "root_eclasses": [],
+  "class_data": {
+    "Expr-33": {
+      "type": "Expr"
+    },
+    "MyInt-41": {
+      "type": "MyInt"
+    },
+    "Expr-38": {
+      "type": "Expr"
+    },
+    "MyInt-37": {
+      "type": "MyInt"
+    },
+    "Expr-36": {
+      "type": "Expr"
+    },
+    "MyInt-17": {
+      "type": "MyInt"
+    },
+    "Expr-35": {
+      "type": "Expr"
+    },
+    "MyInt-32": {
+      "type": "MyInt"
+    },
+    "Expr-34": {
+      "type": "Expr"
+    },
+    "MyInt-50": {
+      "type": "MyInt"
+    },
+    "Expr-43": {
+      "type": "Expr"
+    },
+    "MyInt-24": {
+      "type": "MyInt"
+    },
+    "Expr-53": {
+      "type": "Expr"
+    },
+    "MyInt-79": {
+      "type": "MyInt"
+    },
+    "Expr-59": {
+      "type": "Expr"
+    },
+    "MyInt-66": {
+      "type": "MyInt"
+    },
+    "Expr-68": {
+      "type": "Expr"
+    },
+    "NonDetInt-0": {
+      "type": "NonDetInt"
+    },
+    "Expr-80": {
+      "type": "Expr"
+    },
+    "MyInt-58": {
+      "type": "MyInt"
+    },
+    "Expr-2": {
+      "type": "Expr",
+      "let": "$a"
+    },
+    "Expr-18": {
+      "type": "Expr"
+    },
+    "Expr-19": {
+      "type": "Expr"
+    },
+    "Expr-25": {
+      "type": "Expr"
+    },
+    "Expr-26": {
+      "type": "Expr"
+    },
+    "Expr-27": {
+      "type": "Expr"
+    },
+    "Expr-42": {
+      "type": "Expr"
+    },
+    "Expr-51": {
+      "type": "Expr"
+    },
+    "Expr-52": {
+      "type": "Expr"
+    },
+    "Expr-67": {
+      "type": "Expr"
+    },
+    "MyInt-1": {
+      "type": "MyInt"
+    }
+  }
+}

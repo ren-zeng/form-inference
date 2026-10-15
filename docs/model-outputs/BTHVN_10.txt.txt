@@ -1,0 +1,62 @@
+Input surface:
+size = 62
+  {a ⟦I None⟧}
+  {b ⟦V None⟧}
+  {c ⟦I-V None⟧}
+  {c ⟦I None⟧}
+  {e ⟦IV None⟧}
+  {e ⟦VII-V None⟧}
+  {c ⟦I None⟧}
+  {c ⟦I None⟧}
+  {e ⟦IV-II None⟧}
+  {e ⟦V Strong⟧}
+
+
+
+
+Output analysis:
+  size=54 compressionRate=1.1481481481481481
+  Concatenate
+    {"a" ⟦I None⟧}
+    Concatenate
+      {"b" ⟦V None⟧}
+      Seq
+        idea = Twice "c"+Twice "e"
+        parameters = ConcatParam
+                       ConcatParam
+                         ⟦I-V None⟧
+                         ⟦I None⟧
+                       ConcatParam
+                         ⟦IV None⟧
+                         ⟦VII-V None⟧
+                     ConcatParam
+                       ⟦I None⟧
+                       ConcatParam
+                         ⟦I None⟧
+                         ConcatParam
+                           ⟦IV-II None⟧
+                           ⟦V Strong⟧
+
+
+
+  size=54 compressionRate=1.1481481481481481
+  Concatenate
+    Concatenate
+      {"a" ⟦I None⟧}
+      {"b" ⟦V None⟧}
+    Seq
+      idea = Twice "c"+Twice "e"
+      parameters = ConcatParam
+                     ConcatParam
+                       ⟦I-V None⟧
+                       ⟦I None⟧
+                     ConcatParam
+                       ⟦IV None⟧
+                       ⟦VII-V None⟧
+                   ConcatParam
+                     ⟦I None⟧
+                     ConcatParam
+                       ⟦I None⟧
+                       ConcatParam
+                         ⟦IV-II None⟧
+                         ⟦V Strong⟧

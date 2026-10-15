@@ -1,0 +1,120 @@
+Input surface:
+size = 130
+  {a ⟦I-V None⟧}
+  {a ⟦V None⟧}
+  {c ⟦I None⟧}
+  {d ⟦V-I None⟧}
+  {d ⟦I None⟧}
+  {c ⟦II None⟧}
+  {d ⟦VI-II None⟧}
+  {d ⟦II None⟧}
+  {c ⟦VII None⟧}
+  {f ⟦V None⟧}
+  {c ⟦V None⟧}
+  {f ⟦V None⟧}
+  {i ⟦V Weak⟧}
+  {i ⟦V None⟧}
+  {l ⟦I-IV-I-IV None⟧}
+  {l ⟦II-VII None⟧}
+  {m ⟦III-II None⟧}
+  {n ⟦II-IV-V None⟧}
+  {a ⟦VII-V Weak⟧}
+  {a ⟦V None⟧}
+
+
+
+
+Output analysis:
+  size=123 compressionRate=1.056910569105691
+  Concatenate
+    Seq
+      idea = "a"
+      parameters = ⟦I-V None⟧
+                   ⟦V None⟧
+    Concatenate
+      Concatenate
+        Seq
+          idea = "c"+Twice "d"
+          parameters = ConcatParam
+                         ⟦I None⟧
+                         ConcatParam
+                           ⟦V-I None⟧
+                           ⟦I None⟧
+                       ConcatParam
+                         ⟦II None⟧
+                         ConcatParam
+                           ⟦VI-II None⟧
+                           ⟦II None⟧
+        Concatenate
+          Seq
+            idea = "c"+"f"
+            parameters = ConcatParam
+                           ⟦VII None⟧
+                           ⟦V None⟧
+                         ConcatParam
+                           ⟦V None⟧
+                           ⟦V None⟧
+          {"i" ⟦V Weak⟧}
+      Concatenate
+        {"i" ⟦V None⟧}
+        Concatenate
+          Seq
+            idea = "l"
+            parameters = ⟦I-IV-I-IV None⟧
+                         ⟦II-VII None⟧
+          Concatenate
+            {"m" ⟦III-II None⟧}
+            Concatenate
+              {"n" ⟦II-IV-V None⟧}
+              Seq
+                idea = "a"
+                parameters = ⟦VII-V Weak⟧
+                             ⟦V None⟧
+
+
+
+  size=123 compressionRate=1.056910569105691
+  Concatenate
+    Concatenate
+      Seq
+        idea = "a"
+        parameters = ⟦I-V None⟧
+                     ⟦V None⟧
+      Seq
+        idea = "c"+Twice "d"
+        parameters = ConcatParam
+                       ⟦I None⟧
+                       ConcatParam
+                         ⟦V-I None⟧
+                         ⟦I None⟧
+                     ConcatParam
+                       ⟦II None⟧
+                       ConcatParam
+                         ⟦VI-II None⟧
+                         ⟦II None⟧
+    Concatenate
+      Seq
+        idea = "c"+"f"
+        parameters = ConcatParam
+                       ⟦VII None⟧
+                       ⟦V None⟧
+                     ConcatParam
+                       ⟦V None⟧
+                       ⟦V None⟧
+      Concatenate
+        {"i" ⟦V Weak⟧}
+        Concatenate
+          {"i" ⟦V None⟧}
+          Concatenate
+            Seq
+              idea = "l"
+              parameters = ⟦I-IV-I-IV None⟧
+                           ⟦II-VII None⟧
+            Concatenate
+              {"m" ⟦III-II None⟧}
+              Concatenate
+                {"n" ⟦II-IV-V None⟧}
+                Seq
+                  idea = "a"
+                  parameters = ⟦VII-V Weak⟧
+                               ⟦V None⟧

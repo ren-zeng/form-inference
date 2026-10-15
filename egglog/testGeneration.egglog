@@ -1,0 +1,99 @@
+(datatype Expr (Point i64) (Up Expr Expr) (Down Expr Expr))
+
+(datatype MyInt (Int i64))
+(datatype NonDetInt (PossibleInt i64))
+(constructor DemandUp (i64 MyInt) Expr :unextractable)
+(constructor DemandDown (i64 MyInt) Expr :unextractable)
+(constructor DemandExpr (i64 MyInt) Expr :unextractable)
+(constructor DemandInt () NonDetInt :unextractable)
+
+
+(rule 
+    (   (= ?match (DemandUp d (Int b)))
+        (= (PossibleInt a) (DemandInt))
+        (= 3 (- b a))
+        (> d 0)
+    )
+    (   (union ?match (Up (DemandExpr (- d 1) (Int a)) (DemandExpr (- d 1) (Int b))))
+    )
+)
+
+(rule 
+    (   (= ?match (DemandDown d (Int b)))
+        (= (PossibleInt a) (DemandInt))
+        (= -5 (- b a))
+        (> d 0)
+    )
+    (   (union ?match (Down (DemandExpr (- d 1) (Int a)) (DemandExpr (- d 1) (Int b))))
+    )
+)
+
+(rule 
+    (   (= ?match (DemandExpr d (Int b)))
+        (> d 0)
+    )
+    (   (union ?match (DemandUp d (Int b)))
+        (union ?match (DemandDown d (Int b)))
+       
+    )
+)
+
+(rule 
+    (   (= ?match (DemandExpr 0 (Int b)))
+    )
+    (   (union ?match (Point b))
+    )
+)
+
+(rewrite (DemandInt) (PossibleInt 0))
+
+(rule 
+    (   (= (PossibleInt n) (DemandInt))
+    )
+    (   
+        (union (PossibleInt (+ n 1)) (DemandInt))
+    )
+)
+
+(rule 
+    (   (= (PossibleInt n) (DemandInt))
+    )
+    (   
+        (union (PossibleInt (- n 1)) (DemandInt))
+    )
+)
+
+(ruleset clear)
+(rule 
+    (   (DemandExpr a b)
+    )
+    (   (delete (DemandExpr a b))
+    )
+    :ruleset clear
+)
+
+(rule 
+    (   (DemandUp a b)
+    )
+    (   (delete (DemandUp a b))
+    )
+    :ruleset clear
+)
+
+(rule 
+    (   (DemandDown a b)
+    )
+    (   (delete (DemandDown a b))
+    )
+    :ruleset clear
+)
+
+(DemandInt)
+
+(let $a (DemandExpr 3 (Int 10)))
+
+(run 100)
+(run-schedule (run clear))
+
+;;(check (= $a (Up (Down (Point 12) (Point 7)) (Down (Point 15) (Point 10))))) ;; this exists in the graph, but not in the list of extracted values
+(extract $a 10) ;; only output two terms

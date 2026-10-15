@@ -63,6 +63,7 @@ library
         Form, 
         Rules,
         Eval,
+        Generation,
         
         
 
@@ -88,6 +89,7 @@ library
         relude,
         containers >= 0.8,
         mtl,
+        -- extism-pdk,
     -- Directories containing source files.
     hs-source-dirs:   src
 
@@ -115,6 +117,7 @@ executable form-inference
         process,
         text,
         prettyprinter,
+        
         
         
 
@@ -155,3 +158,5 @@ test-suite form-inference-test
         prettyprinter,
         process,
         s-cargot,
+        -- extextism-pdk,
+        directory,
