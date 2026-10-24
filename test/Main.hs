@@ -6,7 +6,7 @@
 {-# LANGUAGE TypeAbstractions #-}
 {-# LANGUAGE TypeApplications #-}
 
-module Main where
+module Main (main,mainWithBackEnd,inferForm) where
 
 import Control.Monad
 
@@ -28,20 +28,30 @@ import TestCases
 linzAnnotationFolder = "test/LinzAnnotation"
 withPrefix x y = x <> y 
 
-main :: IO ()
-main = do
+
+
+
+
+main ::  IO ()
+main = mainWithBackEnd (readProcess "egglog" [])
+
+inferForm :: 
+  (String -> IO String) -> (String,NonEmpty FormalUnit)-> IO [FormalUnit]
+inferForm runEgglog (name,surface) = do 
+  out <- runEgglog $ show $ egglogMain (name,surface)
+  putStrLn out
+  let terms = fromEggLog @FormalUnit <$> sExprList (T.pack out)
+  return terms
+
+mainWithBackEnd :: (String -> IO String) -> IO ()
+mainWithBackEnd runEgglog = do
   linzFiles <- listDirectory linzAnnotationFolder
   linzAnnotation <- mapM (fmap readLinzAnnotation . readFile) $ 
     fmap (withPrefix (linzAnnotationFolder <> "/")) linzFiles
   forM_ (testCases ++ zip linzFiles linzAnnotation) $ \ex -> do
-    writeFile "egglog/auto-gen/testCases.egglog" $ uncurry testExampleToEggLog ex
-    writeFile "egglog/auto-gen/main.egglog" $ show $ egglogMain (fst ex)
-    out <- readProcess "egglog" ["egglog/auto-gen/main.egglog"] ""
-    -- putStrLn out
-    let surface = snd ex
-    let surfaceSize = sizeFormalUnit $ fromSurface surface
-    let terms = fromEggLog @FormalUnit <$> sExprList (T.pack out)
-    let prettyResults = vsep $ punctuate (nLines 3) $ map (progInfoDoc surfaceSize) terms
+    candidates <- inferForm runEgglog ex
+    let surfaceSize = sizeFormalUnit $ fromSurface (snd ex)
+    let prettyResults = vsep $ punctuate (nLines 3) $ map (progInfoDoc surfaceSize) candidates
     -- testInvertable $ head terms
     print prettyResults
     writeFile ("docs/model-outputs/" <> fst ex <> ".txt") $
@@ -83,11 +93,14 @@ progInfoDoc n u =
     , pretty u
     ]
 
-egglogMain :: String -> Doc ann
-egglogMain var =
+egglogMain :: (String, NonEmpty FormalUnit)  -> Doc ann
+egglogMain (var,surface) =
   vsep
-    [ "(include \"egglog/form.egglog\")"
-    , "(include \"egglog/auto-gen/testCases.egglog\")"
+    [ 
+      -- "(include \"egglog/form.egglog\")"
+    pretty  egglogDefs
+    -- , "(include \"egglog/auto-gen/testCases.egglog\")"
+    , pretty  $ testExampleToEggLog var surface
     , "(run 200)"
     , "(extract $" <> pretty var <+> "2)"
     ]
