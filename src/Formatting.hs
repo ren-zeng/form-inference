@@ -74,3 +74,4 @@ prettyApp f args = vsep [f, indent 2 $ vsep args]
 
 prettyError :: (HasCallStack) => Doc ann -> Doc ann -> a
 prettyError title msg = error $ show $ surround title "[" "]:"  <+> align msg
+

@@ -43,8 +43,7 @@ testCases =
 --     , Leaf "w" (Param [I] Strong)
 -- ]
 
-leaf :: Idea -> [Harmony] -> CadenceStrength -> FormalUnit
-leaf s hs cad = Leaf s (Param hs cad)
+
 
 ex6_1 :: NonEmpty FormalUnit
 ex6_1 =
@@ -208,10 +207,3 @@ placeHolderH = [I]
 
 -- >>> NonEmpty.toList haydn_sonata_XVI_07_C_2_menuet
 
-readLinzAnnotation :: String -> NonEmpty FormalUnit
-readLinzAnnotation =
-    NonEmpty.fromList
-        . fmap (convert . (read @(String, [Harmony], CadenceStrength)))
-        . lines
-  where
-    convert (label, hs, strength) = leaf (Label label) hs strength

@@ -38,6 +38,8 @@ module Form (
   -- ** Utility
   fromSurface,
   zipLeaf,
+  leaf,
+  readLinzAnnotation,
   -- ** egglog program
   inferForm,
   egglogDefs
@@ -56,6 +58,7 @@ import Relude
 import Relude.Unsafe
 import Prelude ()
 import Data.SCargot
+import qualified Data.List.NonEmpty as NonEmpty
 
 
 data CadenceStrength = Weak | Strong | None deriving (Show, Read, Data)
@@ -883,6 +886,17 @@ egglogDefs =
 
   """
 
+leaf :: Idea -> [Harmony] -> CadenceStrength -> FormalUnit
+leaf s hs cad = Leaf s (Param hs cad)
+
+readLinzAnnotation :: String -> NonEmpty FormalUnit
+readLinzAnnotation =
+    NonEmpty.fromList
+        . fmap (convert . (read @(String, [Harmony], CadenceStrength)))
+        . Data.String.lines
+  where
+    convert (label, hs, strength) = leaf (Label label) hs strength
+    
 inferForm :: 
   (String -> IO String) -> (String,NonEmpty FormalUnit)-> IO [FormalUnit]
 inferForm runEgglog (name,surface) = do 
