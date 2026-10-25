@@ -35,13 +35,7 @@ withPrefix x y = x <> y
 main ::  IO ()
 main = mainWithBackEnd (readProcess "egglog" [])
 
-inferForm :: 
-  (String -> IO String) -> (String,NonEmpty FormalUnit)-> IO [FormalUnit]
-inferForm runEgglog (name,surface) = do 
-  out <- runEgglog $ show $ egglogMain (name,surface)
-  putStrLn out
-  let terms = fromEggLog @FormalUnit <$> sExprList (T.pack out)
-  return terms
+
 
 mainWithBackEnd :: (String -> IO String) -> IO ()
 mainWithBackEnd runEgglog = do
@@ -73,10 +67,7 @@ testInvertable x = do
  where
   result = leafs $ eval undefined x
 
-testExampleToEggLog :: String -> NonEmpty FormalUnit -> String
-testExampleToEggLog = egglogLet $ T.unpack . encodeOne printer . toEggLog . fromSurface
- where
-  printer = setFromCarrier fromWellFormed (basicPrint id)
+
 
 generateDoc :: IO ()
 generateDoc = do
@@ -93,17 +84,7 @@ progInfoDoc n u =
     , pretty u
     ]
 
-egglogMain :: (String, NonEmpty FormalUnit)  -> Doc ann
-egglogMain (var,surface) =
-  vsep
-    [ 
-      -- "(include \"egglog/form.egglog\")"
-    pretty  egglogDefs
-    -- , "(include \"egglog/auto-gen/testCases.egglog\")"
-    , pretty  $ testExampleToEggLog var surface
-    , "(run 200)"
-    , "(extract $" <> pretty var <+> "2)"
-    ]
+
 
 nLines :: Int -> Doc ann
 nLines n = mconcat (replicate n line)

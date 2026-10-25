@@ -39,6 +39,7 @@ module Form (
   fromSurface,
   zipLeaf,
   -- ** egglog program
+  inferForm,
   egglogDefs
 ) where
 
@@ -54,6 +55,7 @@ import Prettyprinter
 import Relude
 import Relude.Unsafe
 import Prelude ()
+import Data.SCargot
 
 
 data CadenceStrength = Weak | Strong | None deriving (Show, Read, Data)
@@ -880,3 +882,28 @@ egglogDefs =
 
 
   """
+
+inferForm :: 
+  (String -> IO String) -> (String,NonEmpty FormalUnit)-> IO [FormalUnit]
+inferForm runEgglog (name,surface) = do 
+  out <- runEgglog $ show $ egglogMain (name,surface)
+  putStrLn out
+  let terms = fromEggLog @FormalUnit <$> sExprList (T.pack out)
+  return terms
+
+surfaceToEggLog :: String -> NonEmpty FormalUnit -> String
+surfaceToEggLog = egglogLet $ T.unpack . encodeOne printer . toEggLog . fromSurface
+ where
+  printer = setFromCarrier fromWellFormed (basicPrint id)
+
+egglogMain :: (String, NonEmpty FormalUnit)  -> Doc ann
+egglogMain (var,surface) =
+  vsep
+    [ 
+      -- "(include \"egglog/form.egglog\")"
+    pretty  egglogDefs
+    -- , "(include \"egglog/auto-gen/testCases.egglog\")"
+    , pretty  $ surfaceToEggLog var surface
+    , "(run 200)"
+    , "(extract $" <> pretty var <+> "2)"
+    ]
