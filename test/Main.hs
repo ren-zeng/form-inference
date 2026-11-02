@@ -1,12 +1,13 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE ExplicitForAll #-}
+{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RequiredTypeArguments #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TypeAbstractions #-}
 {-# LANGUAGE TypeApplications #-}
 
-module Main (main,mainWithBackEnd,inferForm) where
+module Main (main, mainWithBackEnd, inferForm) where
 
 import Control.Monad
 
@@ -26,22 +27,25 @@ import System.Process (readProcess)
 import TestCases
 
 linzAnnotationFolder = "test/LinzAnnotation"
-withPrefix x y = x <> y 
+withPrefix x y = x <> y
 
-
-
-
-
-main ::  IO ()
+main :: IO ()
 main = mainWithBackEnd (readProcess "egglog" [])
 
+eitherToIOError :: (a -> String) -> Either a b -> IO b
+eitherToIOError f = \case
+  Left a -> error $ f a
+  Right b -> return b
 
+parseAnnotation :: String -> IO (NonEmpty FormalUnit)
+parseAnnotation = eitherToIOError show . readLinzAnnotation
 
 mainWithBackEnd :: (String -> IO String) -> IO ()
 mainWithBackEnd runEgglog = do
   linzFiles <- listDirectory linzAnnotationFolder
-  linzAnnotation <- mapM (fmap readLinzAnnotation . readFile) $ 
-    fmap (withPrefix (linzAnnotationFolder <> "/")) linzFiles
+  linzAnnotation <-
+    mapM (parseAnnotation <=< readFile) $
+      fmap (withPrefix (linzAnnotationFolder <> "/")) linzFiles
   forM_ (testCases ++ zip linzFiles linzAnnotation) $ \ex -> do
     candidates <- inferForm runEgglog ex
     let surfaceSize = sizeFormalUnit $ fromSurface (snd ex)
@@ -67,8 +71,6 @@ testInvertable x = do
  where
   result = leafs $ eval undefined x
 
-
-
 generateDoc :: IO ()
 generateDoc = do
   void $ readProcess "prequery" ["docs/output.typ"] ""
@@ -83,8 +85,6 @@ progInfoDoc n u =
         ]
     , pretty u
     ]
-
-
 
 nLines :: Int -> Doc ann
 nLines n = mconcat (replicate n line)

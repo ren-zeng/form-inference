@@ -889,11 +889,11 @@ egglogDefs =
 leaf :: Idea -> [Harmony] -> CadenceStrength -> FormalUnit
 leaf s hs cad = Leaf s (Param hs cad)
 
-readLinzAnnotation :: String -> NonEmpty FormalUnit
-readLinzAnnotation =
-    NonEmpty.fromList
-        . fmap (convert . (read @(String, [Harmony], CadenceStrength)))
-        . Data.String.lines
+readLinzAnnotation :: String -> Either Text (NonEmpty FormalUnit)
+readLinzAnnotation s = do 
+    let ss = Data.String.lines s
+    xs <- mapM (fmap convert . readEither @(String, [Harmony], CadenceStrength )) ss 
+    return $ NonEmpty.fromList xs
   where
     convert (label, hs, strength) = leaf (Label label) hs strength
     
