@@ -164,3 +164,551 @@ Output analysis:
                     Concatenate
                       {"F" ⟦I None⟧}
                       {"G" ⟦I Strong⟧}
+expanded analysis:
+  SimpleBinaryF [] []
+    PeriodF {basicIdeaF = Concat (Label "\"A\"") (Label "\"B\""), antecedentF = [], consequentF = []}
+      ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+        UseIdeaWithF (LocalVar 0) (ConcatParam (Param [I] None) (Param [I] None))
+          LeafF (Label "\"A\"") (Param [I] None)
+            
+          LeafF (Label "\"B\"") (Param [I] None)
+            
+        ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+          LeafF (Label "\"C\"") (Param [I] None)
+            LeafF (Label "\"C\"") (Param [I] None)
+              
+          LeafF (Label "\"D\"") (Param [I] Weak)
+            LeafF (Label "\"D\"") (Param [I] Weak)
+              
+      ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+        UseIdeaWithF (LocalVar 0) (ConcatParam (Param [I] None) (Param [I] None))
+          LeafF (Label "\"A\"") (Param [I] None)
+            
+          LeafF (Label "\"B\"") (Param [I] None)
+            
+        HybridAntContF {antecedentF = [Concat (Label "\"A\"") (Label "\"B\"")], continuationF = [Concat (Label "\"A\"") (Label "\"B\"")]}
+          ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+            LeafF (Label "\"E\"") (Param [I] None)
+              LeafF (Label "\"E\"") (Param [I] None)
+                
+            LeafF (Label "\"D\"") (Param [I] Weak)
+              LeafF (Label "\"D\"") (Param [I] Weak)
+                
+          ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+            TwiceFormalUnitF [Concat (Label "\"A\"") (Label "\"B\"")]
+              LeafF (Label "\"A'\"") (Param [I] None)
+                LeafF (Label "\"A'\"") (Param [I] None)
+                  
+              LeafF (Label "\"A'\"") (Param [I] None)
+                LeafF (Label "\"A'\"") (Param [I] None)
+                  
+            ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+              LeafF (Label "\"F\"") (Param [I] None)
+                LeafF (Label "\"F\"") (Param [I] None)
+                  
+              LeafF (Label "\"G\"") (Param [I] Strong)
+                LeafF (Label "\"G\"") (Param [I] Strong)
+                  
+    PeriodF {basicIdeaF = Concat (Label "\"A\"") (Label "\"B\""), antecedentF = [], consequentF = []}
+      ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+        UseIdeaWithF (LocalVar 0) (ConcatParam (Param [I] None) (Param [I] None))
+          LeafF (Label "\"A\"") (Param [I] None)
+            
+          LeafF (Label "\"B\"") (Param [I] None)
+            
+        ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+          LeafF (Label "\"C\"") (Param [I] None)
+            LeafF (Label "\"C\"") (Param [I] None)
+              
+          LeafF (Label "\"D\"") (Param [I] Weak)
+            LeafF (Label "\"D\"") (Param [I] Weak)
+              
+      ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+        UseIdeaWithF (LocalVar 0) (ConcatParam (Param [I] None) (Param [I] None))
+          LeafF (Label "\"A\"") (Param [I] None)
+            
+          LeafF (Label "\"B\"") (Param [I] None)
+            
+        HybridAntContF {antecedentF = [Concat (Label "\"A\"") (Label "\"B\"")], continuationF = [Concat (Label "\"A\"") (Label "\"B\"")]}
+          ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+            LeafF (Label "\"E\"") (Param [I] None)
+              LeafF (Label "\"E\"") (Param [I] None)
+                
+            LeafF (Label "\"D\"") (Param [I] Weak)
+              LeafF (Label "\"D\"") (Param [I] Weak)
+                
+          ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+            TwiceFormalUnitF [Concat (Label "\"A\"") (Label "\"B\"")]
+              LeafF (Label "\"A'\"") (Param [I] None)
+                LeafF (Label "\"A'\"") (Param [I] None)
+                  
+              LeafF (Label "\"A'\"") (Param [I] None)
+                LeafF (Label "\"A'\"") (Param [I] None)
+                  
+            ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+              LeafF (Label "\"F\"") (Param [I] None)
+                LeafF (Label "\"F\"") (Param [I] None)
+                  
+              LeafF (Label "\"G\"") (Param [I] Strong)
+                LeafF (Label "\"G\"") (Param [I] Strong)
+                  
+    ConcatenateF [] []
+      LeafF (Label "\"H\"") (Param [I] None)
+        LeafF (Label "\"H\"") (Param [I] None)
+          
+      ConcatenateF [] []
+        LeafF (Label "\"I\"") (Param [I] None)
+          LeafF (Label "\"I\"") (Param [I] None)
+            
+        ConcatenateF [] []
+          LeafF (Label "\"J\"") (Param [I] None)
+            LeafF (Label "\"J\"") (Param [I] None)
+              
+          ConcatenateF [] []
+            ConcatenateF [] []
+              LeafF (Label "\"B\"") (Param [I] Weak)
+                LeafF (Label "\"B\"") (Param [I] Weak)
+                  
+              ConcatenateF [] []
+                TwiceFormalUnitF []
+                  LeafF (Label "\"K\"") (Param [I] None)
+                    LeafF (Label "\"K\"") (Param [I] None)
+                      
+                  LeafF (Label "\"K\"") (Param [I] None)
+                    LeafF (Label "\"K\"") (Param [I] None)
+                      
+                ConcatenateF [] []
+                  LeafF (Label "\"L\"") (Param [I] None)
+                    LeafF (Label "\"L\"") (Param [I] None)
+                      
+                  LeafF (Label "\"M\"") (Param [I] Weak)
+                    LeafF (Label "\"M\"") (Param [I] Weak)
+                      
+            ConcatenateF [] []
+              TwiceFormalUnitF []
+                LeafF (Label "\"A'\"") (Param [I] None)
+                  LeafF (Label "\"A'\"") (Param [I] None)
+                    
+                LeafF (Label "\"A'\"") (Param [I] None)
+                  LeafF (Label "\"A'\"") (Param [I] None)
+                    
+              ConcatenateF [] []
+                ConcatenateF [] []
+                  LeafF (Label "\"N\"") (Param [I] None)
+                    LeafF (Label "\"N\"") (Param [I] None)
+                      
+                  LeafF (Label "\"G'\"") (Param [I] Strong)
+                    LeafF (Label "\"G'\"") (Param [I] Strong)
+                      
+                ConcatenateF [] []
+                  TwiceFormalUnitF []
+                    LeafF (Label "\"H'\"") (Param [I] None)
+                      LeafF (Label "\"H'\"") (Param [I] None)
+                        
+                    LeafF (Label "\"H'\"") (Param [I] None)
+                      LeafF (Label "\"H'\"") (Param [I] None)
+                        
+                  ConcatenateF [] []
+                    LeafF (Label "\"F\"") (Param [I] None)
+                      LeafF (Label "\"F\"") (Param [I] None)
+                        
+                    LeafF (Label "\"G\"") (Param [I] Strong)
+                      LeafF (Label "\"G\"") (Param [I] Strong)
+                        
+    ConcatenateF [] []
+      LeafF (Label "\"H\"") (Param [I] None)
+        LeafF (Label "\"H\"") (Param [I] None)
+          
+      ConcatenateF [] []
+        LeafF (Label "\"I\"") (Param [I] None)
+          LeafF (Label "\"I\"") (Param [I] None)
+            
+        ConcatenateF [] []
+          LeafF (Label "\"J\"") (Param [I] None)
+            LeafF (Label "\"J\"") (Param [I] None)
+              
+          ConcatenateF [] []
+            ConcatenateF [] []
+              LeafF (Label "\"B\"") (Param [I] Weak)
+                LeafF (Label "\"B\"") (Param [I] Weak)
+                  
+              ConcatenateF [] []
+                TwiceFormalUnitF []
+                  LeafF (Label "\"K\"") (Param [I] None)
+                    LeafF (Label "\"K\"") (Param [I] None)
+                      
+                  LeafF (Label "\"K\"") (Param [I] None)
+                    LeafF (Label "\"K\"") (Param [I] None)
+                      
+                ConcatenateF [] []
+                  LeafF (Label "\"L\"") (Param [I] None)
+                    LeafF (Label "\"L\"") (Param [I] None)
+                      
+                  LeafF (Label "\"M\"") (Param [I] Weak)
+                    LeafF (Label "\"M\"") (Param [I] Weak)
+                      
+            ConcatenateF [] []
+              TwiceFormalUnitF []
+                LeafF (Label "\"A'\"") (Param [I] None)
+                  LeafF (Label "\"A'\"") (Param [I] None)
+                    
+                LeafF (Label "\"A'\"") (Param [I] None)
+                  LeafF (Label "\"A'\"") (Param [I] None)
+                    
+              ConcatenateF [] []
+                ConcatenateF [] []
+                  LeafF (Label "\"N\"") (Param [I] None)
+                    LeafF (Label "\"N\"") (Param [I] None)
+                      
+                  LeafF (Label "\"G'\"") (Param [I] Strong)
+                    LeafF (Label "\"G'\"") (Param [I] Strong)
+                      
+                ConcatenateF [] []
+                  TwiceFormalUnitF []
+                    LeafF (Label "\"H'\"") (Param [I] None)
+                      LeafF (Label "\"H'\"") (Param [I] None)
+                        
+                    LeafF (Label "\"H'\"") (Param [I] None)
+                      LeafF (Label "\"H'\"") (Param [I] None)
+                        
+                  ConcatenateF [] []
+                    LeafF (Label "\"F\"") (Param [I] None)
+                      LeafF (Label "\"F\"") (Param [I] None)
+                        
+                    LeafF (Label "\"G\"") (Param [I] Strong)
+                      LeafF (Label "\"G\"") (Param [I] Strong)
+                        
+
+
+
+  ConcatenateF [] []
+    TwiceFormalUnitF []
+      PeriodF {basicIdeaF = Concat (Label "\"A\"") (Label "\"B\""), antecedentF = [], consequentF = []}
+        ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+          UseIdeaWithF (LocalVar 0) (ConcatParam (Param [I] None) (Param [I] None))
+            LeafF (Label "\"A\"") (Param [I] None)
+              
+            LeafF (Label "\"B\"") (Param [I] None)
+              
+          ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+            LeafF (Label "\"C\"") (Param [I] None)
+              LeafF (Label "\"C\"") (Param [I] None)
+                
+            LeafF (Label "\"D\"") (Param [I] Weak)
+              LeafF (Label "\"D\"") (Param [I] Weak)
+                
+        ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+          UseIdeaWithF (LocalVar 0) (ConcatParam (Param [I] None) (Param [I] None))
+            LeafF (Label "\"A\"") (Param [I] None)
+              
+            LeafF (Label "\"B\"") (Param [I] None)
+              
+          HybridAntContF {antecedentF = [Concat (Label "\"A\"") (Label "\"B\"")], continuationF = [Concat (Label "\"A\"") (Label "\"B\"")]}
+            ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+              LeafF (Label "\"E\"") (Param [I] None)
+                LeafF (Label "\"E\"") (Param [I] None)
+                  
+              LeafF (Label "\"D\"") (Param [I] Weak)
+                LeafF (Label "\"D\"") (Param [I] Weak)
+                  
+            ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+              TwiceFormalUnitF [Concat (Label "\"A\"") (Label "\"B\"")]
+                LeafF (Label "\"A'\"") (Param [I] None)
+                  LeafF (Label "\"A'\"") (Param [I] None)
+                    
+                LeafF (Label "\"A'\"") (Param [I] None)
+                  LeafF (Label "\"A'\"") (Param [I] None)
+                    
+              ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+                LeafF (Label "\"F\"") (Param [I] None)
+                  LeafF (Label "\"F\"") (Param [I] None)
+                    
+                LeafF (Label "\"G\"") (Param [I] Strong)
+                  LeafF (Label "\"G\"") (Param [I] Strong)
+                    
+      PeriodF {basicIdeaF = Concat (Label "\"A\"") (Label "\"B\""), antecedentF = [], consequentF = []}
+        ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+          UseIdeaWithF (LocalVar 0) (ConcatParam (Param [I] None) (Param [I] None))
+            LeafF (Label "\"A\"") (Param [I] None)
+              
+            LeafF (Label "\"B\"") (Param [I] None)
+              
+          ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+            LeafF (Label "\"C\"") (Param [I] None)
+              LeafF (Label "\"C\"") (Param [I] None)
+                
+            LeafF (Label "\"D\"") (Param [I] Weak)
+              LeafF (Label "\"D\"") (Param [I] Weak)
+                
+        ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+          UseIdeaWithF (LocalVar 0) (ConcatParam (Param [I] None) (Param [I] None))
+            LeafF (Label "\"A\"") (Param [I] None)
+              
+            LeafF (Label "\"B\"") (Param [I] None)
+              
+          HybridAntContF {antecedentF = [Concat (Label "\"A\"") (Label "\"B\"")], continuationF = [Concat (Label "\"A\"") (Label "\"B\"")]}
+            ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+              LeafF (Label "\"E\"") (Param [I] None)
+                LeafF (Label "\"E\"") (Param [I] None)
+                  
+              LeafF (Label "\"D\"") (Param [I] Weak)
+                LeafF (Label "\"D\"") (Param [I] Weak)
+                  
+            ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+              TwiceFormalUnitF [Concat (Label "\"A\"") (Label "\"B\"")]
+                LeafF (Label "\"A'\"") (Param [I] None)
+                  LeafF (Label "\"A'\"") (Param [I] None)
+                    
+                LeafF (Label "\"A'\"") (Param [I] None)
+                  LeafF (Label "\"A'\"") (Param [I] None)
+                    
+              ConcatenateF [Concat (Label "\"A\"") (Label "\"B\"")] [Concat (Label "\"A\"") (Label "\"B\"")]
+                LeafF (Label "\"F\"") (Param [I] None)
+                  LeafF (Label "\"F\"") (Param [I] None)
+                    
+                LeafF (Label "\"G\"") (Param [I] Strong)
+                  LeafF (Label "\"G\"") (Param [I] Strong)
+                    
+    TwiceFormalUnitF []
+      ConcatenateF [] []
+        LeafF (Label "\"H\"") (Param [I] None)
+          LeafF (Label "\"H\"") (Param [I] None)
+            
+        ConcatenateF [] []
+          LeafF (Label "\"I\"") (Param [I] None)
+            LeafF (Label "\"I\"") (Param [I] None)
+              
+          ConcatenateF [] []
+            LeafF (Label "\"J\"") (Param [I] None)
+              LeafF (Label "\"J\"") (Param [I] None)
+                
+            ConcatenateF [] []
+              ConcatenateF [] []
+                LeafF (Label "\"B\"") (Param [I] Weak)
+                  LeafF (Label "\"B\"") (Param [I] Weak)
+                    
+                ConcatenateF [] []
+                  TwiceFormalUnitF []
+                    LeafF (Label "\"K\"") (Param [I] None)
+                      LeafF (Label "\"K\"") (Param [I] None)
+                        
+                    LeafF (Label "\"K\"") (Param [I] None)
+                      LeafF (Label "\"K\"") (Param [I] None)
+                        
+                  ConcatenateF [] []
+                    LeafF (Label "\"L\"") (Param [I] None)
+                      LeafF (Label "\"L\"") (Param [I] None)
+                        
+                    LeafF (Label "\"M\"") (Param [I] Weak)
+                      LeafF (Label "\"M\"") (Param [I] Weak)
+                        
+              ConcatenateF [] []
+                TwiceFormalUnitF []
+                  LeafF (Label "\"A'\"") (Param [I] None)
+                    LeafF (Label "\"A'\"") (Param [I] None)
+                      
+                  LeafF (Label "\"A'\"") (Param [I] None)
+                    LeafF (Label "\"A'\"") (Param [I] None)
+                      
+                ConcatenateF [] []
+                  ConcatenateF [] []
+                    LeafF (Label "\"N\"") (Param [I] None)
+                      LeafF (Label "\"N\"") (Param [I] None)
+                        
+                    LeafF (Label "\"G'\"") (Param [I] Strong)
+                      LeafF (Label "\"G'\"") (Param [I] Strong)
+                        
+                  ConcatenateF [] []
+                    TwiceFormalUnitF []
+                      LeafF (Label "\"H'\"") (Param [I] None)
+                        LeafF (Label "\"H'\"") (Param [I] None)
+                          
+                      LeafF (Label "\"H'\"") (Param [I] None)
+                        LeafF (Label "\"H'\"") (Param [I] None)
+                          
+                    ConcatenateF [] []
+                      LeafF (Label "\"F\"") (Param [I] None)
+                        LeafF (Label "\"F\"") (Param [I] None)
+                          
+                      LeafF (Label "\"G\"") (Param [I] Strong)
+                        LeafF (Label "\"G\"") (Param [I] Strong)
+                          
+      ConcatenateF [] []
+        LeafF (Label "\"H\"") (Param [I] None)
+          LeafF (Label "\"H\"") (Param [I] None)
+            
+        ConcatenateF [] []
+          LeafF (Label "\"I\"") (Param [I] None)
+            LeafF (Label "\"I\"") (Param [I] None)
+              
+          ConcatenateF [] []
+            LeafF (Label "\"J\"") (Param [I] None)
+              LeafF (Label "\"J\"") (Param [I] None)
+                
+            ConcatenateF [] []
+              ConcatenateF [] []
+                LeafF (Label "\"B\"") (Param [I] Weak)
+                  LeafF (Label "\"B\"") (Param [I] Weak)
+                    
+                ConcatenateF [] []
+                  TwiceFormalUnitF []
+                    LeafF (Label "\"K\"") (Param [I] None)
+                      LeafF (Label "\"K\"") (Param [I] None)
+                        
+                    LeafF (Label "\"K\"") (Param [I] None)
+                      LeafF (Label "\"K\"") (Param [I] None)
+                        
+                  ConcatenateF [] []
+                    LeafF (Label "\"L\"") (Param [I] None)
+                      LeafF (Label "\"L\"") (Param [I] None)
+                        
+                    LeafF (Label "\"M\"") (Param [I] Weak)
+                      LeafF (Label "\"M\"") (Param [I] Weak)
+                        
+              ConcatenateF [] []
+                TwiceFormalUnitF []
+                  LeafF (Label "\"A'\"") (Param [I] None)
+                    LeafF (Label "\"A'\"") (Param [I] None)
+                      
+                  LeafF (Label "\"A'\"") (Param [I] None)
+                    LeafF (Label "\"A'\"") (Param [I] None)
+                      
+                ConcatenateF [] []
+                  ConcatenateF [] []
+                    LeafF (Label "\"N\"") (Param [I] None)
+                      LeafF (Label "\"N\"") (Param [I] None)
+                        
+                    LeafF (Label "\"G'\"") (Param [I] Strong)
+                      LeafF (Label "\"G'\"") (Param [I] Strong)
+                        
+                  ConcatenateF [] []
+                    TwiceFormalUnitF []
+                      LeafF (Label "\"H'\"") (Param [I] None)
+                        LeafF (Label "\"H'\"") (Param [I] None)
+                          
+                      LeafF (Label "\"H'\"") (Param [I] None)
+                        LeafF (Label "\"H'\"") (Param [I] None)
+                          
+                    ConcatenateF [] []
+                      LeafF (Label "\"F\"") (Param [I] None)
+                        LeafF (Label "\"F\"") (Param [I] None)
+                          
+                      LeafF (Label "\"G\"") (Param [I] Strong)
+                        LeafF (Label "\"G\"") (Param [I] Strong)
+                          
+re-generated surface
+  LeafF (Label "\"A\"") (Param [I] None)
+  LeafF (Label "\"B\"") (Param [I] None)
+  LeafF (Label "\"C\"") (Param [I] None)
+  LeafF (Label "\"D\"") (Param [I] Weak)
+  LeafF (Label "\"A\"") (Param [I] None)
+  LeafF (Label "\"B\"") (Param [I] None)
+  LeafF (Label "\"E\"") (Param [I] None)
+  LeafF (Label "\"D\"") (Param [I] Weak)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"F\"") (Param [I] None)
+  LeafF (Label "\"G\"") (Param [I] Strong)
+  LeafF (Label "\"A\"") (Param [I] None)
+  LeafF (Label "\"B\"") (Param [I] None)
+  LeafF (Label "\"C\"") (Param [I] None)
+  LeafF (Label "\"D\"") (Param [I] Weak)
+  LeafF (Label "\"A\"") (Param [I] None)
+  LeafF (Label "\"B\"") (Param [I] None)
+  LeafF (Label "\"E\"") (Param [I] None)
+  LeafF (Label "\"D\"") (Param [I] Weak)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"F\"") (Param [I] None)
+  LeafF (Label "\"G\"") (Param [I] Strong)
+  LeafF (Label "\"H\"") (Param [I] None)
+  LeafF (Label "\"I\"") (Param [I] None)
+  LeafF (Label "\"J\"") (Param [I] None)
+  LeafF (Label "\"B\"") (Param [I] Weak)
+  LeafF (Label "\"K\"") (Param [I] None)
+  LeafF (Label "\"K\"") (Param [I] None)
+  LeafF (Label "\"L\"") (Param [I] None)
+  LeafF (Label "\"M\"") (Param [I] Weak)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"N\"") (Param [I] None)
+  LeafF (Label "\"G'\"") (Param [I] Strong)
+  LeafF (Label "\"H'\"") (Param [I] None)
+  LeafF (Label "\"H'\"") (Param [I] None)
+  LeafF (Label "\"F\"") (Param [I] None)
+  LeafF (Label "\"G\"") (Param [I] Strong)
+  LeafF (Label "\"H\"") (Param [I] None)
+  LeafF (Label "\"I\"") (Param [I] None)
+  LeafF (Label "\"J\"") (Param [I] None)
+  LeafF (Label "\"B\"") (Param [I] Weak)
+  LeafF (Label "\"K\"") (Param [I] None)
+  LeafF (Label "\"K\"") (Param [I] None)
+  LeafF (Label "\"L\"") (Param [I] None)
+  LeafF (Label "\"M\"") (Param [I] Weak)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"N\"") (Param [I] None)
+  LeafF (Label "\"G'\"") (Param [I] Strong)
+  LeafF (Label "\"H'\"") (Param [I] None)
+  LeafF (Label "\"H'\"") (Param [I] None)
+  LeafF (Label "\"F\"") (Param [I] None)
+  LeafF (Label "\"G\"") (Param [I] Strong)
+
+
+
+  LeafF (Label "\"A\"") (Param [I] None)
+  LeafF (Label "\"B\"") (Param [I] None)
+  LeafF (Label "\"C\"") (Param [I] None)
+  LeafF (Label "\"D\"") (Param [I] Weak)
+  LeafF (Label "\"A\"") (Param [I] None)
+  LeafF (Label "\"B\"") (Param [I] None)
+  LeafF (Label "\"E\"") (Param [I] None)
+  LeafF (Label "\"D\"") (Param [I] Weak)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"F\"") (Param [I] None)
+  LeafF (Label "\"G\"") (Param [I] Strong)
+  LeafF (Label "\"A\"") (Param [I] None)
+  LeafF (Label "\"B\"") (Param [I] None)
+  LeafF (Label "\"C\"") (Param [I] None)
+  LeafF (Label "\"D\"") (Param [I] Weak)
+  LeafF (Label "\"A\"") (Param [I] None)
+  LeafF (Label "\"B\"") (Param [I] None)
+  LeafF (Label "\"E\"") (Param [I] None)
+  LeafF (Label "\"D\"") (Param [I] Weak)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"F\"") (Param [I] None)
+  LeafF (Label "\"G\"") (Param [I] Strong)
+  LeafF (Label "\"H\"") (Param [I] None)
+  LeafF (Label "\"I\"") (Param [I] None)
+  LeafF (Label "\"J\"") (Param [I] None)
+  LeafF (Label "\"B\"") (Param [I] Weak)
+  LeafF (Label "\"K\"") (Param [I] None)
+  LeafF (Label "\"K\"") (Param [I] None)
+  LeafF (Label "\"L\"") (Param [I] None)
+  LeafF (Label "\"M\"") (Param [I] Weak)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"N\"") (Param [I] None)
+  LeafF (Label "\"G'\"") (Param [I] Strong)
+  LeafF (Label "\"H'\"") (Param [I] None)
+  LeafF (Label "\"H'\"") (Param [I] None)
+  LeafF (Label "\"F\"") (Param [I] None)
+  LeafF (Label "\"G\"") (Param [I] Strong)
+  LeafF (Label "\"H\"") (Param [I] None)
+  LeafF (Label "\"I\"") (Param [I] None)
+  LeafF (Label "\"J\"") (Param [I] None)
+  LeafF (Label "\"B\"") (Param [I] Weak)
+  LeafF (Label "\"K\"") (Param [I] None)
+  LeafF (Label "\"K\"") (Param [I] None)
+  LeafF (Label "\"L\"") (Param [I] None)
+  LeafF (Label "\"M\"") (Param [I] Weak)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"A'\"") (Param [I] None)
+  LeafF (Label "\"N\"") (Param [I] None)
+  LeafF (Label "\"G'\"") (Param [I] Strong)
+  LeafF (Label "\"H'\"") (Param [I] None)
+  LeafF (Label "\"H'\"") (Param [I] None)
+  LeafF (Label "\"F\"") (Param [I] None)
+  LeafF (Label "\"G\"") (Param [I] Strong)

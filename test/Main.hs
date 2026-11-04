@@ -50,8 +50,10 @@ mainWithBackEnd runEgglog = do
     candidates <- inferForm runEgglog ex
     let surfaceSize = sizeFormalUnit $ fromSurface (snd ex)
     let prettyResults = vsep $ punctuate (nLines 3) $ map (progInfoDoc surfaceSize) candidates
-    -- testInvertable $ head terms
-    print prettyResults
+    let best = head candidates
+    print $ pretty ex
+    print $ pretty best
+    testInvertable $ head candidates
     writeFile ("docs/model-outputs/" <> fst ex <> ".txt") $
       show $
         -- renderString $ layoutPretty (LayoutOptions Unbounded) $
@@ -62,14 +64,21 @@ mainWithBackEnd runEgglog = do
           , nLines 3
           , "Output analysis:"
           , indent 2 prettyResults
+          , "expanded analysis:"
+          , indent 2 $ vsep $ punctuate (nLines 3) $ prettyTree viaShow. evalToTree undefined <$> candidates
+          , "re-generated surface"
+          ,indent 2 $ vsep $ punctuate (nLines 3) $ vsep . map viaShow . leafs . evalToTree undefined <$> candidates
           ]
   generateDoc
 
+
+
+
 testInvertable :: FormalUnit -> IO ()
 testInvertable x = do
-  mapM_ print result
+  print result
  where
-  result = leafs $ eval undefined x
+  result = leafs $ evalToTree undefined x
 
 generateDoc :: IO ()
 generateDoc = do

@@ -19,3 +19,29 @@ Output analysis:
   Concatenate
     {"a" ⟦I None⟧}
     {"a" ⟦IV None⟧}
+expanded analysis:
+  SeqF (Label "\"a\"") [Param [I] None,Param [IV] None]
+    UseIdeaWithF (Label "\"a\"") (Param [I] None)
+      LeafF (Label "\"a\"") (Param [I] None)
+        
+    UseIdeaWithF (Label "\"a\"") (Param [IV] None)
+      LeafF (Label "\"a\"") (Param [IV] None)
+        
+
+
+
+  ConcatenateF [] []
+    LeafF (Label "\"a\"") (Param [I] None)
+      LeafF (Label "\"a\"") (Param [I] None)
+        
+    LeafF (Label "\"a\"") (Param [IV] None)
+      LeafF (Label "\"a\"") (Param [IV] None)
+        
+re-generated surface
+  LeafF (Label "\"a\"") (Param [I] None)
+  LeafF (Label "\"a\"") (Param [IV] None)
+
+
+
+  LeafF (Label "\"a\"") (Param [I] None)
+  LeafF (Label "\"a\"") (Param [IV] None)

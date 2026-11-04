@@ -12,6 +12,7 @@ module Formatting (
   -- ** pretty printting util
   prettyApp,
   prettyError,
+  prettyTree,
 ) where
 
 import Data.SCargot
@@ -20,6 +21,9 @@ import qualified Data.Text as T
 import GHC.Stack (HasCallStack)
 import Prettyprinter
 import Text.Parsec
+import Data.Tree
+import Data.Functor.Foldable
+import Data.Functor.Base
 
 pString = do
   mid <- between (char '"') (char '"') $ many (noneOf ['"'])
@@ -75,3 +79,6 @@ prettyApp f args = vsep [f, indent 2 $ vsep args]
 prettyError :: (HasCallStack) => Doc ann -> Doc ann -> a
 prettyError title msg = error $ show $ surround title "[" "]:"  <+> align msg
 
+prettyTree :: (a -> Doc ann) -> Tree a -> Doc ann
+prettyTree f = cata $ \case 
+  NodeF x rs -> prettyApp (f x) rs

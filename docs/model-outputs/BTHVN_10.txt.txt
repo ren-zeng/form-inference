@@ -60,3 +60,85 @@ Output analysis:
                        ConcatParam
                          ⟦IV-II None⟧
                          ⟦V Strong⟧
+expanded analysis:
+  ConcatenateF [] []
+    LeafF (Label "\"a\"") (Param [I] None)
+      LeafF (Label "\"a\"") (Param [I] None)
+        
+    ConcatenateF [] []
+      LeafF (Label "\"b\"") (Param [V] None)
+        LeafF (Label "\"b\"") (Param [V] None)
+          
+      SeqF (Concat (Twice (Label "\"c\"")) (Twice (Label "\"e\""))) [ConcatParam (ConcatParam (Param [I,V] None) (Param [I] None)) (ConcatParam (Param [IV] None) (Param [VII,V] None)),ConcatParam (Param [I] None) (ConcatParam (Param [I] None) (ConcatParam (Param [IV,II] None) (Param [V] Strong)))]
+        UseIdeaWithF (Concat (Twice (Label "\"c\"")) (Twice (Label "\"e\""))) (ConcatParam (ConcatParam (Param [I,V] None) (Param [I] None)) (ConcatParam (Param [IV] None) (Param [VII,V] None)))
+          LeafF (Label "\"c\"") (Param [I,V] None)
+            
+          LeafF (Label "\"c\"") (Param [I] None)
+            
+          LeafF (Label "\"e\"") (Param [IV] None)
+            
+          LeafF (Label "\"e\"") (Param [VII,V] None)
+            
+        UseIdeaWithF (Concat (Twice (Label "\"c\"")) (Twice (Label "\"e\""))) (ConcatParam (Param [I] None) (ConcatParam (Param [I] None) (ConcatParam (Param [IV,II] None) (Param [V] Strong))))
+          LeafF (Label "\"c\"") (Param [I] None)
+            
+          LeafF (Label "\"c\"") (Param [I] None)
+            
+          LeafF (Label "\"e\"") (Param [IV,II] None)
+            
+          LeafF (Label "\"e\"") (Param [V] Strong)
+            
+
+
+
+  ConcatenateF [] []
+    ConcatenateF [] []
+      LeafF (Label "\"a\"") (Param [I] None)
+        LeafF (Label "\"a\"") (Param [I] None)
+          
+      LeafF (Label "\"b\"") (Param [V] None)
+        LeafF (Label "\"b\"") (Param [V] None)
+          
+    SeqF (Concat (Twice (Label "\"c\"")) (Twice (Label "\"e\""))) [ConcatParam (ConcatParam (Param [I,V] None) (Param [I] None)) (ConcatParam (Param [IV] None) (Param [VII,V] None)),ConcatParam (Param [I] None) (ConcatParam (Param [I] None) (ConcatParam (Param [IV,II] None) (Param [V] Strong)))]
+      UseIdeaWithF (Concat (Twice (Label "\"c\"")) (Twice (Label "\"e\""))) (ConcatParam (ConcatParam (Param [I,V] None) (Param [I] None)) (ConcatParam (Param [IV] None) (Param [VII,V] None)))
+        LeafF (Label "\"c\"") (Param [I,V] None)
+          
+        LeafF (Label "\"c\"") (Param [I] None)
+          
+        LeafF (Label "\"e\"") (Param [IV] None)
+          
+        LeafF (Label "\"e\"") (Param [VII,V] None)
+          
+      UseIdeaWithF (Concat (Twice (Label "\"c\"")) (Twice (Label "\"e\""))) (ConcatParam (Param [I] None) (ConcatParam (Param [I] None) (ConcatParam (Param [IV,II] None) (Param [V] Strong))))
+        LeafF (Label "\"c\"") (Param [I] None)
+          
+        LeafF (Label "\"c\"") (Param [I] None)
+          
+        LeafF (Label "\"e\"") (Param [IV,II] None)
+          
+        LeafF (Label "\"e\"") (Param [V] Strong)
+          
+re-generated surface
+  LeafF (Label "\"a\"") (Param [I] None)
+  LeafF (Label "\"b\"") (Param [V] None)
+  LeafF (Label "\"c\"") (Param [I,V] None)
+  LeafF (Label "\"c\"") (Param [I] None)
+  LeafF (Label "\"e\"") (Param [IV] None)
+  LeafF (Label "\"e\"") (Param [VII,V] None)
+  LeafF (Label "\"c\"") (Param [I] None)
+  LeafF (Label "\"c\"") (Param [I] None)
+  LeafF (Label "\"e\"") (Param [IV,II] None)
+  LeafF (Label "\"e\"") (Param [V] Strong)
+
+
+
+  LeafF (Label "\"a\"") (Param [I] None)
+  LeafF (Label "\"b\"") (Param [V] None)
+  LeafF (Label "\"c\"") (Param [I,V] None)
+  LeafF (Label "\"c\"") (Param [I] None)
+  LeafF (Label "\"e\"") (Param [IV] None)
+  LeafF (Label "\"e\"") (Param [VII,V] None)
+  LeafF (Label "\"c\"") (Param [I] None)
+  LeafF (Label "\"c\"") (Param [I] None)
+  LeafF (Label "\"e\"") (Param [IV,II] None)
+  LeafF (Label "\"e\"") (Param [V] Strong)

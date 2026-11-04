@@ -90,3 +90,117 @@ Output analysis:
                        parameters = ⟦II None⟧
                                     ⟦I None⟧
                      {"e" ⟦V-I Strong⟧}
+expanded analysis:
+  PeriodF {basicIdeaF = Concat (Twice (Label "\"a\"")) (Concat (Twice (Label "\"b\"")) (Twice (Label "\"c\""))), antecedentF = [], consequentF = []}
+    ConcatenateF [Concat (Twice (Label "\"a\"")) (Concat (Twice (Label "\"b\"")) (Twice (Label "\"c\"")))] [Concat (Twice (Label "\"a\"")) (Concat (Twice (Label "\"b\"")) (Twice (Label "\"c\"")))]
+      UseIdeaWithF (LocalVar 0) (ConcatParam (ConcatParam (Param [I,V] None) (ConcatParam (Param [V,I] None) (Param [IV,I] None))) (ConcatParam (Param [IV,I] None) (ConcatParam (Param [II] None) (Param [I] None))))
+        LeafF (Label "\"a\"") (Param [I,V] None)
+          
+        LeafF (Label "\"a\"") (Param [V,I] None)
+          
+        LeafF (Label "\"b\"") (Param [IV,I] None)
+          
+        LeafF (Label "\"b\"") (Param [IV,I] None)
+          
+        LeafF (Label "\"c\"") (Param [II] None)
+          
+        LeafF (Label "\"c\"") (Param [I] None)
+          
+      LeafF (Label "\"d\"") (Param [V] Weak)
+        LeafF (Label "\"d\"") (Param [V] Weak)
+          
+    ConcatenateF [Concat (Twice (Label "\"a\"")) (Concat (Twice (Label "\"b\"")) (Twice (Label "\"c\"")))] [Concat (Twice (Label "\"a\"")) (Concat (Twice (Label "\"b\"")) (Twice (Label "\"c\"")))]
+      UseIdeaWithF (LocalVar 0) (ConcatParam (ConcatParam (Param [I,V] None) (ConcatParam (Param [V,I] None) (Param [IV,I] None))) (ConcatParam (Param [IV,I] None) (ConcatParam (Param [II] None) (Param [I] None))))
+        LeafF (Label "\"a\"") (Param [I,V] None)
+          
+        LeafF (Label "\"a\"") (Param [V,I] None)
+          
+        LeafF (Label "\"b\"") (Param [IV,I] None)
+          
+        LeafF (Label "\"b\"") (Param [IV,I] None)
+          
+        LeafF (Label "\"c\"") (Param [II] None)
+          
+        LeafF (Label "\"c\"") (Param [I] None)
+          
+      LeafF (Label "\"e\"") (Param [V,I] Strong)
+        LeafF (Label "\"e\"") (Param [V,I] Strong)
+          
+
+
+
+  PeriodF {basicIdeaF = Concat (Twice (Label "\"a\"")) (Twice (Label "\"b\"")), antecedentF = [], consequentF = []}
+    ConcatenateF [Concat (Twice (Label "\"a\"")) (Twice (Label "\"b\""))] [Concat (Twice (Label "\"a\"")) (Twice (Label "\"b\""))]
+      UseIdeaWithF (LocalVar 0) (ConcatParam (ConcatParam (Param [I,V] None) (Param [V,I] None)) (ConcatParam (Param [IV,I] None) (Param [IV,I] None)))
+        LeafF (Label "\"a\"") (Param [I,V] None)
+          
+        LeafF (Label "\"a\"") (Param [V,I] None)
+          
+        LeafF (Label "\"b\"") (Param [IV,I] None)
+          
+        LeafF (Label "\"b\"") (Param [IV,I] None)
+          
+      ConcatenateF [Concat (Twice (Label "\"a\"")) (Twice (Label "\"b\""))] [Concat (Twice (Label "\"a\"")) (Twice (Label "\"b\""))]
+        SeqF (Label "\"c\"") [Param [II] None,Param [I] None]
+          UseIdeaWithF (Label "\"c\"") (Param [II] None)
+            LeafF (Label "\"c\"") (Param [II] None)
+              
+          UseIdeaWithF (Label "\"c\"") (Param [I] None)
+            LeafF (Label "\"c\"") (Param [I] None)
+              
+        LeafF (Label "\"d\"") (Param [V] Weak)
+          LeafF (Label "\"d\"") (Param [V] Weak)
+            
+    ConcatenateF [Concat (Twice (Label "\"a\"")) (Twice (Label "\"b\""))] [Concat (Twice (Label "\"a\"")) (Twice (Label "\"b\""))]
+      UseIdeaWithF (LocalVar 0) (ConcatParam (ConcatParam (Param [I,V] None) (Param [V,I] None)) (ConcatParam (Param [IV,I] None) (Param [IV,I] None)))
+        LeafF (Label "\"a\"") (Param [I,V] None)
+          
+        LeafF (Label "\"a\"") (Param [V,I] None)
+          
+        LeafF (Label "\"b\"") (Param [IV,I] None)
+          
+        LeafF (Label "\"b\"") (Param [IV,I] None)
+          
+      ConcatenateF [Concat (Twice (Label "\"a\"")) (Twice (Label "\"b\""))] [Concat (Twice (Label "\"a\"")) (Twice (Label "\"b\""))]
+        SeqF (Label "\"c\"") [Param [II] None,Param [I] None]
+          UseIdeaWithF (Label "\"c\"") (Param [II] None)
+            LeafF (Label "\"c\"") (Param [II] None)
+              
+          UseIdeaWithF (Label "\"c\"") (Param [I] None)
+            LeafF (Label "\"c\"") (Param [I] None)
+              
+        LeafF (Label "\"e\"") (Param [V,I] Strong)
+          LeafF (Label "\"e\"") (Param [V,I] Strong)
+            
+re-generated surface
+  LeafF (Label "\"a\"") (Param [I,V] None)
+  LeafF (Label "\"a\"") (Param [V,I] None)
+  LeafF (Label "\"b\"") (Param [IV,I] None)
+  LeafF (Label "\"b\"") (Param [IV,I] None)
+  LeafF (Label "\"c\"") (Param [II] None)
+  LeafF (Label "\"c\"") (Param [I] None)
+  LeafF (Label "\"d\"") (Param [V] Weak)
+  LeafF (Label "\"a\"") (Param [I,V] None)
+  LeafF (Label "\"a\"") (Param [V,I] None)
+  LeafF (Label "\"b\"") (Param [IV,I] None)
+  LeafF (Label "\"b\"") (Param [IV,I] None)
+  LeafF (Label "\"c\"") (Param [II] None)
+  LeafF (Label "\"c\"") (Param [I] None)
+  LeafF (Label "\"e\"") (Param [V,I] Strong)
+
+
+
+  LeafF (Label "\"a\"") (Param [I,V] None)
+  LeafF (Label "\"a\"") (Param [V,I] None)
+  LeafF (Label "\"b\"") (Param [IV,I] None)
+  LeafF (Label "\"b\"") (Param [IV,I] None)
+  LeafF (Label "\"c\"") (Param [II] None)
+  LeafF (Label "\"c\"") (Param [I] None)
+  LeafF (Label "\"d\"") (Param [V] Weak)
+  LeafF (Label "\"a\"") (Param [I,V] None)
+  LeafF (Label "\"a\"") (Param [V,I] None)
+  LeafF (Label "\"b\"") (Param [IV,I] None)
+  LeafF (Label "\"b\"") (Param [IV,I] None)
+  LeafF (Label "\"c\"") (Param [II] None)
+  LeafF (Label "\"c\"") (Param [I] None)
+  LeafF (Label "\"e\"") (Param [V,I] Strong)

@@ -29,3 +29,45 @@ Output analysis:
       Concatenate
         {"a" ⟦VI-II None⟧}
         {"b" ⟦VI-III None⟧}
+expanded analysis:
+  SeqF (Concat (Label "\"a\"") (Label "\"b\"")) [ConcatParam (Param [I,V] None) (Param [I,III] None),ConcatParam (Param [VI,II] None) (Param [VI,III] None)]
+    UseIdeaWithF (Concat (Label "\"a\"") (Label "\"b\"")) (ConcatParam (Param [I,V] None) (Param [I,III] None))
+      LeafF (Label "\"a\"") (Param [I,V] None)
+        
+      LeafF (Label "\"b\"") (Param [I,III] None)
+        
+    UseIdeaWithF (Concat (Label "\"a\"") (Label "\"b\"")) (ConcatParam (Param [VI,II] None) (Param [VI,III] None))
+      LeafF (Label "\"a\"") (Param [VI,II] None)
+        
+      LeafF (Label "\"b\"") (Param [VI,III] None)
+        
+
+
+
+  ConcatenateF [] []
+    LeafF (Label "\"a\"") (Param [I,V] None)
+      LeafF (Label "\"a\"") (Param [I,V] None)
+        
+    ConcatenateF [] []
+      LeafF (Label "\"b\"") (Param [I,III] None)
+        LeafF (Label "\"b\"") (Param [I,III] None)
+          
+      ConcatenateF [] []
+        LeafF (Label "\"a\"") (Param [VI,II] None)
+          LeafF (Label "\"a\"") (Param [VI,II] None)
+            
+        LeafF (Label "\"b\"") (Param [VI,III] None)
+          LeafF (Label "\"b\"") (Param [VI,III] None)
+            
+re-generated surface
+  LeafF (Label "\"a\"") (Param [I,V] None)
+  LeafF (Label "\"b\"") (Param [I,III] None)
+  LeafF (Label "\"a\"") (Param [VI,II] None)
+  LeafF (Label "\"b\"") (Param [VI,III] None)
+
+
+
+  LeafF (Label "\"a\"") (Param [I,V] None)
+  LeafF (Label "\"b\"") (Param [I,III] None)
+  LeafF (Label "\"a\"") (Param [VI,II] None)
+  LeafF (Label "\"b\"") (Param [VI,III] None)

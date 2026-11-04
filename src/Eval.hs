@@ -1,101 +1,149 @@
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Eval where
 
+import Control.Monad.Reader
 import Data.Functor (void)
 import Data.Functor.Base
 import Data.Functor.Foldable
+import Data.List
+import Data.List.NonEmpty (NonEmpty)
 import Data.Tree
 import Form
+import Formatting
 import Generics.SYB (everywhere, mkT)
 import Prettyprinter (Pretty (pretty))
-import Control.Monad.Reader
 import Relude.Unsafe
-import Data.List
+
 -- import Relude (MonadReader (ask), Reader, runReader, ReaderT (runReaderT))
 
+prop_eval_is_inverse_of_infer :: (NonEmpty FormalUnit -> FormalUnit) -> (FormalUnit -> NonEmpty FormalUnit) -> NonEmpty FormalUnit -> Bool
+prop_eval_is_inverse_of_infer infer eval surface = surface == eval (infer surface)
+
+
+
 -- eval :: (String -> Idea) -> FormalUnit -> Tree (FormalUnitF ())
-eval :: (String -> Idea) -> FormalUnit -> Tree (FormalUnitF [Idea])
-eval binding unit = applyBindingAll $ cata action unit []
-  where
-    action ::
-        FormalUnitF ([Idea] -> Tree (FormalUnitF [Idea])) ->
-        [Idea] ->
-        Tree (FormalUnitF [Idea])
-    action x = do 
-        ideas <- ask
-        let root = ideas <$ x
-        case x of
-            LeafF{} -> return $ Node root[]
-            UseIdeaWithF idea params -> return $
-                Node
-                    { rootLabel = root
-                    , subForest = leaf . uncurry LeafF <$> zipIdeaParam (substituteBy ideas idea) params
-                    }
-            SeqF idea params -> return $
-                Node
-                    { rootLabel = root
-                    , subForest = (\p -> Node (LeafF (substituteBy ideas idea) p) []) <$> params
-                    }
-            ConcatenateF a b -> return $ Node root [a ideas, b ideas]
-            SentenceF bi pres cont -> return $
-                Node
-                    root
-                    [ pres (substituteBy ideas bi:ideas) , cont (substituteBy ideas bi:ideas)]
-            PeriodF bi ant cons ->  return $ Node root [ant (substituteBy ideas bi:ideas), cons (substituteBy ideas bi:ideas)]
-            TwiceFormalUnitF a -> return $ Node root [a ideas, a ideas]
-            HybridAntContF a b -> return $ Node root [a ideas, b ideas]
-            SimpleBinaryF a b -> return $ Node root $ ($ ideas) <$> [a , a, b, b]
-            RoundedBinaryF a b -> return $ Node root $ ($ ideas) <$> [a, a, b, a, b, a]
-            TernaryF a b -> return $ Node root $ ($ ideas) <$> [a, b, a]
-            _ -> error $ "[eval] not implemented case:" <> show root
-    instantiateWith :: [Idea] -> FormalUnit -> FormalUnit
-    instantiateWith ideas = everywhere $ mkT (substituteBy ideas)
+evalToTree ::
+  -- | global variable for idea
+  (String -> Idea) ->
+  FormalUnit ->
+  -- | The expanded tree whose node are the function calls themselves (represented by constructors with parameters), and leafs being the segments of the surface. The size of the leaf should be the same as the size of the surface list.
+  Tree (FormalUnitF [Idea])
+evalToTree binding unit = applyBindingAll $ cata action unit []
+ where
+  action ::
+    FormalUnitF ([Idea] -> Tree (FormalUnitF [Idea])) ->
+    [Idea] ->
+    Tree (FormalUnitF [Idea])
+  action x = do
+    ideas <- ask
+    let root = ideas <$ x
+        currentNode = Node root
+        addedIdea i = substituteBy ideas i : ideas
+    let children = case x of
+          LeafF idea param -> leaf . uncurry LeafF <$> zipIdeaParam (substituteBy ideas idea) param
+          UseIdeaWithF idea param -> leaf . uncurry LeafF <$> zipIdeaParam (substituteBy ideas idea) param
+          SeqF idea params ->  do 
+            param <- params
+            return $ Node (UseIdeaWithF idea param) $ leaf . uncurry LeafF <$> zipIdeaParam (substituteBy ideas idea) param 
+          ConcatenateF a b -> ($ ideas) <$> [a, b]
+          SentenceF bi pres cont -> ($ addedIdea bi) <$> [pres, cont]
+          PeriodF bi ant cons -> ($ addedIdea bi) <$> [ant, cons]
+          TwiceFormalUnitF a -> ($ ideas) <$> [a, a]
+          HybridAntContF a b -> ($ ideas) <$> [a, b]
+          SimpleBinaryF a b -> ($ ideas) <$> [a, a, b, b]
+          RoundedBinaryF a b -> ($ ideas) <$> [a, a, b, a, b, a]
+          TernaryF a b -> ($ ideas) <$> [a, b, a]
+          _ -> error $ "[eval] not implemented case:" <> show root
+    return $ currentNode children
 
-    applyBindingAll = everywhere $ mkT (applyBinding binding)
-    leaf x = Node x []
+  instantiateWith :: [Idea] -> FormalUnit -> FormalUnit
+  instantiateWith ideas = everywhere $ mkT (substituteBy ideas)
 
+  applyBindingAll = everywhere $ mkT (applyBinding binding)
+  leaf x = Node x []
+
+{- | given a contex of ideas, substitute an idea involving local variable to a more concrete form by replacing its local variable i with the ith idea in the context
+
+>>> map (substituteBy [Label "a",LocalVar 0, Concat (Label "b") (Label "c")])  [LocalVar 1, LocalVar 0, Label "x", Concat (Label "y") (LocalVar 2)]
+[LocalVar 0,Label "a",Label "x",Concat (Label "y") (Concat (Label "b") (Label "c"))]
+-}
 substituteBy :: [Idea] -> Idea -> Idea
 substituteBy xs = cata $ \y -> case y of
-    LabelF{} -> embed y
-    LocalVarF n -> case xs !? n of 
-        Nothing -> error $ "[substituteBy] list out of bound: " <> show (xs,n, embed y)
-        Just x -> x
-    ConcatF{} -> embed y
-    TwiceF{} -> embed y
-    _ -> embed y
+  LabelF{} -> embed y
+  LocalVarF n -> case xs !? n of
+    Nothing -> error $ "[substituteBy] list out of bound: " <> show (xs, n, embed y)
+    Just x -> x
+  ConcatF{} -> embed y
+  TwiceF x -> embed y
+  _ -> embed y
 
 applyBinding :: (String -> Idea) -> Idea -> Idea
 applyBinding binding = cata $ \case
-    RefIdeaF s -> binding s
-    x -> embed x
-
-test =
-    leafs $
-        eval
-            (\case "hello" -> Label "leap"; "hi" -> Label "neighbor")
-            ( Sentence
-                { basicIdea = Label "my-bi"
-                , presentation =
-                    Concatenate
-                        (Leaf (LocalVar 0) (Param [I] None))
-                        (Leaf (LocalVar 0) (Param [V] None))
-                , continuation =
-                    Concatenate
-                        (Seq (LocalVar 0) [Param [III] None, Param [VI] None, Param [II] None])
-                        (Leaf (RefIdea "hello") (Param [V] Strong))
-                }
-            )
+  RefIdeaF s -> binding s
+  x -> embed x
 
 leafs :: Tree a -> [a]
 leafs = cata $ \case
-    NodeF x [] -> [x]
-    NodeF _ ys -> concat ys
+  NodeF x [] -> [x]
+  NodeF _ ys -> concat ys
+
+-- | Interpreting Concat and Twice to list monoid
+unRollIdea :: Idea -> [Idea]
+unRollIdea = cata $ \case
+  LabelF s -> [Label s]
+  ConcatF x y -> x ++ y
+  TwiceF x -> x ++ x
+  RefIdeaF v -> [RefIdea v]
+  LocalVarF i -> [LocalVar i]
+
+unRollPhaseParam :: PhraseParam -> [PhraseParam]
+unRollPhaseParam = cata $ \case
+  ParamF hs strength -> [Param hs strength]
+  ConcatParamF x y -> x ++ y
 
 zipIdeaParam :: Idea -> PhraseParam -> [(Idea, PhraseParam)]
-zipIdeaParam x@Label{} a@Param{} = [(x, a)]
-zipIdeaParam (Concat x y) (ConcatParam a b) = zipIdeaParam x a <> zipIdeaParam y b
-zipIdeaParam x a = error $ "[zipIdeaParam] not implemented case: " <> show (x, a)
+-- zipIdeaParam x@Label{} a@Param{} = [(x, a)]
+zipIdeaParam x a
+  | length ideas == length params = zip ideas params
+  | otherwise = error "[zipIdeaParam] unrolled ideas and unrolled phraseparam does not have same length"
+ where
+  ideas = unRollIdea x
+  params = unRollPhaseParam a
+
+-- zipIdeaParam (Concat x y) (ConcatParam a b) = zipIdeaParam x a <> zipIdeaParam y b
+-- zipIdeaParam x a = error $ show $
+--   prettyApp "[zipIdeaParam] not implemented case: "   [pretty x, pretty a]
+
+test :: [FormalUnitF [Idea]]
+test =
+  leafs $
+    evalToTree
+      (\case "hello" -> Label "leap"; "hi" -> Label "neighbor")
+      ( Sentence
+          { basicIdea = Label "my-bi"
+          , presentation =
+              Concatenate
+                (Leaf (LocalVar 0) (Param [I] None))
+                (Leaf (LocalVar 0) (Param [V] None))
+          , continuation =
+              Concatenate
+                (Seq (LocalVar 0) [Param [III] None, Param [VI] None, Param [II] None])
+                (Leaf (RefIdea "hello") (Param [V] Strong))
+          }
+      )
 
 -- >>>  test
--- [LeafF (LocalVar 0) (Param [I] None),LeafF (LocalVar 0) (Param [V] None),LeafF (Label "my-bi") (Param [III] None),LeafF (Label "my-bi") (Param [VI] None),LeafF (Label "my-bi") (Param [II] None),LeafF (Label "leap") (Param [V] Strong)]
+-- [LeafF (Label "my-bi") (Param [I] None),LeafF (Label "my-bi") (Param [V] None),LeafF (Label "my-bi") (Param [III] None),LeafF (Label "my-bi") (Param [VI] None),LeafF (Label "my-bi") (Param [II] None),LeafF (Label "leap") (Param [V] Strong)]
+
+
+alignLeaf :: Monoid b => [b] -> Tree a  -> Maybe (Tree (a,b))
+alignLeaf bs = cata $ \case 
+  NodeF x mts -> do 
+    ts <- sequence mts
+    let b = foldMap (snd . rootLabel) ts
+    return $ Node (x,b) ts
+
+-- >>> alignLeaf ["a","b","c","d"] $ Node () [Node () [],Node () [],Node () [Node () [],Node () []]]
+-- Just (Node {rootLabel = ((),""), subForest = [Node {rootLabel = ((),""), subForest = []},Node {rootLabel = ((),""), subForest = []},Node {rootLabel = ((),""), subForest = [Node {rootLabel = ((),""), subForest = []},Node {rootLabel = ((),""), subForest = []}]}]})

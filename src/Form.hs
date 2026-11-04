@@ -32,6 +32,7 @@ module Form (
   -- *** generic operations on formal unit
   FormalUnitF (..),
   IdeaF(..),
+  PhraseParamF (..),
   foldFormalUnit,
   unfoldFormalUnit,
 
@@ -61,20 +62,22 @@ import Data.SCargot
 import qualified Data.List.NonEmpty as NonEmpty
 
 
-data CadenceStrength = Weak | Strong | None deriving (Show, Read, Data)
-data Harmony = I | II | III | IV | V | VI | VII deriving (Show, Read, Data)
+data CadenceStrength = Weak | Strong | None deriving (Show, Read, Data,Eq)
+data Harmony = I | II | III | IV | V | VI | VII deriving (Show, Read, Data,Eq)
 data Idea
   = Label String
   | Concat Idea Idea
   | Twice Idea
   | RefIdea String
   | LocalVar Int
-  deriving (Show, Data)
+  deriving (Show, Data,Eq)
 makeBaseFunctor ''Idea
 data PhraseParam
   = Param [Harmony] CadenceStrength
   | ConcatParam PhraseParam PhraseParam
-  deriving (Show, Data)
+  deriving (Show, Data,Eq)
+
+makeBaseFunctor ''PhraseParam
 data IdeaBinding = BindIdea String Idea deriving (Show)
 data FormalUnitBinding = BindFormalUnit String FormalUnit deriving (Show)
 
@@ -101,7 +104,7 @@ data FormalUnit
    -- | Antecedent FormalUnit FormalUnit
   -- | Consequent FormalUnit FormalUnit
  
-  deriving (Show, Data)
+  deriving (Show, Data,Eq)
 
 makeBaseFunctor ''FormalUnit
 deriving instance Data a => Data (FormalUnitF a)
@@ -901,7 +904,7 @@ inferForm ::
   (String -> IO String) -> (String,NonEmpty FormalUnit)-> IO [FormalUnit]
 inferForm runEgglog (name,surface) = do 
   out <- runEgglog $ show $ egglogMain (name,surface)
-  putStrLn out
+--   putStrLn out
   let terms = fromEggLog @FormalUnit <$> sExprList (T.pack out)
   return terms
 
