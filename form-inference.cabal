@@ -64,6 +64,7 @@ library
         Rules,
         Eval,
         Generation,
+        PrettyEggLog,
         
         
 

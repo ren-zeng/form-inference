@@ -885,8 +885,6 @@ egglogDefs =
         (union match (TwiceFormalUnit x))
     )
 )
-
-
   """
 
 leaf :: Idea -> [Harmony] -> CadenceStrength -> FormalUnit

@@ -1,0 +1,317 @@
+Harmony ::= I
+        | II
+        | III
+        | IV
+        | V
+        | VI
+        | VII
+
+
+CadenceStrength ::= None
+                | Weak
+                | Strong
+
+
+
+
+sort Progression (Vec Harmony)
+
+
+
+
+Idea ::= Label String :cost 999
+     | LocalVar i64
+     | Concat Idea Idea
+     | Twice Idea
+     | RefIdea String
+
+
+
+
+Concat x (Concat y z) <~> Concat (Concat x y) z
+
+
+Concat x x <~> Twice x
+
+
+
+
+PhraseParam ::= Param Progression CadenceStrength
+            | ConcatParam PhraseParam PhraseParam
+
+
+IdeaBinding ::= BindIdea String Idea
+
+
+
+
+sort ParamList (Vec PhraseParam)
+
+
+
+
+FormalUnitBinding ::= BindFormalUnit String FormalUnit
+FormalUnit ::= Leaf Idea PhraseParam
+           | UseIdeaWith Idea PhraseParam
+           | LocalFormalUnit i64
+           | RefFormalUnit String
+           | Sentence Idea FormalUnit FormalUnit
+           | Period Idea FormalUnit FormalUnit
+           | Seq Idea ParamList
+           | HybridAntCont FormalUnit FormalUnit
+           | SimpleBinary FormalUnit FormalUnit
+           | RoundedBinary FormalUnit FormalUnit
+           | Ternary FormalUnit FormalUnit
+           | Concatenate FormalUnit FormalUnit
+           | Let IdeaBinding FormalUnitBinding FormalUnit
+           | TwiceFormalUnit FormalUnit
+
+
+
+
+GetParam : FormalUnit -> PhraseParam
+
+
+GetCadence : FormalUnit -> CadenceStrength
+
+
+GetStartingHarmony : FormalUnit -> Harmony
+
+
+GetIdea : FormalUnit -> Idea
+
+
+ReplaceIdeaWithRef : Idea -> Idea -> FormalUnit -> FormalUnit
+
+
+NoWeaker : CadenceStrength -> CadenceStrength -> Relation
+
+
+WithoutAnyCadence : FormalUnit -> Relation
+
+
+NoInternalCadence : FormalUnit -> Relation
+
+
+Antecedent : FormalUnit -> FormalUnit -> Relation
+
+
+Consequent : FormalUnit -> FormalUnit -> Relation
+
+
+Continuation : FormalUnit -> FormalUnit -> Relation
+
+
+Presentation : FormalUnit -> FormalUnit -> Relation
+
+
+
+
+NoWeaker (None) (None)
+
+
+NoWeaker (Weak) (Weak)
+
+
+NoWeaker (Strong) (Strong)
+
+
+NoWeaker (Weak) (None)
+
+
+NoWeaker (Strong) (None)
+
+
+NoWeaker (Strong) (Weak)
+
+
+
+
+match = (Concatenate x (Concatenate y z))
+NoWeaker (GetCadence y) (GetCadence x)
+---------------
+match ≅ (Concatenate (Concatenate x y) z)
+
+
+match = (Concatenate (Concatenate x y) z)
+NoWeaker (GetCadence z) (GetCadence y)
+---------------
+match ≅ (Concatenate x (Concatenate y z))
+
+
+match = (Concatenate x y)
+WithoutAnyCadence x
+WithoutAnyCadence y
+---------------
+WithoutAnyCadence match
+
+
+match = (Leaf _ (Param _ (None)))
+---------------
+WithoutAnyCadence match
+
+
+match = (Concatenate x y)
+WithoutAnyCadence x
+NoInternalCadence y
+---------------
+NoInternalCadence match
+
+
+match = (Leaf _ _)
+---------------
+NoInternalCadence match
+
+
+match = (Leaf x _)
+---------------
+(GetIdea match) ≅ x
+
+
+match = (Concatenate x y)
+ideaX = (GetIdea x)
+ideaY = (GetIdea y)
+---------------
+(GetIdea match) ≅ (Concat ideaX ideaY)
+
+
+match = (ReplaceIdeaWithRef idea ref x)
+x = (Leaf idea param)
+---------------
+match ≅ (Leaf ref param)
+
+
+match = (ReplaceIdeaWithRef idea ref x)
+x = (Leaf idea' param)
+idea != idea'
+---------------
+match ≅ x
+
+
+match = (ReplaceIdeaWithRef idea ref x)
+x = (UseIdeaWith idea param)
+---------------
+match ≅ (UseIdeaWith ref param)
+
+
+match = (ReplaceIdeaWithRef idea ref (Concatenate x y))
+---------------
+match ≅ (Concatenate (ReplaceIdeaWithRef idea ref x) (ReplaceIdeaWithRef idea ref y))
+
+
+match = (Leaf _ (Param x _))
+---------------
+(GetStartingHarmony match) ≅ (vec-get x 0)
+
+
+match = (Concatenate x y)
+startingHx = (GetStartingHarmony x)
+---------------
+(GetStartingHarmony match) ≅ startingHx
+
+
+match = (Leaf _ (Param _ cad))
+---------------
+(GetCadence match) ≅ cad
+
+
+match = (Concatenate x y)
+---------------
+(GetCadence match) ≅ (GetCadence y)
+
+
+match = (Leaf _ x)
+---------------
+(GetParam match) ≅ x
+
+
+match = (Concatenate x y)
+---------------
+(GetParam match) ≅ (ConcatParam (GetParam x) (GetParam y))
+
+
+match = (Concatenate x y)
+idea = (GetIdea x)
+idea = (GetIdea y)
+---------------
+match ≅ (Seq idea (vec-of (GetParam x) (GetParam y)))
+
+
+match = (Concatenate x y)
+(GetIdea x) = (GetIdea y)
+(I) = (GetStartingHarmony x)
+(GetCadence y) = (None)
+WithoutAnyCadence match
+---------------
+Presentation x y
+
+
+match = (Concatenate x y)
+(GetIdea x) != (GetIdea y)
+(GetCadence y) != (None)
+NoInternalCadence match
+---------------
+Continuation x y
+
+
+match = (Concatenate (Concatenate x y) (Concatenate u3 u4))
+Presentation x y
+Continuation u3 u4
+idea = (GetIdea x)
+---------------
+match ≅ (Sentence idea (ReplaceIdeaWithRef idea (LocalVar 0) (Concatenate x y)) (ReplaceIdeaWithRef idea (LocalVar 0) (Concatenate u3 u4)))
+
+
+match = (Concatenate (Concatenate u1 u2) (Concatenate u3 u4))
+Antecedent u1 u2
+Consequent u3 u4
+idea = (GetIdea u1)
+idea = (GetIdea u3)
+---------------
+match ≅ (Period idea (Concatenate (UseIdeaWith (LocalVar 0) (GetParam u1)) u2) (Concatenate (UseIdeaWith (LocalVar 0) (GetParam u3)) u4))
+
+
+match = (Concatenate u1 u2)
+(GetIdea u1) != (GetIdea u2)
+(GetCadence u2) = (Weak)
+---------------
+Antecedent u1 u2
+
+
+match = (Concatenate u1 u2)
+(GetIdea u1) != (GetIdea u2)
+(GetCadence u2) = (Strong)
+---------------
+Consequent u1 u2
+
+
+match = (Concatenate (Concatenate u1 u2) (Concatenate u3 u4))
+Antecedent u1 u2
+Continuation u3 u4
+---------------
+match ≅ (HybridAntCont (Concatenate u1 u2) (Concatenate u3 u4))
+
+
+match = (Concatenate (TwiceFormalUnit x) (TwiceFormalUnit y))
+(GetCadence x) = (Strong)
+(GetCadence y) != (None)
+---------------
+match ≅ (SimpleBinary x y)
+
+
+match = (Concatenate (TwiceFormalUnit x) (TwiceFormalUnit (Concatenate y x)))
+(GetCadence x) = (Strong)
+---------------
+match ≅ (RoundedBinary x y)
+
+
+match = (Concatenate x (Concatenate y x))
+(GetCadence x) = (Strong)
+(GetCadence y) != (None)
+---------------
+match ≅ (Ternary x y)
+
+
+match = (Concatenate x x)
+---------------
+match ≅ (TwiceFormalUnit x)

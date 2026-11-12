@@ -24,14 +24,9 @@ import Text.Parsec
 import Data.Tree
 import Data.Functor.Foldable
 import Data.Functor.Base
+import PrettyEggLog
 
-pString = do
-  mid <- between (char '"') (char '"') $ many (noneOf ['"'])
-  return $ "\"" <> mid <> "\""
 
-pLit = many1 (noneOf ['(', ')', ' ', '"'])
-
-myParser = asWellFormed $ mkParser $ T.pack <$> (pLit <|> pString)
 
 sExprList :: T.Text -> [WellFormedSExpr T.Text]
 sExprList x = case decodeOne myParser x of
