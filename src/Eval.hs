@@ -4,8 +4,9 @@
 module Eval where
 
 import Control.Monad.Reader
+import Control.Monad.State
 import Data.Functor (void)
-import Data.Functor.Base
+import Data.Functor.Base hiding (head, tail)
 import Data.Functor.Foldable
 import Data.List
 import Data.List.NonEmpty (NonEmpty)
@@ -15,13 +16,13 @@ import Formatting
 import Generics.SYB (everywhere, mkT)
 import Prettyprinter (Pretty (pretty))
 import Relude.Unsafe
+import Data.Monoid (Sum)
+
 
 -- import Relude (MonadReader (ask), Reader, runReader, ReaderT (runReaderT))
 
 prop_eval_is_inverse_of_infer :: (NonEmpty FormalUnit -> FormalUnit) -> (FormalUnit -> NonEmpty FormalUnit) -> NonEmpty FormalUnit -> Bool
 prop_eval_is_inverse_of_infer infer eval surface = surface == eval (infer surface)
-
-
 
 -- eval :: (String -> Idea) -> FormalUnit -> Tree (FormalUnitF ())
 evalToTree ::
@@ -44,9 +45,9 @@ evalToTree binding unit = applyBindingAll $ cata action unit []
     let children = case x of
           LeafF idea param -> leaf . uncurry LeafF <$> zipIdeaParam (substituteBy ideas idea) param
           UseIdeaWithF idea param -> leaf . uncurry LeafF <$> zipIdeaParam (substituteBy ideas idea) param
-          SeqF idea params ->  do 
+          SeqF idea params -> do
             param <- params
-            return $ Node (UseIdeaWithF idea param) $ leaf . uncurry LeafF <$> zipIdeaParam (substituteBy ideas idea) param 
+            return $ Node (UseIdeaWithF idea param) $ leaf . uncurry LeafF <$> zipIdeaParam (substituteBy ideas idea) param
           ConcatenateF a b -> ($ ideas) <$> [a, b]
           SentenceF bi pres cont -> ($ addedIdea bi) <$> [pres, cont]
           PeriodF bi ant cons -> ($ addedIdea bi) <$> [ant, cons]
@@ -138,12 +139,27 @@ test =
 -- [LeafF (Label "my-bi") (Param [I] None),LeafF (Label "my-bi") (Param [V] None),LeafF (Label "my-bi") (Param [III] None),LeafF (Label "my-bi") (Param [VI] None),LeafF (Label "my-bi") (Param [II] None),LeafF (Label "leap") (Param [V] Strong)]
 
 
-alignLeaf :: Monoid b => [b] -> Tree a  -> Maybe (Tree (a,b))
-alignLeaf bs = cata $ \case 
-  NodeF x mts -> do 
-    ts <- sequence mts
-    let b = foldMap (snd . rootLabel) ts
-    return $ Node (x,b) ts
+{-|
 
--- >>> alignLeaf ["a","b","c","d"] $ Node () [Node () [],Node () [],Node () [Node () [],Node () []]]
--- Just (Node {rootLabel = ((),""), subForest = [Node {rootLabel = ((),""), subForest = []},Node {rootLabel = ((),""), subForest = []},Node {rootLabel = ((),""), subForest = [Node {rootLabel = ((),""), subForest = []},Node {rootLabel = ((),""), subForest = []}]}]})
+>>> alignLeaf ["a","b","c","d"] $ Node () [Node () [],Node () [],Node () [Node () [],Node () []]]
+Node {rootLabel = ((),"abcd"), subForest = [Node {rootLabel = ((),"a"), subForest = []},Node {rootLabel = ((),"b"), subForest = []},Node {rootLabel = ((),"cd"), subForest = [Node {rootLabel = ((),"c"), subForest = []},Node {rootLabel = ((),"d"), subForest = []}]}]}
+
+
+>>> alignLeaf [(1::Sum Int),4,3,2] $ Node () [Node () [],Node () [],Node () [Node () [],Node () []]]
+Node {rootLabel = ((),Sum {getSum = 10}), subForest = [Node {rootLabel = ((),Sum {getSum = 1}), subForest = []},Node {rootLabel = ((),Sum {getSum = 4}), subForest = []},Node {rootLabel = ((),Sum {getSum = 5}), subForest = [Node {rootLabel = ((),Sum {getSum = 3}), subForest = []},Node {rootLabel = ((),Sum {getSum = 2}), subForest = []}]}]}
+
+-}
+alignLeaf :: (Monoid b) => [b] -> Tree a -> Tree (a, b)
+alignLeaf bs t = flip evalState bs $ cata go t
+ where
+  go = \case
+    NodeF x [] -> do 
+      ws <- get  
+      put $ tail ws
+      return $ Node (x,head ws) []
+    NodeF x mts -> do
+      ts <- sequence mts
+      let b = foldMap (snd . rootLabel) ts
+      return $ Node (x, b) ts
+
+
