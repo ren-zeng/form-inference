@@ -65,6 +65,7 @@ library
         Eval,
         Generation,
         PrettyEggLog,
+        Lego,
         
         
 
@@ -161,3 +162,4 @@ test-suite form-inference-test
         s-cargot,
         -- extextism-pdk,
         directory,
+        aeson,

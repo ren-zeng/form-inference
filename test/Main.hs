@@ -25,6 +25,7 @@ import Prettyprinter.Render.Text (putDoc)
 import System.Directory (listDirectory)
 import System.Process (readProcess)
 import TestCases
+import Data.Aeson
 
 linzAnnotationFolder = "test/LinzAnnotation"
 withPrefix x y = x <> y
@@ -54,6 +55,10 @@ mainWithBackEnd runEgglog = do
     print $ pretty ex
     print $ pretty best
     testInvertable $ head candidates
+
+    encodeFile 
+      ("docs/model-outputs/"<> fst ex <> "grouping.excalidraw") 
+      (plotGrouping best)
     writeFile ("docs/model-outputs/" <> fst ex <> ".txt") $
       show $
         -- renderString $ layoutPretty (LayoutOptions Unbounded) $

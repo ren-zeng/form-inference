@@ -1,0 +1,2465 @@
+{
+    "elements": [
+        {
+            "backgroundColor": "gray",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    350,
+                    50
+                ],
+                [
+                    350,
+                    50
+                ],
+                [
+                    690,
+                    50
+                ],
+                [
+                    690,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "gray",
+            "type": "line",
+            "x": 0,
+            "y": 0
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 335,
+            "y": -7.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 325,
+            "y": -7.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "Period\n  antecedentHead = Twice \"a\"+Twice \"b\"+Twice \"c\"\n  antecedent = \n  consequent = "
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 325,
+            "y": 25
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 0,
+            "y": 40
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 350,
+            "y": 40
+        },
+        {
+            "backgroundColor": "teal",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    300,
+                    50
+                ],
+                [
+                    300,
+                    50
+                ],
+                [
+                    340,
+                    50
+                ],
+                [
+                    340,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "teal",
+            "type": "line",
+            "x": 0,
+            "y": 50
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 160,
+            "y": 42.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 150,
+            "y": 42.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "Concatenate\n  \n"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 150,
+            "y": 75
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 0,
+            "y": 90
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 300,
+            "y": 90
+        },
+        {
+            "backgroundColor": "green",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    50,
+                    50
+                ],
+                [
+                    50,
+                    50
+                ],
+                [
+                    100,
+                    50
+                ],
+                [
+                    100,
+                    50
+                ],
+                [
+                    150,
+                    50
+                ],
+                [
+                    150,
+                    50
+                ],
+                [
+                    200,
+                    50
+                ],
+                [
+                    200,
+                    50
+                ],
+                [
+                    250,
+                    50
+                ],
+                [
+                    250,
+                    50
+                ],
+                [
+                    290,
+                    50
+                ],
+                [
+                    290,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "green",
+            "type": "line",
+            "x": 0,
+            "y": 100
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 135,
+            "y": 92.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 125,
+            "y": 92.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "UseIdeaWith\n  $0\n  ConcatParam\n    ConcatParam\n      ⟦I-V None⟧\n      ConcatParam\n        ⟦V-I None⟧\n        ⟦IV-I None⟧\n    ConcatParam\n      ⟦IV-I None⟧\n      ConcatParam\n        ⟦II None⟧\n        ⟦I None⟧"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 125,
+            "y": 125
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 0,
+            "y": 140
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 50,
+            "y": 140
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 100,
+            "y": 140
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 150,
+            "y": 140
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 200,
+            "y": 140
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 250,
+            "y": 140
+        },
+        {
+            "backgroundColor": "orange",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "orange",
+            "type": "line",
+            "x": 0,
+            "y": 150
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 10,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 0,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"a\" ⟦I-V None⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 0,
+            "y": 175
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 0,
+            "y": 190
+        },
+        {
+            "backgroundColor": "purple",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "purple",
+            "type": "line",
+            "x": 50,
+            "y": 150
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 60,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 50,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"a\" ⟦V-I None⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 50,
+            "y": 175
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 50,
+            "y": 190
+        },
+        {
+            "backgroundColor": "red",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "red",
+            "type": "line",
+            "x": 100,
+            "y": 150
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 110,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 100,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"b\" ⟦IV-I None⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 100,
+            "y": 175
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 100,
+            "y": 190
+        },
+        {
+            "backgroundColor": "red",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "red",
+            "type": "line",
+            "x": 150,
+            "y": 150
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 160,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 150,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"b\" ⟦IV-I None⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 150,
+            "y": 175
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 150,
+            "y": 190
+        },
+        {
+            "backgroundColor": "brown",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "brown",
+            "type": "line",
+            "x": 200,
+            "y": 150
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 210,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 200,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"c\" ⟦II None⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 200,
+            "y": 175
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 200,
+            "y": 190
+        },
+        {
+            "backgroundColor": "lime",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "lime",
+            "type": "line",
+            "x": 250,
+            "y": 150
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 260,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 250,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"c\" ⟦I None⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 250,
+            "y": 175
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 250,
+            "y": 190
+        },
+        {
+            "backgroundColor": "gray",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "gray",
+            "type": "line",
+            "x": 300,
+            "y": 100
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 310,
+            "y": 92.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 300,
+            "y": 92.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"d\" ⟦V Weak⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 300,
+            "y": 125
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 300,
+            "y": 140
+        },
+        {
+            "backgroundColor": "gray",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "gray",
+            "type": "line",
+            "x": 300,
+            "y": 150
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 310,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 300,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"d\" ⟦V Weak⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 300,
+            "y": 175
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 300,
+            "y": 190
+        },
+        {
+            "backgroundColor": "teal",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    300,
+                    50
+                ],
+                [
+                    300,
+                    50
+                ],
+                [
+                    340,
+                    50
+                ],
+                [
+                    340,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "teal",
+            "type": "line",
+            "x": 350,
+            "y": 50
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 510,
+            "y": 42.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 500,
+            "y": 42.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "Concatenate\n  \n"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 500,
+            "y": 75
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 350,
+            "y": 90
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 650,
+            "y": 90
+        },
+        {
+            "backgroundColor": "green",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    50,
+                    50
+                ],
+                [
+                    50,
+                    50
+                ],
+                [
+                    100,
+                    50
+                ],
+                [
+                    100,
+                    50
+                ],
+                [
+                    150,
+                    50
+                ],
+                [
+                    150,
+                    50
+                ],
+                [
+                    200,
+                    50
+                ],
+                [
+                    200,
+                    50
+                ],
+                [
+                    250,
+                    50
+                ],
+                [
+                    250,
+                    50
+                ],
+                [
+                    290,
+                    50
+                ],
+                [
+                    290,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "green",
+            "type": "line",
+            "x": 350,
+            "y": 100
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 485,
+            "y": 92.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 475,
+            "y": 92.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "UseIdeaWith\n  $0\n  ConcatParam\n    ConcatParam\n      ⟦I-V None⟧\n      ConcatParam\n        ⟦V-I None⟧\n        ⟦IV-I None⟧\n    ConcatParam\n      ⟦IV-I None⟧\n      ConcatParam\n        ⟦II None⟧\n        ⟦I None⟧"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 475,
+            "y": 125
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 350,
+            "y": 140
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 400,
+            "y": 140
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 450,
+            "y": 140
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 500,
+            "y": 140
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 550,
+            "y": 140
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 600,
+            "y": 140
+        },
+        {
+            "backgroundColor": "orange",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "orange",
+            "type": "line",
+            "x": 350,
+            "y": 150
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 360,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 350,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"a\" ⟦I-V None⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 350,
+            "y": 175
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 350,
+            "y": 190
+        },
+        {
+            "backgroundColor": "purple",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "purple",
+            "type": "line",
+            "x": 400,
+            "y": 150
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 410,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 400,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"a\" ⟦V-I None⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 400,
+            "y": 175
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 400,
+            "y": 190
+        },
+        {
+            "backgroundColor": "red",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "red",
+            "type": "line",
+            "x": 450,
+            "y": 150
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 460,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 450,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"b\" ⟦IV-I None⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 450,
+            "y": 175
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 450,
+            "y": 190
+        },
+        {
+            "backgroundColor": "red",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "red",
+            "type": "line",
+            "x": 500,
+            "y": 150
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 510,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 500,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"b\" ⟦IV-I None⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 500,
+            "y": 175
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 500,
+            "y": 190
+        },
+        {
+            "backgroundColor": "brown",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "brown",
+            "type": "line",
+            "x": 550,
+            "y": 150
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 560,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 550,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"c\" ⟦II None⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 550,
+            "y": 175
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 550,
+            "y": 190
+        },
+        {
+            "backgroundColor": "lime",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "lime",
+            "type": "line",
+            "x": 600,
+            "y": 150
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 610,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 600,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"c\" ⟦I None⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 600,
+            "y": 175
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 600,
+            "y": 190
+        },
+        {
+            "backgroundColor": "teal",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "teal",
+            "type": "line",
+            "x": 650,
+            "y": 100
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 660,
+            "y": 92.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 650,
+            "y": 92.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"e\" ⟦V-I Strong⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 650,
+            "y": 125
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 650,
+            "y": 140
+        },
+        {
+            "backgroundColor": "teal",
+            "fillStyle": "cross-hatch",
+            "opacity": "50",
+            "points": [
+                [
+                    10,
+                    10
+                ],
+                [
+                    10,
+                    50
+                ],
+                [
+                    40,
+                    50
+                ],
+                [
+                    40,
+                    10
+                ],
+                [
+                    10,
+                    10
+                ]
+            ],
+            "roughness": 0,
+            "scale": 100,
+            "strokeColor": "teal",
+            "type": "line",
+            "x": 650,
+            "y": 150
+        },
+        {
+            "backgroundColor": "white",
+            "fillStyle": "solid",
+            "height": 25,
+            "roundness": {
+                "type": 2
+            },
+            "stroke": 2,
+            "strokeColor": "brown",
+            "type": "rectangle",
+            "width": 30,
+            "x": 660,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 650,
+            "y": 142.5
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "{\"e\" ⟦V-I Strong⟧}"
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 650,
+            "y": 175
+        },
+        {
+            "backgroundColor": "transparent",
+            "fillStyle": "solid",
+            "fontFamily": 5,
+            "fontSize": 10,
+            "height": 25,
+            "label": {
+                "text": "\"\""
+            },
+            "strokeColor": "brown",
+            "strokeStyle": "solid",
+            "strokeWidth": 2,
+            "textAlign": "center",
+            "type": "text",
+            "width": 50,
+            "x": 650,
+            "y": 190
+        }
+    ],
+    "type": "excalidraw",
+    "version": 2
+}

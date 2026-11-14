@@ -9,6 +9,7 @@
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies, DuplicateRecordFields#-}
 {-# LANGUAGE StandaloneDeriving, MultilineStrings #-}
+{-# LANGUAGE FlexibleContexts #-}
 
 
 module Form (
@@ -41,6 +42,7 @@ module Form (
   zipLeaf,
   leaf,
   readLinzAnnotation,
+  prettyAlg,
   -- ** egglog program
   inferForm,
   egglogDefs
@@ -60,6 +62,7 @@ import Relude.Unsafe
 import Prelude ()
 import Data.SCargot
 import qualified Data.List.NonEmpty as NonEmpty
+import Data.Fix (Fix(..))
 
 
 data CadenceStrength = Weak | Strong | None deriving (Show, Read, Data,Eq)
@@ -136,10 +139,13 @@ instance Pretty FormalUnitBinding where
 x .= y = x <+> "=" <+> y
 
 instance Pretty FormalUnit where
-  pretty u =
-    align $ case u of
-      Leaf idea param -> "{" <> hsep [pretty idea, pretty param] <> "}"
-      UseIdeaWith idea param ->
+  pretty = cata prettyAlg
+      
+
+prettyAlg :: FormalUnitF (Doc ann) -> Doc ann
+prettyAlg = align .  \case 
+      LeafF idea param -> "{" <> hsep [pretty idea, pretty param] <> "}"
+      UseIdeaWithF idea param ->
         sep
           [ "UseIdeaWith"
           , indent 2
@@ -148,18 +154,18 @@ instance Pretty FormalUnit where
                 , pretty param
                 ]
           ]
-      LocalFormalUnit i -> "$" <> pretty i
-      RefFormalUnit v -> pretty v
-      Sentence idea x y -> prettyApp "Sentence" [
+      LocalFormalUnitF i -> "$" <> pretty i
+      RefFormalUnitF v -> pretty v
+      SentenceF idea x y -> prettyApp "Sentence" [
         "basicIdea" .= pretty idea, 
-        "presentation" .= pretty x, 
-        "continuation" .= pretty y
+        "presentation" .= x, 
+        "continuation" .= y
         ]
 
-      Period uBinding x y -> prettyApp "Period"
+      PeriodF uBinding x y -> prettyApp "Period"
         [ "antecedentHead" .= pretty uBinding
-        , "antecedent" .= pretty x
-        , "consequent" .= pretty y
+        , "antecedent" .= x
+        , "consequent" .= y
         ]
           
       -- Presentation id1 param1 param2 ->
@@ -172,7 +178,7 @@ instance Pretty FormalUnit where
         --         , "occur2" <> "=" <+> pretty param2
         --         ]
         --   ]
-      Concatenate u1 u2 -> prettyApp "Concatenate" [pretty u1, pretty u2]
+      ConcatenateF u1 u2 -> prettyApp "Concatenate" [ u1,  u2]
       -- Continuation u1 u2 ->
       --   sep
       --     [ "Continuation"
@@ -182,25 +188,24 @@ instance Pretty FormalUnit where
       --           , pretty u2
       --           ]
       --     ]
-      TwiceFormalUnit x -> prettyApp "TwiceFormalUnit" [pretty x]
-      HybridAntCont  x y -> prettyApp "HybridAntCont" [ 
-        "antecedent" .= pretty x, "continuation" .= pretty y]
-      HybridPresCons  x y -> prettyApp "HybridPresCons" [ 
-        "presentation" .= pretty x, "continuation" .= pretty y]
+      TwiceFormalUnitF x -> prettyApp "TwiceFormalUnit" [ x]
+      HybridAntContF  x y -> prettyApp "HybridAntCont" [ 
+        "antecedent" .=  x, "continuation" .=  y]
+      HybridPresConsF  x y -> prettyApp "HybridPresCons" [ 
+        "presentation" .=  x, "continuation" .=  y]
       -- Antecedent x y -> prettyApp "Antecedent" [pretty x, pretty y]
       -- Consequent x y -> prettyApp "Consequent" [pretty x, pretty y]
-      SimpleBinary x y -> prettyApp "SimpleBinary" [
-        "aPart" .= pretty x, "bPart" .= pretty y]
-      RoundedBinary x y -> prettyApp "RoundedBinary" [
-        "exposition".=pretty x, "contrastingMiddile".=pretty y]
-      Ternary x y -> prettyApp "Ternary" [
-        "exposition".=pretty x, "contrastingMiddile".=pretty y]
-      Seq idea param -> prettyApp "Seq" [
+      SimpleBinaryF x y -> prettyApp "SimpleBinary" [
+        "aPart" .=  x, "bPart" .=  y]
+      RoundedBinaryF x y -> prettyApp "RoundedBinary" [
+        "exposition".= x, "contrastingMiddile".= y]
+      TernaryF x y -> prettyApp "Ternary" [
+        "exposition".= x, "contrastingMiddile".= y]
+      SeqF idea param -> prettyApp "Seq" [
         "idea" .= pretty idea, "parameters" .= (align . vsep . fmap pretty) param
         ]
-      
 
-bracketPretty x = "(" <> x <> ")"
+
 
 instance FromEggLog Idea where
   fromEggLog = \case

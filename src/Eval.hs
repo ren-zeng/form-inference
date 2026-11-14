@@ -1,5 +1,6 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TypeApplications #-}
 
 module Eval where
 
@@ -16,7 +17,9 @@ import Formatting
 import Generics.SYB (everywhere, mkT)
 import Prettyprinter (Pretty (pretty))
 import Relude.Unsafe
-import Data.Monoid (Sum)
+import Data.Monoid (Sum(..))
+import Lego
+import Data.Aeson (encodeFile, Value)
 
 
 -- import Relude (MonadReader (ask), Reader, runReader, ReaderT (runReaderT))
@@ -117,27 +120,6 @@ zipIdeaParam x a
 -- zipIdeaParam x a = error $ show $
 --   prettyApp "[zipIdeaParam] not implemented case: "   [pretty x, pretty a]
 
-test :: [FormalUnitF [Idea]]
-test =
-  leafs $
-    evalToTree
-      (\case "hello" -> Label "leap"; "hi" -> Label "neighbor")
-      ( Sentence
-          { basicIdea = Label "my-bi"
-          , presentation =
-              Concatenate
-                (Leaf (LocalVar 0) (Param [I] None))
-                (Leaf (LocalVar 0) (Param [V] None))
-          , continuation =
-              Concatenate
-                (Seq (LocalVar 0) [Param [III] None, Param [VI] None, Param [II] None])
-                (Leaf (RefIdea "hello") (Param [V] Strong))
-          }
-      )
-
--- >>>  test
--- [LeafF (Label "my-bi") (Param [I] None),LeafF (Label "my-bi") (Param [V] None),LeafF (Label "my-bi") (Param [III] None),LeafF (Label "my-bi") (Param [VI] None),LeafF (Label "my-bi") (Param [II] None),LeafF (Label "leap") (Param [V] Strong)]
-
 
 {-|
 
@@ -162,4 +144,31 @@ alignLeaf bs t = flip evalState bs $ cata go t
       let b = foldMap (snd . rootLabel) ts
       return $ Node (x, b) ts
 
+
+
+plotGrouping :: FormalUnit -> Value
+plotGrouping = plotTree (show . prettyAlg . fmap (const "") . fst) .
+ alignLeaf @(Sum Int) (repeat 1) .
+  evalToTree (\case _ -> error "[plotGrouping]") 
+
+-- test :: [FormalUnitF [Idea]]
+test = 
+  encodeFile "testlego.excalidraw" $ plotTree show $
+  alignLeaf @(Sum Int) (repeat 1)  $
+    evalToTree
+      (\case "hello" -> Label "leap"; "hi" -> Label "neighbor")
+      ( Sentence
+          { basicIdea = Label "my-bi"
+          , presentation =
+              Concatenate
+                (Leaf (LocalVar 0) (Param [I] None))
+                (Leaf (LocalVar 0) (Param [V] None))
+          , continuation =
+              Concatenate
+                (Seq (LocalVar 0) [Param [III] None, Param [VI] None, Param [II] None])
+                (Leaf (RefIdea "hello") (Param [V] Strong))
+          }
+      )
+
+-- >>>  test
 
