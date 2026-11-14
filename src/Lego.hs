@@ -269,15 +269,15 @@ excalidrawBlock (x, y) ps c w s op rhs =
   [ Object $
       fromList
         [ ("points", toJSON $ inset d ps)
-        , ("type", toJSON "line")
+        , ("type", toJSON @String "line")
         , ("x", toJSON x)
         , ("y", toJSON y)
         , ("strokeColor", toJSON c)
-        , ("scale", toJSON 100)
-        , ("fillStyle", toJSON "cross-hatch")
+        , ("scale", toJSON @Int 100)
+        , ("fillStyle", toJSON @String "cross-hatch")
         , ("opacity", "50")
         , ("backgroundColor", toJSON c)
-        , ("roughness", toJSON 0)
+        , ("roughness", toJSON @Int 0)
         ]
   -- , Object $
   --     fromList
@@ -313,13 +313,13 @@ excalidrawBlock (x, y) ps c w s op rhs =
         , ("width", toJSON w)
         , ("height", toJSON h)
         , ("fillStyle", "solid")
-        , ("strokeWidth", toJSON 2)
+        , ("strokeWidth", toJSON @Int 2)
         , ("backgroundColor", "transparent")
         , ("x", toJSON _x)
         , ("y", toJSON _y)
         , ("text", toJSON _op)
-        , ("fontSize", toJSON 10)
-        , ("fontFamily", toJSON 5)
+        , ("fontSize", toJSON @Int 10)
+        , ("fontFamily", toJSON @Int 5)
         , ("textAlign", "center")
         , ("strokeColor", "brown")
         , ("strokeStyle", "solid")
@@ -336,8 +336,8 @@ canvas :: [Value] -> Value
 canvas xs =
   Object $
     fromList
-      [ ("type", toJSON "excalidraw")
-      , ("version", toJSON 2)
+      [ ("type", toJSON @String "excalidraw")
+      , ("version", toJSON @Int 2)
       , ("elements", toJSON xs)
       ]
 
