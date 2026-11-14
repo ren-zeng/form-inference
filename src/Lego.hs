@@ -344,14 +344,14 @@ canvas xs =
 scale :: (Num l) => l -> (l, l) -> (l, l)
 scale n (x, y) = (n * x, n * y)
 
-plotBlock :: (_) => Tree (Block String String t) -> Value
+plotBlock :: (Show t) => Tree (Block String String t) -> Value
 plotBlock x =
   plotBlock'
     (\flex -> colors Map.! annotation flex)
     topSlot
     annotation
     id
-    100
+    (100 :: Double)
     x
  where
   palette = ["gray", "teal", "green", "orange", "purple", "red", "brown", "lime"]
@@ -501,6 +501,7 @@ terminalBlock nt t = Node (Block "T" [Occupied t] nt) []
 sittingOn :: a -> [Tree a] -> Tree a
 sittingOn = Node
 
+ex1 :: Tree (Block String String String)
 ex1 = f `sittingOn` [f `sittingOn` [terminalBlock "Am7" "Am7"]]
  where
   f =
